@@ -1,0 +1,19 @@
+.card{
+
+    border-radius:15px;
+    transition:.3s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+.card img{
+
+    object-fit:contain;
+    padding:20px;
+
+}

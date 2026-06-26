@@ -1,0 +1,29 @@
+.card{
+
+    border-radius:20px;
+
+}
+
+.form-control{
+
+    height:50px;
+
+    border-radius:10px;
+
+}
+
+.btn{
+
+    height:50px;
+
+    border-radius:10px;
+
+    font-size:18px;
+
+}
+
+body{
+
+    background:#f5f7fa;
+
+}

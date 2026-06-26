@@ -1,0 +1,50 @@
+<div class="container my-5">
+
+    <div class="row">
+
+        <div class="col-md-4 mb-4" *ngFor="let product of products">
+
+            <div class="card h-100 shadow">
+
+                <img
+                    [src]="product.image"
+                    class="card-img-top"
+                    height="250">
+
+                <div class="card-body">
+
+                    <h5>{{product.name}}</h5>
+
+                    <h4 class="text-success">
+                        ₹ {{product.price}}
+                    </h4>
+
+                    <div class="d-grid gap-2">
+
+                        <a
+                            [routerLink]="['/products', product.id]"
+                            class="btn btn-dark">
+
+                            View Details
+
+                        </a>
+
+                        <button
+                            class="btn btn-success"
+                            (click)="addToCart(product)">
+
+                            Add To Cart
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

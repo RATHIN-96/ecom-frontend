@@ -1,0 +1,70 @@
+<div class="container mt-5">
+
+<div class="card shadow p-4">
+
+<h2 class="mb-4">
+Checkout
+</h2>
+
+<div class="mb-3">
+
+<label>Name</label>
+
+<input
+class="form-control"
+[(ngModel)]="order.name">
+
+</div>
+
+<div class="mb-3">
+
+<label>Address</label>
+
+<textarea
+class="form-control"
+rows="3"
+[(ngModel)]="order.address">
+</textarea>
+
+</div>
+
+<div class="mb-3">
+
+<label>Phone</label>
+
+<input
+class="form-control"
+[(ngModel)]="order.phone">
+
+</div>
+
+<div class="mb-3">
+
+<label>Payment</label>
+
+<select
+class="form-select"
+[(ngModel)]="order.payment">
+
+<option>Cash On Delivery</option>
+
+<option>UPI</option>
+
+<option>Card</option>
+
+</select>
+
+</div>
+
+<button
+class="btn btn-success w-100"
+(click)="placeOrder()">
+
+Place Order
+
+</button>
+
+
+</div>
+
+</div>

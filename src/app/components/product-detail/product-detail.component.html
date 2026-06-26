@@ -1,0 +1,66 @@
+<div class="container py-5" *ngIf="product">
+
+  <div class="row align-items-center">
+
+    <!-- Image -->
+    <div class="col-md-5 text-center">
+
+      <img
+        [src]="product.image"
+        class="product-image img-fluid">
+
+    </div>
+
+    <!-- Details -->
+    <div class="col-md-7">
+
+      <h2 class="mb-3">
+        {{ product.name }}
+      </h2>
+
+      <h4 class="text-success mb-3">
+        ₹ {{ product.price }}
+      </h4>
+
+      <div class="mb-3">
+
+        ⭐⭐⭐⭐⭐
+        <span class="text-muted">(254 Reviews)</span>
+
+      </div>
+
+      <p>
+        {{ product.description }}
+      </p>
+
+      <hr>
+
+      <h5 class="text-success">
+        ✔ In Stock
+      </h5>
+
+      <p>
+        Free Delivery within 2-4 Days
+      </p>
+
+      <div class="mt-4">
+
+        <button
+            class="btn btn-warning btn-lg me-3"
+            (click)="addToCart()">
+
+            🛒 Add To Cart
+
+        </button>
+
+        <button class="btn btn-danger btn-lg">
+          ❤ Wishlist
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

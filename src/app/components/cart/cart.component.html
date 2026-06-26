@@ -1,0 +1,89 @@
+<div class="container my-5">
+
+  <h2 class="mb-4">
+    🛒 My Cart
+  </h2>
+
+  <div class="card mb-3" *ngFor="let item of cartItems">
+
+    <div class="row g-0 align-items-center">
+
+      <div class="col-md-3 text-center">
+
+        <img
+          [src]="item.product.image"
+          class="img-fluid p-3"
+          height="180">
+
+      </div>
+
+      <div class="col-md-6">
+
+        <div class="card-body">
+
+          <h5>{{ item.product.name }}</h5>
+
+          <h4 class="text-success">
+            ₹ {{ item.product.price }}
+          </h4>
+
+          <div class="d-flex align-items-center">
+
+            <button
+             class="btn btn-outline-danger"
+             (click)="changeQuantity(item,-1)">
+               -
+            </button>
+
+             <span class="mx-3 fw-bold">
+               {{ item.quantity }}
+             </span>
+
+            <button
+              class="btn btn-outline-success"
+               (click)="changeQuantity(item,1)">
+                +
+            </button>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-md-3 text-center">
+
+        <button
+            class="btn btn-danger"
+            (click)="removeItem(item.id)">
+
+            Remove
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="text-end">
+
+    <h3>
+
+      Total :
+      ₹ {{ total }}
+
+    </h3>
+    
+
+    <button
+      class="btn btn-success btn-lg"
+      routerLink="/checkout">
+
+      Checkout
+
+    </button>
+
+  </div>
+
+</div>

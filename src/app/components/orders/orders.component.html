@@ -1,0 +1,60 @@
+<div class="container my-5">
+
+    <h2 class="mb-4">
+        📦 My Orders
+    </h2>
+
+    <div class="card mb-3" *ngFor="let order of orders">
+
+        <div class="card-body">
+
+            <h5>Order #{{order.id}}</h5>
+
+            <p>
+                <strong>Status:</strong>
+                {{order.status}}
+            </p>
+
+            <p>
+                <strong>Total:</strong>
+                ₹ {{order.total_price}}
+            </p>
+
+            <p>
+                <strong>Date:</strong>
+                {{order.created_at | date:'medium'}}
+            </p>
+
+        </div>
+        <hr>
+
+<h5>Products</h5>
+
+<div *ngFor="let item of order.items" class="d-flex align-items-center mb-3">
+
+    <img
+        [src]="item.product.image"
+        width="90"
+        height="90"
+        class="rounded me-3">
+
+    <div>
+
+        <h6>{{item.product.name}}</h6>
+
+        <p>
+            Quantity :
+            {{item.quantity}}
+        </p>
+
+        <h5 class="text-success">
+            ₹ {{item.price}}
+        </h5>
+
+    </div>
+
+</div>
+
+    </div>
+
+</div>

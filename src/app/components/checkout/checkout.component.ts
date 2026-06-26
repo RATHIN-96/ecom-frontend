@@ -29,7 +29,7 @@ placeOrder() {
 
   const data = {
 
-    cart: 1,   // ഇപ്പോൾ താൽക്കാലികമായി
+    cart: 1,   
     name: this.order.name,
     phone: this.order.phone,
     address: this.order.address

@@ -10,6 +10,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
 
@@ -19,7 +20,7 @@ export const routes: Routes = [
 
   { path: 'products/:id', component: ProductDetailComponent },
 
-  { path: 'cart', component: CartComponent },
+  { path: 'cart', component: CartComponent, canActivate: [authGuard] },
 
   { path: 'wishlist', component: WishlistComponent },
 
@@ -29,9 +30,9 @@ export const routes: Routes = [
 
   { path: 'profile', component: ProfileComponent },
 
-  { path: 'orders', component: OrdersComponent },
+  { path: 'orders', component: OrdersComponent ,canActivate: [authGuard]},
 
-  {path: 'checkout',component: CheckoutComponent},
+  {path: 'checkout',component: CheckoutComponent, canActivate: [authGuard]},
 
   { path: '**', redirectTo: '' }
 

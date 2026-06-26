@@ -1,9 +1,28 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WishlistService {
 
-  constructor() { }
+  private apiUrl = 'http://127.0.0.1:8000/wishlist/';
+
+  constructor(private http: HttpClient) { }
+
+  getWishlist(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
+  }
+
+  addToWishlist(data: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, data);
+  }
+
+  removeWishlist(id: number): Observable<any> {
+    return this.http.delete(
+      `http://127.0.0.1:8000/wishlist/${id}/`
+    );
+  }
+
 }

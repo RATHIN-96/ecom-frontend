@@ -1,1 +1,46 @@
-<p>wishlist works!</p>
+<div class="container my-5">
+
+    <h2 class="mb-4">
+        ❤️ My Wishlist
+    </h2>
+
+    <div class="card mb-3" *ngFor="let item of wishlist">
+
+        <div class="row g-0 align-items-center">
+
+            <div class="col-md-3 text-center">
+
+                <img
+                    [src]="item.product.image"
+                    class="img-fluid p-3"
+                    style="height:180px;object-fit:contain;">
+
+            </div>
+
+            <div class="col-md-9">
+
+                <div class="card-body">
+
+                    <h4>{{item.product.name}}</h4>
+
+                    <h5 class="text-success">
+                        ₹ {{item.product.price}}
+                    </h5>
+
+                    <button
+                        class="btn btn-danger"
+                        (click)="removeWishlist(item.id)">
+
+                        Remove
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
+import { WishlistService } from '../../services/wishlist.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -19,7 +20,8 @@ export class ProductDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private cartService: CartService
+    private cartService: CartService,
+    private wishlistService: WishlistService,
   ) {}
 
   ngOnInit(): void {
@@ -38,20 +40,18 @@ export class ProductDetailComponent implements OnInit {
 
   }
 
-  addToCart(){
-
+ addToCart() {
 
   const cartData = {
 
-  cart: 1,
-  product_id: this.product.id,
-  quantity: 1
+    product_id: this.product.id,
+    quantity: 1
 
-};
+  };
 
   this.cartService.addToCart(cartData).subscribe({
 
-    next:(res)=>{
+    next: (res) => {
 
       alert("Product Added Successfully");
 
@@ -59,11 +59,42 @@ export class ProductDetailComponent implements OnInit {
 
     },
 
-    
     error: (err) => {
-  console.log(err.error);
-  alert(JSON.stringify(err.error));
+
+      console.log(err.error);
+
+      alert(JSON.stringify(err.error));
+
+    }
+
+  });
+
 }
+addToWishlist() {
+
+  const data = {
+
+  product_id: this.product.id
+
+};
+
+  this.wishlistService.addToWishlist(data).subscribe({
+
+    next: (res) => {
+
+      alert("Added to Wishlist ❤️");
+
+      console.log(res);
+
+    },
+
+    error: (err) => {
+
+      console.log(err);
+
+      alert("Already in Wishlist");
+
+    }
 
   });
 

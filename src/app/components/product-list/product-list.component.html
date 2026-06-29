@@ -1,5 +1,86 @@
 <div class="container my-5">
 
+    <!-- Search Box -->
+    <div class="row mb-4">
+
+        <div class="col-md-6 mx-auto">
+
+            <input
+                type="text"
+                class="form-control"
+                placeholder="🔍 Search Products..."
+                [(ngModel)]="searchText"
+                (keyup)="searchProducts()">
+
+        </div>
+
+    </div>
+    <div class="row mb-4">
+
+        <div class="col-md-4">
+
+            <select
+                class="form-select"
+                [(ngModel)]="selectedCategory"
+                (change)="categoryChanged()">
+
+                <option value="">All Categories</option>
+
+                <option
+                 *ngFor="let category of categories"
+                    [value]="category.id">
+
+                 {{ category.name }}
+
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+    <div class="row mb-4">
+
+        <div class="col-md-4">
+
+            <select
+                class="form-select"
+                [(ngModel)]="selectedPrice"
+                (change)="priceChanged()">
+
+                <option value="">All Prices</option>
+                <option value="1">Under ₹10,000</option>
+                <option value="2">₹10,000 - ₹50,000</option>
+                <option value="3">Above ₹50,000</option>
+
+            </select>
+
+         </div>
+
+    </div>
+
+    <div class="row mb-4">
+
+        <div class="col-md-4">
+
+            <select
+                class="form-select"
+                [(ngModel)]="selectedSort"
+                (change)="sortChanged()">
+
+                <option value="">Sort By</option>
+                <option value="low">Price: Low → High</option>
+                <option value="high">Price: High → Low</option>
+                <option value="new">Newest</option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+    <!-- Products -->
     <div class="row">
 
         <div class="col-md-4 mb-4" *ngFor="let product of products">

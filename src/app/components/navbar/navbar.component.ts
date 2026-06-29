@@ -3,12 +3,13 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink,RouterLinkActive,CommonModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
@@ -21,6 +22,12 @@ export class NavbarComponent {
 
 ){}
 
+isLoggedIn(): boolean {
+
+  return !!localStorage.getItem('token');
+
+}
+
 logout(){
 
   this.authService.logout();
@@ -30,6 +37,7 @@ logout(){
   this.router.navigate(['/login']);
 
 }
+
 
 }
 

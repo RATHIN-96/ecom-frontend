@@ -2,7 +2,7 @@
 
   <div class="row align-items-center">
 
-    <!-- Image -->
+    <!-- Product Image -->
     <div class="col-md-5 text-center">
 
       <img
@@ -11,7 +11,7 @@
 
     </div>
 
-    <!-- Details -->
+    <!-- Product Details -->
     <div class="col-md-7">
 
       <h2 class="mb-3">
@@ -22,10 +22,20 @@
         ₹ {{ product.price }}
       </h4>
 
+      <!-- Average Rating -->
       <div class="mb-3">
 
-        ⭐⭐⭐⭐⭐
-        <span class="text-muted">(254 Reviews)</span>
+        <h5 class="text-warning">
+
+          ⭐ {{ averageRating | number:'1.1-1' }}
+
+          <span class="text-muted">
+
+            ({{ reviewCount }} Reviews)
+
+          </span>
+
+        </h5>
 
       </div>
 
@@ -40,21 +50,21 @@
       </h5>
 
       <p>
-        Free Delivery within 2-4 Days
+        Free Delivery within 2–4 Days
       </p>
 
       <div class="mt-4">
 
         <button
-            class="btn btn-warning btn-lg me-3"
-            (click)="addToCart()">
+          class="btn btn-warning btn-lg me-3"
+          (click)="addToCart()">
 
-            🛒 Add To Cart
+          🛒 Add To Cart
 
         </button>
 
         <button
-          class="btn btn-outline-danger mt-2 w-100"
+          class="btn btn-outline-danger btn-lg"
           (click)="addToWishlist()">
 
           ❤️ Add to Wishlist
@@ -62,6 +72,115 @@
         </button>
 
       </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<hr class="my-5">
+
+<div class="container">
+
+  <h3 class="mb-4">
+    ⭐ Customer Reviews
+  </h3>
+
+  <!-- Write Review -->
+
+  <div class="card shadow-sm p-4 mb-4">
+
+    <h5 class="mb-3">
+      Write a Review
+    </h5>
+
+    <div class="mb-3">
+
+      <label class="form-label">
+        Rating
+      </label>
+
+      <select
+        class="form-select"
+        [(ngModel)]="review.rating">
+
+        <option [value]="5">⭐⭐⭐⭐⭐ (5)</option>
+        <option [value]="4">⭐⭐⭐⭐ (4)</option>
+        <option [value]="3">⭐⭐⭐ (3)</option>
+        <option [value]="2">⭐⭐ (2)</option>
+        <option [value]="1">⭐ (1)</option>
+
+      </select>
+
+    </div>
+
+    <div class="mb-3">
+
+      <label class="form-label">
+        Comment
+      </label>
+
+      <textarea
+        class="form-control"
+        rows="3"
+        [(ngModel)]="review.comment"
+        placeholder="Write your review...">
+      </textarea>
+
+    </div>
+
+    <button
+      class="btn btn-primary"
+      (click)="submitReview()">
+
+      Submit Review
+
+    </button>
+
+  </div>
+
+  <!-- Reviews List -->
+
+  <div
+    class="card shadow-sm mb-3"
+    *ngFor="let item of reviews">
+
+    <div class="card-body">
+
+      <h5>
+
+        {{ item.user }}
+
+        <span class="float-end text-warning">
+
+          ⭐ {{ item.rating }}/5
+
+        </span>
+
+      </h5>
+
+      <p class="mt-3">
+
+        {{ item.comment }}
+
+      </p>
+
+      <small class="text-muted">
+
+        {{ item.created_at | date:'medium' }}
+
+      </small>
+
+      <br>
+
+      <button
+        class="btn btn-outline-danger btn-sm mt-3"
+        (click)="deleteReview(item.id)">
+
+        🗑 Delete Review
+
+      </button>
 
     </div>
 

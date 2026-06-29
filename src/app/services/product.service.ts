@@ -11,14 +11,25 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  getProducts(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+getProducts(
+  search: string = '',
+  category: string = '',
+  price: string = '',
+  sort: string = ''
+): Observable<any[]> {
+
+  return this.http.get<any[]>(
+    `${this.apiUrl}?search=${search}&category=${category}&price=${price}&sort=${sort}`
+  );
+
+}
+
+  getProduct(id: number): Observable<any> {
+
+    return this.http.get<any>(
+      `${this.apiUrl}${id}/`
+    );
 
   }
 
-  getProduct(id: number): Observable<any> {
-  return this.http.get<any>(`${this.apiUrl}${id}/`);
 }
-
-}
-

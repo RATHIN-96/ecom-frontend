@@ -4,51 +4,107 @@ import { RouterLink } from '@angular/router';
 
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
+import { FormsModule } from '@angular/forms';
+import { CategoryService } from '../../services/category.service';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink,FormsModule],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })
 export class ProductListComponent implements OnInit {
 
   products: any[] = [];
+  categories: any[] = [];
+
+  searchText: string = '';
+  selectedPrice: string = '';
+  selectedCategory: string = '';
+  selectedSort: string = '';
 
   constructor(
     private productService: ProductService,
-    private cartService: CartService
+    private cartService: CartService,
+    private categoryService: CategoryService
   ) {}
 
-  ngOnInit(): void {
 
-    this.productService.getProducts().subscribe({
+ngOnInit(): void {
 
-      next: (data) => {
+  this.loadProducts();
+  this.loadCategories();
 
-        this.products = data;
 
-      },
+}
 
-      error: (err) => {
+loadProducts() {
 
-        console.log(err);
+  this.productService.getProducts(this.searchText,this.selectedCategory,this.selectedPrice,this.selectedSort).subscribe({
 
-      }
+    next: (data) => {
 
-    });
+      this.products = data;
 
-  }
+    },
 
-  addToCart(product: any) {
+    error: (err) => {
+
+      console.log(err);
+
+    }
+
+  });
+
+}
+
+searchProducts() {
+
+  this.loadProducts();
+
+}
+categoryChanged() {
+
+  this.loadProducts();
+
+}
+priceChanged() {
+
+  this.loadProducts();
+
+}
+sortChanged() {
+
+  this.loadProducts();
+
+}
+
+loadCategories() {
+
+  this.categoryService.getCategories().subscribe({
+
+    next: (data) => {
+
+      this.categories = data;
+
+    },
+
+    error: (err) => {
+
+      console.log(err);
+
+    }
+
+  });
+
+}
+
+addToCart(product: any) {
 
     const data = {
-
-      cart: 1,
-      product_id: product.id,
-      quantity: 1
-
+    product_id: product.id,
+    quantity: 1
     };
 
     this.cartService.addToCart(data).subscribe({

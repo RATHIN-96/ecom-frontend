@@ -72,4 +72,82 @@ export class OrdersComponent implements OnInit {
 
   }
 
+  getTruckPosition(order:any):string{
+
+  switch(order.status){
+
+    case 'Pending':
+      return '0%';
+
+    case 'Paid':
+      return '48%';
+
+    case 'Shipped':
+      return '83%';
+
+    case 'Delivered':
+      return '97%';
+
+    default:
+      return '0%';
+
+  }
+
+}
+
+getProgressWidth(order: any): string {
+
+  switch (order.status) {
+
+    case 'Pending':
+      return '15%';
+
+    case 'Paid':
+      return '53%';
+
+    case 'Shipped':
+      return '89%';
+
+    case 'Delivered':
+      return '100%';
+
+    default:
+      return '15%';
+
+  }
+
+}
+
+downloadInvoice(id: number) {
+
+  this.orderService.downloadInvoice(id).subscribe({
+
+    next: (blob: Blob) => {
+
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+
+      a.href = url;
+
+      a.download = `Invoice_${id}.pdf`;
+
+      a.click();
+
+      window.URL.revokeObjectURL(url);
+
+    },
+
+    error: (err) => {
+
+      console.log(err);
+
+      alert("Invoice download failed");
+
+    }
+
+  });
+
+}
+
 }

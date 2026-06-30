@@ -35,4 +35,20 @@ export class OrderService {
 
 }
 
+downloadInvoice(id: number) {
+
+  return this.http.get(
+
+    `http://127.0.0.1:8000/invoice/${id}/`,
+
+    {
+
+      responseType: 'blob'
+
+    }
+
+  );
+
+}
+
 }

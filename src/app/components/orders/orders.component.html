@@ -76,98 +76,98 @@
 
   </div>
 
+  
+
   <!-- Timeline -->
 
-  <div class="progress-line">
+<div class="progress-wrapper">
 
-    <div
-        class="progress-fill"
-        [style.width]="
-        order.status=='Pending'
-        ? '15%'
-        :
-        order.payment_status=='Success' &&
-        order.status=='Paid'
-        ? '45%'
-        :
-        order.status=='Shipped'
-        ? '75%'
-        :
-        order.status=='Delivered'
-        ? '100%'
-        :
-        '15%'">
+    <!-- Progress Line -->
 
-    </div>
+    <div class="progress-line">
 
-    <!-- Moving Truck -->
+        <div
+            class="progress-fill"
+            [style.width]="getProgressWidth(order)">
+        </div>
 
-    <div
-        class="moving-truck"
-        *ngIf="order.status=='Shipped'">
+        <!-- Moving Truck -->
 
-        🚚
+        <div class="moving-truck"
+            [style.left]="getTruckPosition(order)">
 
-    </div>
+            <img
+              src="/images/cargo-truck.png"
+              class="truck-image"
+              alt="Truck">
 
-    </div>
+          </div>>
+
+      </div>
+
+</div>
+
+    <!-- Timeline -->
 
     <div class="timeline">
 
-      <div class="step active">
+        <div class="step active">
 
-        <div class="circle">
+            <div class="circle">
 
-          <i class="bi bi-cart-check-fill"></i>
+                <i class="bi bi-cart-check-fill"></i>
 
-        </div>
+            </div>
 
-        <span>Ordered</span>
-
-      </div>
-
-      <div class="step"
-        [class.active]="order.payment_status=='Success'">
-
-        <div class="circle">
-
-          <i class="bi bi-credit-card-fill"></i>
+            <span>Ordered</span>
 
         </div>
 
-        <span>Paid</span>
+        <div
+            class="step"
+            [class.active]="order.payment_status=='Success'">
 
-      </div>
+            <div class="circle">
 
-      <div class="step"
-        [class.active]="order.status=='Shipped' || order.status=='Delivered'">
+                <i class="bi bi-credit-card-fill"></i>
 
-        <div class="circle truck">
+            </div>
 
-          <i class="bi bi-truck"></i>
-
-        </div>
-
-        <span>Shipped</span>
-
-      </div>
-
-      <div class="step"
-        [class.active]="order.status=='Delivered'">
-
-        <div class="circle">
-
-          <i class="bi bi-box-seam-fill"></i>
+            <span>Paid</span>
 
         </div>
 
-        <span>Delivered</span>
+        <div
+            class="step"
+            [class.active]="order.status=='Shipped' || order.status=='Delivered'">
 
-      </div>
+            <div class="circle">
+
+                <i class="bi bi-box-seam-fill"></i>
+
+            </div>
+
+            <span>Shipped</span>
+
+        </div>
+
+        <div
+            class="step"
+            [class.active]="order.status=='Delivered'">
+
+            <div class="circle">
+
+              <i class="bi bi-person-fill"></i>
+
+            </div>
+
+            <span>Delivered</span>
+
+        </div>
 
     </div>
 
-  </div>
+</div>
 
   <hr>
 
@@ -353,7 +353,8 @@
   class="d-flex justify-content-end flex-wrap gap-2">
 
   <button
-    class="btn btn-outline-info">
+    class="btn btn-outline-primary"
+    (click)="downloadInvoice(order.id)">
 
     <i class="bi bi-file-earmark-pdf-fill"></i>
 

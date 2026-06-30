@@ -22,3 +22,27 @@
     color:#ffc107 !important;
 
 }
+
+.logo-img{
+
+    width:75px;
+    height:75px;
+
+    object-fit:contain;
+
+    /* filter:drop-shadow(0 0 8px white); */
+
+}
+
+.navbar-brand{
+    font-size: 1.5rem;
+    color: #0d6efd;
+}
+
+.navbar-brand:hover{
+    color: #5a9bfc;
+}
+
+.navbar-brand img{
+    border-radius: 8px;
+}

@@ -1,70 +1,111 @@
 <div class="container mt-5">
 
-<div class="card shadow p-4">
+  <div class="card shadow p-4">
 
-<h2 class="mb-4">
-Checkout
-</h2>
+    <h2 class="mb-4">
+      Checkout
+    </h2>
 
-<div class="mb-3">
+    <!-- Name -->
 
-<label>Name</label>
+    <div class="mb-3">
 
-<input
-class="form-control"
-[(ngModel)]="order.name">
+      <label class="form-label">
+        Name
+      </label>
 
-</div>
+      <input
+        class="form-control"
+        [(ngModel)]="order.name">
 
-<div class="mb-3">
+    </div>
 
-<label>Address</label>
+    <!-- Address -->
 
-<textarea
-class="form-control"
-rows="3"
-[(ngModel)]="order.address">
-</textarea>
+    <div class="mb-3">
 
-</div>
+      <label class="form-label">
+        Address
+      </label>
 
-<div class="mb-3">
+      <textarea
+        class="form-control"
+        rows="3"
+        [(ngModel)]="order.address">
+      </textarea>
 
-<label>Phone</label>
+    </div>
 
-<input
-class="form-control"
-[(ngModel)]="order.phone">
+    <!-- Phone -->
 
-</div>
+    <div class="mb-3">
 
-<div class="mb-3">
+      <label class="form-label">
+        Phone
+      </label>
 
-<label>Payment</label>
+      <input
+        class="form-control"
+        [(ngModel)]="order.phone">
 
-<select
-class="form-select"
-[(ngModel)]="order.payment">
+    </div>
 
-<option>Cash On Delivery</option>
+    <!-- Payment Method -->
 
-<option>UPI</option>
+    <div class="mb-4">
 
-<option>Card</option>
+      <label class="form-label fw-bold">
 
-</select>
+        Payment Method
 
-</div>
+      </label>
 
-<button
-class="btn btn-success w-100"
-(click)="placeOrder()">
+      <div class="form-check">
 
-Place Order
+        <input
+          class="form-check-input"
+          type="radio"
+          name="payment"
+          value="Cash On Delivery"
+          [(ngModel)]="order.payment">
 
-</button>
+        <label class="form-check-label">
 
+          Cash On Delivery
 
-</div>
+        </label>
+
+      </div>
+
+      <div class="form-check">
+
+        <input
+          class="form-check-input"
+          type="radio"
+          name="payment"
+          value="Online Payment"
+          [(ngModel)]="order.payment">
+
+        <label class="form-check-label">
+
+          Online Payment (Razorpay)
+
+        </label>
+
+      </div>
+
+    </div>
+
+    <!-- Button -->
+
+    <button
+      class="btn btn-success w-100"
+      (click)="checkout()">
+
+      Place Order
+
+    </button>
+
+  </div>
 
 </div>

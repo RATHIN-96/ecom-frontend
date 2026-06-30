@@ -1,7 +1,467 @@
-.card{
+/* ===========================
+   PAGE
+=========================== */
+
+.container{
+    max-width:1200px;
+}
+
+/* ===========================
+   CARD
+=========================== */
+
+.order-card{
+
+    border:none;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    background:#ffffff;
+
+    transition:.35s ease;
+
+}
+
+.order-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 18px 40px rgba(0,0,0,.15);
+
+}
+
+/* ===========================
+   HEADER
+=========================== */
+
+.order-header{
+
+    background:linear-gradient(
+        135deg,
+        #0d6efd,
+        #8f3fcd
+    );
+
+    color:white;
+
+    padding:25px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.order-header h4{
+
+    margin:0;
+
+}
+
+.order-header small{
+
+    color:#e9ecef;
+
+}
+
+/* ===========================
+   TIMELINE
+=========================== */
+
+.progress-wrapper{
+
+    position:relative;
+
+    margin:40px 0;
+
+}
+
+.progress-line{
+
+    position:absolute;
+
+    top:28px;
+
+    left:0px;
+
+    right:70px;
+
+    height:6px;
+
+    background:#dee2e6;
+
+    border-radius:20px;
+
+}
+
+.progress-fill{
+
+    height:100%;
+
+    background:linear-gradient(
+        90deg,
+        #147648,
+        #20c98b
+    );
+
+    width:0;
+
+    border-radius:20px;
+
+    transition:1s;
+
+}
+
+.timeline{
+
+    position:relative;
+
+    display:flex;
+
+    justify-content:space-between;
+
+}
+
+.step{
+
+    width:100px;
+
+    text-align:center;
+
+    z-index:2;
+
+}
+
+.circle{
+
+    width:58px;
+
+    height:58px;
+
+    border-radius:50%;
+
+    border:4px solid #dee2e6;
+
+    background:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin:auto;
+
+    font-size:24px;
+
+    transition:.4s;
+
+}
+
+.step.active .circle{
+
+    background:#198754;
+
+    border-color:#198754;
+
+    color:white;
+
+    box-shadow:0 0 20px rgba(25,135,84,.45);
+
+}
+
+.step span{
+
+    display:block;
+
+    margin-top:12px;
+
+    font-weight:600;
+
+    font-size:14px;
+
+}
+
+/* ===========================
+   TRUCK ANIMATION
+=========================== */
+
+.truck{
+
+    animation:truckMove 1.5s infinite;
+
+}
+
+@keyframes truckMove{
+
+    0%{
+
+        transform:translateX(0);
+
+    }
+
+    50%{
+
+        transform:translateX(8px);
+
+    }
+
+    100%{
+
+        transform:translateX(0);
+
+    }
+
+}
+
+/* ===========================
+   STATUS CARD
+=========================== */
+
+.status-card{
+
+    background:#f8f9fa;
 
     border-radius:15px;
 
-    box-shadow:0 5px 15px rgba(0,0,0,.1);
+    padding:20px;
+
+    transition:.3s;
+
+}
+
+.status-card:hover{
+
+    background:#eef5ff;
+
+}
+
+/* ===========================
+   PRODUCT CARD
+=========================== */
+
+.product-card{
+
+    border:1px solid #e5e5e5;
+
+    border-radius:18px;
+
+    transition:.35s;
+
+}
+
+.product-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+/* ===========================
+   PRODUCT IMAGE
+=========================== */
+
+.product-image{
+
+    width:110px;
+
+    height:110px;
+
+    object-fit:cover;
+
+    transition:.4s;
+
+}
+
+.product-card:hover .product-image{
+
+    transform:scale(1.08);
+
+}
+
+/* ===========================
+   BADGE
+=========================== */
+
+.badge{
+
+    font-size:13px;
+
+    padding:8px 15px;
+
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+.btn{
+
+    border-radius:12px;
+
+    transition:.3s;
+
+    font-weight:600;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.btn-primary{
+
+    box-shadow:0 8px 18px rgba(13,110,253,.2);
+
+}
+
+.btn-success{
+
+    box-shadow:0 8px 18px rgba(25,135,84,.2);
+
+}
+
+.btn-outline-danger{
+
+    box-shadow:0 8px 18px rgba(220,53,69,.15);
+
+}
+
+/* ===========================
+   TOTAL
+=========================== */
+
+.text-success{
+
+    font-weight:bold;
+
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:768px){
+
+.order-header{
+
+    flex-direction:column;
+
+    text-align:center;
+
+    gap:15px;
+
+}
+
+.timeline{
+
+    flex-direction:column;
+
+    align-items:center;
+
+}
+
+.progress-line{
+
+    display:none;
+
+}
+
+.step{
+
+    margin-bottom:20px;
+
+}
+
+.product-card{
+
+    text-align:center;
+
+}
+
+.product-image{
+
+    margin-bottom:15px;
+
+}
+
+}
+
+/* Moving Truck */
+
+.progress-line{
+
+    position:relative;
+
+    overflow:visible;
+
+}
+
+.moving-truck{
+
+    position:absolute;
+
+    top:-28px;
+
+    left:0;
+
+    font-size:34px;
+
+    z-index:100;
+
+    animation:truckRun 4s linear infinite;
+
+}
+
+/* Truck Animation */
+
+@keyframes truckRun{
+
+0%{
+
+left:0;
+
+}
+
+100%{
+
+left:calc(100% - 40px);
+
+}
+
+}
+
+.step.active:last-child .circle{
+
+    animation:deliveredGlow 1.5s infinite;
+
+}
+
+@keyframes deliveredGlow{
+
+0%{
+
+box-shadow:0 0 0 rgba(25,135,84,.2);
+
+}
+
+50%{
+
+box-shadow:0 0 25px rgba(25,135,84,.8);
+
+}
+
+100%{
+
+box-shadow:0 0 0 rgba(25,135,84,.2);
+
+}
 
 }

@@ -1,1 +1,271 @@
-<p>profile works!</p>
+<div class="container py-5">
+
+  <div class="row justify-content-center">
+
+    <div class="col-md-8">
+
+      <div class="card shadow">
+
+        <div class="card-header bg-dark text-white">
+
+          <h3 class="mb-0">
+            👤 My Profile
+          </h3>
+
+        </div>
+
+        <!-- Profile Form -->
+
+        <div class="card-body">
+
+          <form [formGroup]="profileForm">
+
+            <div class="row">
+
+              <!-- First Name -->
+
+              <div class="col-md-6 mb-3">
+
+                <label class="form-label">
+                  First Name
+                </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="first_name">
+
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="profileForm.get('first_name')?.touched &&
+                         profileForm.get('first_name')?.invalid">
+
+                  Enter a valid first name.
+
+                </div>
+
+              </div>
+
+              <!-- Last Name -->
+
+              <div class="col-md-6 mb-3">
+
+                <label class="form-label">
+                  Last Name
+                </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="last_name">
+
+                <div
+                  class="text-danger mt-1"
+                  *ngIf="profileForm.get('last_name')?.touched &&
+                         profileForm.get('last_name')?.invalid">
+
+                  Enter a valid last name.
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- Username -->
+
+            <div class="mb-3">
+
+              <label class="form-label">
+                Username
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                formControlName="username"
+                readonly>
+
+            </div>
+
+            <!-- Email -->
+
+            <div class="mb-3">
+
+              <label class="form-label">
+                Email
+              </label>
+
+              <input
+                type="email"
+                class="form-control"
+                formControlName="email">
+
+              <div
+                class="text-danger mt-1"
+                *ngIf="profileForm.get('email')?.touched &&
+                       profileForm.get('email')?.invalid">
+
+                Enter a valid email.
+
+              </div>
+
+            </div>
+
+            <!-- Phone -->
+
+            <div class="mb-4">
+
+              <label class="form-label">
+                Phone
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                formControlName="phone">
+
+              <div
+                class="text-danger mt-1"
+                *ngIf="profileForm.get('phone')?.touched &&
+                       profileForm.get('phone')?.invalid">
+
+                Enter a valid phone number.
+
+              </div>
+
+            </div>
+
+            <!-- Update Button -->
+
+            <button
+              type="button"
+              class="btn btn-success w-100"
+              (click)="updateProfile()">
+
+              💾 Update Profile
+
+            </button>
+
+          </form>
+
+          <hr class="my-5">
+
+          <!-- Change Password -->
+
+          <form [formGroup]="passwordForm">
+
+            <h4 class="mb-4">
+              🔒 Change Password
+            </h4>
+
+            <!-- Current Password -->
+
+            <div class="mb-3">
+
+              <label class="form-label">
+                Current Password
+              </label>
+
+              <input
+                type="password"
+                class="form-control"
+                formControlName="current_password">
+
+              <div
+                class="text-danger mt-1"
+                *ngIf="passwordForm.get('current_password')?.touched &&
+                       passwordForm.get('current_password')?.invalid">
+
+                Current password is required.
+
+              </div>
+
+            </div>
+
+            <!-- New Password -->
+
+            <div class="mb-3">
+
+              <label class="form-label">
+                New Password
+              </label>
+
+              <input
+                type="password"
+                class="form-control"
+                formControlName="new_password">
+
+              <div
+                class="text-danger mt-1"
+                *ngIf="passwordForm.get('new_password')?.touched &&
+                       passwordForm.get('new_password')?.hasError('required')">
+
+                New password is required.
+
+              </div>
+
+              <div
+                class="text-danger mt-1"
+                *ngIf="passwordForm.get('new_password')?.touched &&
+                       passwordForm.get('new_password')?.hasError('pattern')">
+
+                Password must contain:
+                <ul class="mb-0">
+                  <li>Minimum 8 characters</li>
+                  <li>One uppercase letter</li>
+                  <li>One lowercase letter</li>
+                  <li>One number</li>
+                  <li>One special character ($!%*?&)</li>
+                </ul>
+
+              </div>
+
+            </div>
+
+            <!-- Confirm Password -->
+
+            <div class="mb-3">
+
+              <label class="form-label">
+                Confirm Password
+              </label>
+
+              <input
+                type="password"
+                class="form-control"
+                formControlName="confirm_password">
+
+              <div
+                class="text-danger mt-1"
+                *ngIf="passwordForm.get('confirm_password')?.touched &&
+                       passwordForm.get('confirm_password')?.invalid">
+
+                Confirm password is required.
+
+              </div>
+
+            </div>
+
+            <!-- Change Password Button -->
+
+            <button
+              type="button"
+              class="btn btn-danger w-100"
+              (click)="changePassword()">
+
+              🔐 Change Password
+
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -11,6 +11,8 @@ export class OrderService {
 
   constructor(private http: HttpClient) {}
 
+  
+
   placeOrder(data: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, data);
   }
@@ -20,5 +22,17 @@ export class OrderService {
       'http://127.0.0.1:8000/orders/'
     );
   }
+
+  cancelOrder(id: number) {
+
+  return this.http.post(
+
+    `http://127.0.0.1:8000/cancel-order/${id}/`,
+
+    {}
+
+  );
+
+}
 
 }

@@ -18,6 +18,12 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.loadOrders();
+
+  }
+
+  loadOrders() {
+
     this.orderService.getOrders().subscribe({
 
       next: (data) => {
@@ -31,6 +37,34 @@ export class OrdersComponent implements OnInit {
       error: (err) => {
 
         console.log(err);
+
+      }
+
+    });
+
+  }
+
+  cancelOrder(id: number) {
+
+    if (!confirm("Are you sure you want to cancel this order?")) {
+
+      return;
+
+    }
+
+    this.orderService.cancelOrder(id).subscribe({
+
+      next: (res: any) => {
+
+        alert(res.message);
+
+        this.loadOrders();
+
+      },
+
+      error: (err) => {
+
+        alert(err.error.message);
 
       }
 

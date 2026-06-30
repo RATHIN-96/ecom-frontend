@@ -1,60 +1,386 @@
 <div class="container my-5">
 
-    <h2 class="mb-4">
-        📦 My Orders
-    </h2>
+  <h2 class="mb-4 fw-bold">
+    📦 My Orders
+  </h2>
+  
+  <p  class="text-muted">Tracking And Manage Your Orders</p>
 
-    <div class="card mb-3" *ngFor="let order of orders">
+  <div class="card shadow-sm mb-4" *ngFor="let order of orders">
 
-        <div class="card-body">
+    <div class="card-body">
 
-            <h5>Order #{{order.id}}</h5>
+  <!-- Header -->
 
-            <p>
-                <strong>Status:</strong>
-                {{order.status}}
-            </p>
+  <div class="card-body">
 
-            <p>
-                <strong>Total:</strong>
-                ₹ {{order.total_price}}
-            </p>
+  <!-- Header -->
 
-            <p>
-                <strong>Date:</strong>
-                {{order.created_at | date:'medium'}}
-            </p>
-
-        </div>
-        <hr>
-
-<h5>Products</h5>
-
-<div *ngFor="let item of order.items" class="d-flex align-items-center mb-3">
-
-    <img
-        [src]="item.product.image"
-        width="90"
-        height="90"
-        class="rounded me-3">
+  <div class="order-header">
 
     <div>
 
-        <h6>{{item.product.name}}</h6>
+      <h4 class="fw-bold mb-1">
+        📦 Order #{{ order.id }}
+      </h4>
 
-        <p>
-            Quantity :
-            {{item.quantity}}
-        </p>
-
-        <h5 class="text-success">
-            ₹ {{item.price}}
-        </h5>
+      <small class="text-light">
+        {{ order.created_at | date:'medium' }}
+      </small>
 
     </div>
+
+    <div>
+
+      <span
+        class="badge rounded-pill bg-warning px-3 py-2"
+        *ngIf="order.status=='Pending'">
+
+        Pending
+
+      </span>
+
+      <span
+        class="badge rounded-pill bg-success px-3 py-2"
+        *ngIf="order.status=='Paid'">
+
+        Paid
+
+      </span>
+
+      <span
+        class="badge rounded-pill bg-primary px-3 py-2"
+        *ngIf="order.status=='Shipped'">
+
+        🚚 Shipped
+
+      </span>
+
+      <span
+        class="badge rounded-pill bg-success px-3 py-2"
+        *ngIf="order.status=='Delivered'">
+
+        📦 Delivered
+
+      </span>
+
+      <span
+        class="badge rounded-pill bg-danger px-3 py-2"
+        *ngIf="order.status=='Cancelled'">
+
+        ❌ Cancelled
+
+      </span>
+
+    </div>
+
+  </div>
+
+  <!-- Timeline -->
+
+  <div class="progress-line">
+
+    <div
+        class="progress-fill"
+        [style.width]="
+        order.status=='Pending'
+        ? '15%'
+        :
+        order.payment_status=='Success' &&
+        order.status=='Paid'
+        ? '45%'
+        :
+        order.status=='Shipped'
+        ? '75%'
+        :
+        order.status=='Delivered'
+        ? '100%'
+        :
+        '15%'">
+
+    </div>
+
+    <!-- Moving Truck -->
+
+    <div
+        class="moving-truck"
+        *ngIf="order.status=='Shipped'">
+
+        🚚
+
+    </div>
+
+    </div>
+
+    <div class="timeline">
+
+      <div class="step active">
+
+        <div class="circle">
+
+          <i class="bi bi-cart-check-fill"></i>
+
+        </div>
+
+        <span>Ordered</span>
+
+      </div>
+
+      <div class="step"
+        [class.active]="order.payment_status=='Success'">
+
+        <div class="circle">
+
+          <i class="bi bi-credit-card-fill"></i>
+
+        </div>
+
+        <span>Paid</span>
+
+      </div>
+
+      <div class="step"
+        [class.active]="order.status=='Shipped' || order.status=='Delivered'">
+
+        <div class="circle truck">
+
+          <i class="bi bi-truck"></i>
+
+        </div>
+
+        <span>Shipped</span>
+
+      </div>
+
+      <div class="step"
+        [class.active]="order.status=='Delivered'">
+
+        <div class="circle">
+
+          <i class="bi bi-box-seam-fill"></i>
+
+        </div>
+
+        <span>Delivered</span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <hr>
+
+  <!-- Information -->
+
+  <div class="row g-3">
+
+    <div class="col-md-6">
+
+      <div class="status-card">
+
+        <h6 class="fw-bold mb-3">
+
+          💳 Payment Status
+
+        </h6>
+
+        <span
+          class="badge bg-success"
+          *ngIf="order.payment_status=='Success'">
+
+          Success
+
+        </span>
+
+        <span
+          class="badge bg-warning"
+          *ngIf="order.payment_status=='Pending'">
+
+          Pending
+
+        </span>
+
+        <span
+          class="badge bg-danger"
+          *ngIf="order.payment_status=='Failed'">
+
+          Failed
+
+        </span>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+      <div class="status-card">
+
+        <h6 class="fw-bold mb-3">
+
+          💰 Refund Status
+
+        </h6>
+
+        <span
+          class="badge bg-secondary"
+          *ngIf="order.refund_status=='NotApplicable' || order.refund_status=='Not Applicable'">
+
+          Not Applicable
+
+        </span>
+
+        <span
+          class="badge bg-warning"
+          *ngIf="order.refund_status=='Pending'">
+
+          Pending
+
+        </span>
+
+        <span
+          class="badge bg-success"
+          *ngIf="order.refund_status=='Completed'">
+
+          Completed
+
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="status-card mt-3">
+
+    <p class="mb-2">
+
+      <strong>Payment ID :</strong>
+
+      {{ order.payment_id || 'N/A' }}
+
+    </p>
+
+    <h3 class="text-success fw-bold">
+
+      Total : ₹ {{ order.total_price }}
+
+    </h3>
+
+  </div>
+
+  <hr>
+
+  <h4 class="fw-bold mb-4">
+
+    🛍 Ordered Products
+
+  </h4>
+
+    <div
+  *ngFor="let item of order.items"
+  class="product-card p-3 mb-3">
+
+  <div class="row align-items-center">
+
+    <!-- Product Image -->
+
+    <div class="col-lg-2 col-md-3 text-center">
+
+      <img
+        [src]="item.product.image"
+        class="img-fluid rounded shadow-sm product-image">
+
+    </div>
+
+    <!-- Product Details -->
+
+    <div class="col-lg-6 col-md-5 mt-3 mt-md-0">
+
+      <h5 class="fw-bold">
+
+        {{ item.product.name }}
+
+      </h5>
+
+      <p class="text-muted mb-1">
+
+        Quantity :
+        <strong>{{ item.quantity }}</strong>
+
+      </p>
+
+      <p class="mb-0">
+
+        <strong>Price :</strong>
+
+        <span class="text-success">
+
+          ₹ {{ item.price }}
+
+        </span>
+
+      </p>
+
+    </div>
+
+    <!-- Action -->
+
+    <div class="col-lg-4 col-md-4 text-md-end mt-3 mt-md-0">
+
+      <button
+        class="btn btn-outline-warning mb-2 ">
+
+        <i class="bi bi-star-fill"></i>
+
+        Write Review
+
+      </button>
+
+    </div>
+
+  </div>
 
 </div>
 
-    </div>
+<hr>
+
+<!-- Footer Buttons -->
+
+<div
+  class="d-flex justify-content-end flex-wrap gap-2">
+
+  <button
+    class="btn btn-outline-info">
+
+    <i class="bi bi-file-earmark-pdf-fill"></i>
+
+    Download Invoice
+
+  </button>
+
+  <button
+    class="btn btn-outline-danger"
+
+    *ngIf="
+    order.status=='Pending' ||
+    order.status=='Paid'
+    "
+
+    (click)="cancelOrder(order.id)">
+
+    <i class="bi bi-x-circle-fill"></i>
+
+    Cancel Order
+
+  </button>
+
+</div>
+
+</div>
+
+</div>
 
 </div>

@@ -1,0 +1,43 @@
+.card{
+
+    border:none;
+
+    border-radius:15px;
+
+}
+
+.table{
+
+    margin-bottom:0;
+
+}
+
+.table th{
+
+    vertical-align:middle;
+
+}
+
+.table td{
+
+    vertical-align:middle;
+
+}
+
+.btn{
+
+    border-radius:8px;
+
+}
+
+input{
+
+    height:45px;
+
+}
+
+h2{
+
+    font-weight:bold;
+
+}

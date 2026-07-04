@@ -1,0 +1,244 @@
+/* ==========================================
+   Product Management
+========================================== */
+
+.container-fluid{
+    padding:20px;
+}
+
+h2{
+    color:#1f2937;
+    font-weight:700;
+}
+
+/* ===========================
+   Card
+=========================== */
+
+.card{
+    border:none;
+    border-radius:15px;
+    overflow:hidden;
+}
+
+.card-body{
+    padding:25px;
+}
+
+/* ===========================
+   Form
+=========================== */
+
+.form-label{
+    font-weight:600;
+}
+
+.form-control,
+.form-select{
+    height:48px;
+    border-radius:10px;
+}
+
+textarea.form-control{
+    height:auto;
+    resize:none;
+}
+
+/* ===========================
+   Buttons
+=========================== */
+
+.btn{
+    border-radius:8px;
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.btn-primary{
+    padding:10px 30px;
+}
+
+/* ===========================
+   Table
+=========================== */
+
+.table-responsive{
+    overflow-x:auto;
+}
+
+.table{
+    min-width:900px;
+    margin-bottom:0;
+}
+
+.table th{
+    white-space:nowrap;
+    text-align:center;
+    vertical-align:middle;
+}
+
+.table td{
+    vertical-align:middle;
+}
+
+.table tbody tr:hover{
+    background:#f8f9fa;
+}
+
+/* ===========================
+   Product Name
+=========================== */
+
+.product-name{
+
+    min-width:280px;
+    max-width:320px;
+
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+
+}
+
+/* ===========================
+   Product Image
+=========================== */
+
+.product-image{
+
+    width:75px;
+    height:75px;
+
+    object-fit:cover;
+
+    border-radius:10px;
+
+    border:1px solid #ddd;
+
+}
+
+/* ===========================
+   Action
+=========================== */
+
+.action-column{
+
+    min-width:130px;
+
+    white-space:nowrap;
+
+}
+
+.action-column button{
+
+    width:38px;
+    height:38px;
+
+    padding:0;
+
+}
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media(max-width:991px){
+
+    .container-fluid{
+
+        padding:15px;
+
+    }
+
+    .card-body{
+
+        padding:18px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    h2{
+
+        font-size:24px;
+
+    }
+
+    .table{
+
+        min-width:850px;
+
+        font-size:14px;
+
+    }
+
+    .product-name{
+
+        min-width:220px;
+
+        max-width:220px;
+
+    }
+
+    .product-image{
+
+        width:60px;
+        height:60px;
+
+    }
+
+    .btn-primary{
+
+        width:100%;
+
+    }
+
+}
+
+@media(max-width:576px){
+
+    .container-fluid{
+
+        padding:10px;
+
+    }
+
+    .card{
+
+        border-radius:12px;
+
+    }
+
+    .card-body{
+
+        padding:15px;
+
+    }
+
+    .table{
+
+        min-width:800px;
+
+        font-size:13px;
+
+    }
+
+    .product-image{
+
+        width:55px;
+        height:55px;
+
+    }
+
+    .action-column{
+
+        min-width:110px;
+
+    }
+
+}

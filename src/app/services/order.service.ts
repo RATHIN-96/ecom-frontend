@@ -35,7 +35,7 @@ export class OrderService {
 
 }
 
-downloadInvoice(id: number) {
+ downloadInvoice(id: number) {
 
   return this.http.get(
 

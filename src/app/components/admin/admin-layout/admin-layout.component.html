@@ -1,0 +1,142 @@
+<div class="admin-wrapper">
+
+  <!-- Mobile Header -->
+
+  <div class="mobile-header d-lg-none">
+
+    <button
+      class="btn btn-dark"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#adminSidebar">
+
+      <i class="bi bi-list"></i>
+
+    </button>
+
+    <h5 class="m-0 fw-bold">VELORA ADMIN</h5>
+
+  </div>
+
+  <!-- Sidebar Desktop -->
+
+  <aside class="sidebar d-none d-lg-block">
+
+    <h3 class="logo">
+
+      VELORA ADMIN
+
+    </h3>
+
+    <ul>
+
+      <li>
+        <a routerLink="/admin">
+          <i class="bi bi-speedometer2"></i>
+          Dashboard
+        </a>
+      </li>
+
+      <li>
+        <a routerLink="/admin/categories">
+          <i class="bi bi-grid"></i>
+          Categories
+        </a>
+      </li>
+
+      <li>
+        <a routerLink="/admin/products">
+          <i class="bi bi-box-seam"></i>
+          Products
+        </a>
+      </li>
+
+      <li>
+        <a routerLink="/admin/users">
+          <i class="bi bi-people"></i>
+          Users
+        </a>
+      </li>
+
+      <li>
+        <a routerLink="/admin/orders">
+          <i class="bi bi-bag-check"></i>
+          Orders
+        </a>
+      </li>
+
+    </ul>
+
+  </aside>
+
+  <!-- Mobile Sidebar -->
+
+  <div
+    class="offcanvas offcanvas-start"
+    tabindex="-1"
+    id="adminSidebar">
+
+    <div class="offcanvas-header">
+
+      <h5 class="fw-bold">
+
+        VELORA ADMIN
+
+      </h5>
+
+      <button
+        class="btn-close"
+        data-bs-dismiss="offcanvas">
+      </button>
+
+    </div>
+
+    <div class="offcanvas-body">
+
+      <ul class="list-unstyled">
+
+        <li class="mb-3">
+          <a routerLink="/admin" data-bs-dismiss="offcanvas">
+            Dashboard
+          </a>
+        </li>
+
+        <li class="mb-3">
+          <a routerLink="/admin/categories" data-bs-dismiss="offcanvas">
+            Categories
+          </a>
+        </li>
+
+        <li class="mb-3">
+          <a routerLink="/admin/products" data-bs-dismiss="offcanvas">
+            Products
+          </a>
+        </li>
+
+        <li class="mb-3">
+          <a routerLink="/admin/users" data-bs-dismiss="offcanvas">
+            Users
+          </a>
+        </li>
+
+        <li class="mb-3">
+          <a routerLink="/admin/orders" data-bs-dismiss="offcanvas">
+            Orders
+          </a>
+        </li>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+  <!-- Content -->
+
+  <main class="content">
+
+    <router-outlet></router-outlet>
+
+  </main>
+
+</div>

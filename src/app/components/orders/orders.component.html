@@ -240,6 +240,14 @@
         </span>
 
         <span
+          class="badge bg-info"
+          *ngIf="order.refund_status=='Refund initiated'">
+
+          Refund Initiated
+
+        </span>
+
+        <span
           class="badge bg-success"
           *ngIf="order.refund_status=='Completed'">
 

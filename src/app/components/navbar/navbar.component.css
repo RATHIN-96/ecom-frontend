@@ -1,48 +1,223 @@
+/* =========================================
+   NAVBAR
+========================================= */
+
 .navbar{
-
-    padding:15px 0;
-
+    padding: 12px 0;
+    background: #212529 !important;
+    position: sticky;
+    top: 0;
+    z-index: 999;
 }
 
-.navbar-brand{
-
-    font-size:28px;
-
+.logo-img{
+    height: 60px;
+    width: auto;
 }
+
+/* =========================================
+   NAV LINKS
+========================================= */
 
 .nav-link{
+    color: #fff !important;
+    font-weight: 500;
+    margin: 0 8px;
+    transition: .3s;
+}
 
-    font-size:17px;
-    margin-left:15px;
+.nav-link:hover{
+    color: #ffc107 !important;
+}
+
+/* =========================================
+   SEARCH BOX
+========================================= */
+
+.search-box{
+    width: 320px;
+}
+
+.search-box input{
+    border-radius: 25px;
+    border: none;
+    box-shadow: none;
+}
+
+.search-box .btn{
+    border-radius: 25px;
+    padding: 8px 18px;
+}
+
+/* =========================================
+   DROPDOWN
+========================================= */
+
+.position-relative{
+    position: relative;
+}
+
+.custom-dropdown{
+
+    position: absolute;
+
+    top: 115%;
+
+    right: 0;
+
+    min-width: 220px;
+
+    background: #fff;
+
+    border-radius: 15px;
+
+    list-style: none;
+
+    padding: 10px 0;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,.2);
+
+    z-index: 1000;
+
+}
+
+.custom-dropdown li{
+    width: 100%;
+}
+
+.custom-dropdown a{
+
+    display: block;
+
+    padding: 12px 18px;
+
+    color: #212529;
+
+    text-decoration: none;
+
+    transition: .3s;
+
+}
+
+.custom-dropdown a:hover{
+
+    background: #0d6efd;
+
+    color: #fff;
+
+}
+
+.logout-btn{
+
+    width: 100%;
+
+    border: none;
+
+    background: transparent;
+
+    color: red;
+
+    padding: 12px 18px;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+}
+
+.logout-btn:hover{
+
+    background: red;
+
+    color: #fff;
+
+}
+
+/* =========================================
+   MOBILE MENU
+========================================= */
+
+@media(max-width:991px){
+
+.navbar-collapse{
+
+display:none;
+
+width:100%;
+
+margin-top:15px;
+
+}
+
+.navbar-collapse.show{
+
+display:block;
+
+}
+
+.search-box{
+
+width:100%;
+
+margin:20px 0;
+
+}
+
+.navbar-nav{
+
+text-align:left;
+
+}
+
+.nav-item{
+
+padding:6px 0;
+
+}
+
+.custom-dropdown{
+
+position: static;
+
+width:100%;
+
+margin-top:10px;
+
+box-shadow:none;
+
+border-radius:10px;
+
+}
+
+}
+
+/* =========================================
+   ICONS
+========================================= */
+
+.bi{
+
+    margin-right:6px;
+
+}
+
+/* =========================================
+   HOVER EFFECT
+========================================= */
+
+.nav-link,
+.btn,
+.custom-dropdown a,
+.logout-btn{
+
+    transition: .3s;
 
 }
 
 .nav-link:hover{
 
-    color:#ffc107 !important;
+    transform: translateY(-2px);
 
-}
-
-.logo-img{
-
-    width:75px;
-    height:75px;
-
-    object-fit:contain;
-
-    /* filter:drop-shadow(0 0 8px white); */
-
-}
-
-.navbar-brand{
-    font-size: 1.5rem;
-    color: #0d6efd;
-}
-
-.navbar-brand:hover{
-    color: #5a9bfc;
-}
-
-.navbar-brand img{
-    border-radius: 8px;
 }

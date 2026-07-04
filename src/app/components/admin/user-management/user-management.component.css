@@ -1,0 +1,85 @@
+.container-fluid{
+
+    padding:20px;
+
+}
+
+.card{
+
+    border:none;
+
+    border-radius:15px;
+
+}
+
+.card-body{
+
+    padding:25px;
+
+}
+
+.table{
+
+    margin-bottom:0;
+
+}
+
+.table th{
+
+    white-space:nowrap;
+
+    text-align:center;
+
+    vertical-align:middle;
+
+}
+
+.table td{
+
+    vertical-align:middle;
+
+}
+
+.table tbody tr:hover{
+
+    background:#f8f9fa;
+
+}
+
+.badge{
+
+    font-size:13px;
+
+    padding:8px 12px;
+
+}
+
+.btn{
+
+    border-radius:8px;
+
+}
+
+.table-responsive{
+
+    overflow-x:auto;
+
+}
+
+@media(max-width:768px){
+
+    .container-fluid{
+
+        padding:10px;
+
+    }
+
+    .table{
+
+        min-width:850px;
+
+        font-size:14px;
+
+    }
+
+}

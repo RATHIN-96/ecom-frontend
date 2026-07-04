@@ -56,15 +56,26 @@ export class LoginComponent {
 
       next: (res: any) => {
 
-        console.log(res);
+      console.log(res);
 
-        localStorage.setItem('token', res.token);
+      localStorage.setItem('token', res.token);
+      localStorage.setItem('is_staff', res.is_staff);
+      localStorage.setItem('username', res.username);
+      localStorage.setItem('first_name', res.first_name);
 
-        alert("Login Successful");
+      alert("Login Successful");
+
+      if(res.is_staff){
+
+        this.router.navigate(['/admin']);
+
+      }else{
 
         this.router.navigate(['/']);
 
-      },
+      }
+
+    },
 
       error: (err) => {
 

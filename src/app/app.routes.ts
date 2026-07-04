@@ -12,6 +12,13 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { authGuard } from './guards/auth.guard';
 
+import { AdminLayoutComponent } from './components/admin/admin-layout/admin-layout.component';
+import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
+import { CategoryManagementComponent } from './components/admin/category-management/category-management.component';
+import { ProductManagementComponent } from './components/admin/product-management/product-management.component';
+import { UserManagementComponent } from './components/admin/user-management/user-management.component';
+import { OrderManagementComponent } from './components/admin/order-management/order-management.component';
+
 export const routes: Routes = [
 
   { path: '', component: HomeComponent },
@@ -34,6 +41,23 @@ export const routes: Routes = [
 
   {path: 'checkout',component: CheckoutComponent, canActivate: [authGuard]},
 
-  { path: '**', redirectTo: '' }
+    // ------------------------
+    // ADMIN
+   // ------------------------
+
+  { path: 'admin', component: AdminLayoutComponent, children: [
+
+       { path: '',component: AdminDashboardComponent},
+
+    {path: 'categories',component: CategoryManagementComponent},
+
+    {path: 'products',component: ProductManagementComponent},
+
+    {path: 'users',component: UserManagementComponent},
+
+    {path: 'orders',component: OrderManagementComponent}]
+  },
+
+  { path: '**', redirectTo: '' },
 
 ];

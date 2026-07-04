@@ -1,4 +1,4 @@
-import { Component ,OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -8,7 +8,11 @@ import { FeaturedProductsComponent } from '../featured-products/featured-product
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink,FeaturedProductsComponent],
+  imports: [
+    CommonModule,
+    RouterLink,
+    FeaturedProductsComponent
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -16,37 +20,28 @@ export class HomeComponent implements OnInit {
 
   categories: any[] = [];
 
-  constructor(private categoryService: CategoryService){}
+  constructor(
+    private categoryService: CategoryService
+  ) {}
 
   ngOnInit(): void {
 
     this.categoryService.getCategories().subscribe({
-      next:(data)=>{
-        console.log(data);
-        this.categories=data;
+
+      next: (data) => {
+
+        this.categories = data;
+
       },
-      error:(err)=>{
+
+      error: (err) => {
+
         console.log(err);
+
       }
+
     });
 
   }
 
 }
-
-
-
-
-
-
-
-//@Component({
-//   selector: 'app-home',
-//   standalone: true,
-//   imports: [RouterLink],
-//   templateUrl: './home.component.html',
-//   styleUrl: './home.component.css'
-// })
-// export class HomeComponent {
-
-// }

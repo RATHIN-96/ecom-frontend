@@ -26,9 +26,18 @@ export class AuthService {
 
 }
 
+// logout() {
+
+//   localStorage.removeItem('token');
+
+// }
+
 logout() {
 
   localStorage.removeItem('token');
+  localStorage.removeItem('is_staff');
+  localStorage.removeItem('username');
+  localStorage.removeItem('first_name');
 
 }
 

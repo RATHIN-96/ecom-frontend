@@ -1,0 +1,115 @@
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2>📂 Category Management</h2>
+
+    </div>
+
+    <!-- Add Category -->
+
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-10">
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter Category Name"
+                        [(ngModel)]="categoryName">
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <button
+                        class="btn btn-primary w-100"
+                        (click)="addCategory()">
+
+                        {{ buttonText }}
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Category Table -->
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <table class="table table-hover align-middle">
+
+                <thead class="table-dark">
+
+                    <tr>
+
+                        <th width="80">#</th>
+
+                        <th>Category Name</th>
+
+                        <th width="220">Actions</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr *ngFor="let category of categories; let i = index">
+
+                        <td>{{ i + 1 }}</td>
+
+                        <td>{{ category.name }}</td>
+
+                        <td>
+
+                            <button
+                                class="btn btn-warning btn-sm me-2"
+                                (click)="editCategory(category)">
+
+                                ✏ Edit
+
+                            </button>
+
+                            <button
+                                class="btn btn-danger btn-sm"
+                                (click)="deleteCategory(category.id)">
+
+                                🗑 Delete
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                    <tr *ngIf="categories.length === 0">
+
+                        <td colspan="3" class="text-center">
+
+                            No Categories Found
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

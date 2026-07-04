@@ -1,2 +1,14 @@
-<app-navbar></app-navbar>
+
+<ng-container *ngIf="!isAdminRoute">
+
+  <app-navbar></app-navbar>
+
+</ng-container>
+
 <router-outlet></router-outlet>
+
+<ng-container *ngIf="!isAdminRoute">
+
+  <app-footer></app-footer>
+
+</ng-container>

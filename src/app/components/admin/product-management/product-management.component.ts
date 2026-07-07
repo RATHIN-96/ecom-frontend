@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { ProductService } from '../../../services/product.service';
 import { CategoryService } from '../../../services/category.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-management',
@@ -135,7 +136,19 @@ export class ProductManagementComponent implements OnInit {
 
     next: () => {
 
-      alert("Product Updated Successfully");
+      Swal.fire({
+
+        icon: 'success',
+
+        title: 'Success',
+
+        text: 'Product Updated Successfully',
+
+        timer: 1800,
+
+        showConfirmButton: false
+
+      });
 
       this.resetForm();
 
@@ -162,7 +175,19 @@ else {
 
     next: () => {
 
-      alert("Product Added Successfully");
+      Swal.fire({
+
+        icon: 'success',
+
+        title: 'Success',
+
+        text: 'Product Added Successfully',
+
+        timer: 1800,
+
+        showConfirmButton: false
+
+      });
 
       this.resetForm();
 
@@ -218,25 +243,67 @@ else {
 
 deleteProduct(id: number) {
 
-  if (!confirm("Are you sure you want to delete this product?")) {
-    return;
-  }
+  Swal.fire({
 
-  this.productService.deleteProduct(id).subscribe({
+    title: 'Delete Product?',
 
-    next: () => {
+    text: 'This action cannot be undone.',
 
-      alert("Product Deleted Successfully");
+    icon: 'warning',
 
-      this.loadProducts();
+    showCancelButton: true,
 
-    },
+    confirmButtonColor: '#dc3545',
 
-    error: (err: any) => {
+    cancelButtonColor: '#6c757d',
 
-      console.log(err);
+    confirmButtonText: 'Delete',
 
-      alert("Delete Failed");
+    cancelButtonText: 'Cancel'
+
+  }).then((result) => {
+
+    if (result.isConfirmed) {
+
+      this.productService.deleteProduct(id).subscribe({
+
+        next: () => {
+
+          Swal.fire({
+
+            icon: 'success',
+
+            title: 'Deleted',
+
+            text: 'Product Deleted Successfully',
+
+            timer: 1800,
+
+            showConfirmButton: false
+
+          });
+
+          this.loadProducts();
+
+        },
+
+        error: (err: any) => {
+
+          console.log(err);
+
+          Swal.fire({
+
+            icon: 'error',
+
+            title: 'Delete Failed',
+
+            text: 'Unable to delete product.'
+
+          });
+
+        }
+
+      });
 
     }
 

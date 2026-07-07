@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 import { UserService } from '../../../services/user.service';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-management',
   standalone: true,
   imports: [
-    CommonModule,FormsModule
+    CommonModule,
+    FormsModule
   ],
   templateUrl: './user-management.component.html',
   styleUrl: './user-management.component.css'
@@ -29,7 +31,9 @@ export class UserManagementComponent implements OnInit {
 
   }
 
+  // ==========================
   // Load Users
+  // ==========================
 
   loadUsers() {
 
@@ -45,35 +49,95 @@ export class UserManagementComponent implements OnInit {
 
         console.log(err);
 
+        Swal.fire({
+
+          icon: 'error',
+
+          title: 'Failed',
+
+          text: 'Unable to load users.'
+
+        });
+
       }
 
     });
 
   }
 
+  // ==========================
   // Block / Unblock User
+  // ==========================
 
   toggleStatus(user: any) {
 
-    const action = user.is_active ? 'block' : 'unblock';
+    const action = user.is_active ? 'Block' : 'Unblock';
 
-    if (!confirm(`Are you sure you want to ${action} ${user.username}?`)) {
-      return;
-    }
+    Swal.fire({
 
-    this.userService.toggleUserStatus(user.id).subscribe({
+      title: `${action} User?`,
 
-      next: () => {
+      text: `Are you sure you want to ${action.toLowerCase()} ${user.username}?`,
 
-        this.loadUsers();
+      icon: 'warning',
 
-      },
+      showCancelButton: true,
 
-      error: (err: any) => {
+      confirmButtonColor: '#dc3545',
 
-        console.log(err);
+      cancelButtonColor: '#6c757d',
 
-        alert("Something went wrong.");
+      confirmButtonText: `Yes, ${action}`,
+
+      cancelButtonText: 'Cancel'
+
+    }).then((result) => {
+
+      if (result.isConfirmed) {
+
+        this.userService.toggleUserStatus(user.id).subscribe({
+
+          next: (res: any) => {
+
+            user.is_active = res.is_active;
+
+            const message = res.is_active
+              ? 'User unblocked successfully.'
+              : 'User blocked successfully.';
+
+            Swal.fire({
+
+              icon: 'success',
+
+              title: 'Success',
+
+              text: message,
+
+              timer: 1800,
+
+              showConfirmButton: false
+
+            });
+
+          },
+
+          error: (err: any) => {
+
+            console.log(err);
+
+            Swal.fire({
+
+              icon: 'error',
+
+              title: 'Operation Failed',
+
+              text: err.error?.error || 'Something went wrong.'
+
+            });
+
+          }
+
+        });
 
       }
 
@@ -81,20 +145,32 @@ export class UserManagementComponent implements OnInit {
 
   }
 
+  // ==========================
+  // Search Users
+  // ==========================
+
   get filteredUsers() {
 
-  return this.users.filter(user =>
+    return this.users.filter(user =>
 
-    user.username.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      user.username
+        .toLowerCase()
+        .includes(this.searchText.toLowerCase())
 
-    user.email.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      ||
 
-    (user.first_name + ' ' + user.last_name)
-      .toLowerCase()
-      .includes(this.searchText.toLowerCase())
+      user.email
+        .toLowerCase()
+        .includes(this.searchText.toLowerCase())
 
-  );
+      ||
 
-}
+      (user.first_name + ' ' + user.last_name)
+        .toLowerCase()
+        .includes(this.searchText.toLowerCase())
+
+    );
+
+  }
 
 }

@@ -11,6 +11,7 @@ import { OrdersComponent } from './components/orders/orders.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { authGuard } from './guards/auth.guard';
+import { adminGuard } from './guards/admin.guard';
 
 import { AdminLayoutComponent } from './components/admin/admin-layout/admin-layout.component';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
@@ -45,9 +46,15 @@ export const routes: Routes = [
     // ADMIN
    // ------------------------
 
-  { path: 'admin', component: AdminLayoutComponent, children: [
+  {path: 'admin',
 
-       { path: '',component: AdminDashboardComponent},
+    component: AdminLayoutComponent,
+
+    canActivate: [adminGuard],
+
+    children: [
+
+     {path: '',component: AdminDashboardComponent},
 
     {path: 'categories',component: CategoryManagementComponent},
 

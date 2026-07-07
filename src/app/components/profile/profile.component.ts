@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {FormBuilder,FormGroup,Validators,ReactiveFormsModule} from '@angular/forms';
+import Swal from 'sweetalert2';
 
 import { ProfileService } from '../../services/profile.service';
 
@@ -158,7 +159,13 @@ export class ProfileComponent implements OnInit {
 
     next: () => {
 
-      alert("Profile Updated Successfully");
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Profile updated successfully.',
+        timer: 1800,
+        showConfirmButton: false
+      });
 
     },
 
@@ -166,7 +173,11 @@ export class ProfileComponent implements OnInit {
 
       console.log(err);
 
-      alert("Profile Update Failed");
+      Swal.fire({
+        icon: 'error',
+        title: 'Update Failed',
+        text: 'Unable to update profile.'
+      });
 
     }
 
@@ -188,7 +199,11 @@ export class ProfileComponent implements OnInit {
 
   if (data.new_password !== data.confirm_password) {
 
-    alert("Passwords do not match");
+    Swal.fire({
+      icon: 'warning',
+      title: 'Password Mismatch',
+      text: 'New password and confirm password must match.'
+    });
 
     return;
 
@@ -203,7 +218,13 @@ export class ProfileComponent implements OnInit {
 
     next: () => {
 
-      alert("Password Changed Successfully");
+      Swal.fire({
+        icon: 'success',
+        title: 'Password Changed',
+        text: 'Your password has been updated successfully.',
+        timer: 1800,
+        showConfirmButton: false
+      });
 
       this.passwordForm.reset();
 
@@ -213,7 +234,11 @@ export class ProfileComponent implements OnInit {
 
       console.log(err.error);
 
-      alert(JSON.stringify(err.error));
+      Swal.fire({
+        icon: 'error',
+        title: 'Password Change Failed',
+        text: err.error?.error || 'Unable to change password.'
+      });
 
     }
 

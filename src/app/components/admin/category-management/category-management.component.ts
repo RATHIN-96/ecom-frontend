@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { CategoryService } from '../../../services/category.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-category-management',
@@ -58,7 +59,15 @@ export class CategoryManagementComponent implements OnInit {
 
     if (!this.categoryName.trim()) {
 
-      alert("Enter Category Name");
+      Swal.fire({
+
+        icon: 'warning',
+
+        title: 'Category Required',
+
+        text: 'Please enter a category name.'
+
+      });
 
       return;
 
@@ -81,7 +90,19 @@ export class CategoryManagementComponent implements OnInit {
 
         next: () => {
 
-          alert("Category Updated Successfully");
+          Swal.fire({
+
+            icon: 'success',
+
+            title: 'Success',
+
+            text: 'Category Updated Successfully',
+
+            timer: 1800,
+
+            showConfirmButton: false
+
+          });
 
           this.categoryName = '';
 
@@ -97,7 +118,15 @@ export class CategoryManagementComponent implements OnInit {
 
           console.log(err);
 
-          alert("Update Failed");
+          Swal.fire({
+
+            icon: 'error',
+
+            title: 'Update Failed',
+
+            text: 'Unable to update category.'
+
+          });
 
         }
 
@@ -113,7 +142,19 @@ export class CategoryManagementComponent implements OnInit {
 
         next: () => {
 
-          alert("Category Added Successfully");
+          Swal.fire({
+
+            icon: 'success',
+
+            title: 'Success',
+
+            text: 'Category Added Successfully',
+
+            timer: 1800,
+
+            showConfirmButton: false
+
+          });
 
           this.categoryName = '';
 
@@ -125,7 +166,15 @@ export class CategoryManagementComponent implements OnInit {
 
           console.log(err);
 
-          alert("Add Failed");
+          Swal.fire({
+
+            icon: 'error',
+
+            title: 'Add Failed',
+
+            text: 'Unable to add category.'
+
+          });
 
         }
 
@@ -147,32 +196,72 @@ export class CategoryManagementComponent implements OnInit {
 
   deleteCategory(id: number) {
 
-    if (!confirm("Are you sure you want to delete this category?")) {
+  Swal.fire({
 
-      return;
+    title: 'Delete Category?',
+
+    text: 'This action cannot be undone.',
+
+    icon: 'warning',
+
+    showCancelButton: true,
+
+    confirmButtonColor: '#dc3545',
+
+    cancelButtonColor: '#6c757d',
+
+    confirmButtonText: 'Delete',
+
+    cancelButtonText: 'Cancel'
+
+  }).then((result) => {
+
+    if (result.isConfirmed) {
+
+      this.categoryService.deleteCategory(id).subscribe({
+
+        next: () => {
+
+          Swal.fire({
+
+            icon: 'success',
+
+            title: 'Deleted',
+
+            text: 'Category Deleted Successfully',
+
+            timer: 1800,
+
+            showConfirmButton: false
+
+          });
+
+          this.loadCategories();
+
+        },
+
+        error: (err: any) => {
+
+          console.log(err);
+
+          Swal.fire({
+
+            icon: 'error',
+
+            title: 'Delete Failed',
+
+            text: 'Unable to delete category.'
+
+          });
+
+        }
+
+      });
 
     }
 
-    this.categoryService.deleteCategory(id).subscribe({
+  });
 
-      next: () => {
-
-        alert("Category Deleted Successfully");
-
-        this.loadCategories();
-
-      },
-
-      error: (err: any) => {
-
-        console.log(err);
-
-        alert("Delete Failed");
-
-      }
-
-    });
-
-  }
+}
 
 }

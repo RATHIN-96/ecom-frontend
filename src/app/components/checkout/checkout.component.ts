@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { OrderService } from '../../services/order.service';
 import { PaymentService } from '../../services/payment.service';
+import Swal from 'sweetalert2';
 
 
 declare var Razorpay: any;
@@ -101,7 +102,25 @@ placeOrder() {
 
     next: (res) => {
 
-      alert("Order Placed Successfully");
+      Swal.fire({
+
+        icon: 'success',
+
+        title: 'Order Placed',
+
+        text: 'Your order has been placed successfully.',
+
+        timer: 1800,
+
+        showConfirmButton: false
+
+      });
+
+      setTimeout(() => {
+
+        this.router.navigate(['/orders']);
+
+      }, 1800);
 
       console.log(res);
 
@@ -113,7 +132,15 @@ placeOrder() {
 
       console.log(err);
 
-      alert("Order Failed");
+      Swal.fire({
+
+        icon: 'error',
+
+        title: 'Order Failed',
+
+        text: 'Unable to place your order.'
+
+      });
 
     }
 
@@ -149,7 +176,25 @@ verifyPayment(response: any) {
 
     next: (res) => {
 
-      alert("Payment Verified Successfully");
+      Swal.fire({
+
+        icon: 'success',
+
+        title: 'Payment Successful',
+
+        text: 'Thank you for shopping with Velora.',
+
+        timer: 2000,
+
+        showConfirmButton: false
+
+      });
+
+      setTimeout(() => {
+
+        this.router.navigate(['/orders']);
+
+      }, 2000);
 
       console.log(res);
 
@@ -161,7 +206,15 @@ verifyPayment(response: any) {
 
       console.log(err);
 
-      alert("Payment Verification Failed");
+      Swal.fire({
+
+        icon: 'error',
+
+        title: 'Payment Failed',
+
+        text: 'Payment verification failed. Please contact support if payment was deducted.'
+
+      });
 
     }
 

@@ -13,10 +13,9 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   }
 
-  alert("Please Login First");
-
   router.navigate(['/login']);
-
   return false;
+
+
 
 };

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 import { WishlistService } from '../../services/wishlist.service';
 
@@ -46,24 +47,72 @@ export class WishlistComponent implements OnInit {
 
   removeWishlist(id: number) {
 
-    this.wishlistService.removeWishlist(id).subscribe({
+  Swal.fire({
 
-      next: () => {
+    title: 'Remove from Wishlist?',
 
-        alert("Removed from Wishlist");
+    text: 'Do you want to remove this product from your wishlist?',
 
-        this.loadWishlist();
+    icon: 'warning',
 
-      },
+    showCancelButton: true,
 
-      error: (err) => {
+    confirmButtonColor: '#dc3545',
 
-        console.log(err);
+    cancelButtonColor: '#6c757d',
 
-      }
+    confirmButtonText: 'Remove',
 
-    });
+    cancelButtonText: 'Cancel'
 
-  }
+  }).then((result) => {
+
+    if (result.isConfirmed) {
+
+      this.wishlistService.removeWishlist(id).subscribe({
+
+        next: () => {
+
+          Swal.fire({
+
+            icon: 'success',
+
+            title: 'Removed',
+
+            text: 'Product removed from wishlist.',
+
+            timer: 1800,
+
+            showConfirmButton: false
+
+          });
+
+          this.loadWishlist();
+
+        },
+
+        error: (err) => {
+
+          console.log(err);
+
+          Swal.fire({
+
+            icon: 'error',
+
+            title: 'Failed',
+
+            text: 'Unable to remove product.'
+
+          });
+
+        }
+
+      });
+
+    }
+
+  });
+
+}
 
 }

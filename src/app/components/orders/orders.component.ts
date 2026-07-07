@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 import { OrderService } from '../../services/order.service';
 
@@ -46,31 +47,71 @@ export class OrdersComponent implements OnInit {
 
   cancelOrder(id: number) {
 
-    if (!confirm("Are you sure you want to cancel this order?")) {
+  Swal.fire({
 
-      return;
+    title: 'Cancel Order?',
+
+    text: 'Do you really want to cancel this order?',
+
+    icon: 'warning',
+
+    showCancelButton: true,
+
+    confirmButtonColor: '#dc3545',
+
+    cancelButtonColor: '#6c757d',
+
+    confirmButtonText: 'Yes, Cancel',
+
+    cancelButtonText: 'No'
+
+  }).then((result)=>{
+
+    if(result.isConfirmed){
+
+      this.orderService.cancelOrder(id).subscribe({
+
+        next:(res:any)=>{
+
+          Swal.fire({
+
+            icon:'success',
+
+            title:'Cancelled',
+
+            text:res.message,
+
+            timer:1800,
+
+            showConfirmButton:false
+
+          });
+
+          this.loadOrders();
+
+        },
+
+        error:(err:any)=>{
+
+          Swal.fire({
+
+            icon:'error',
+
+            title:'Failed',
+
+            text:err.error.message
+
+          });
+
+        }
+
+      });
 
     }
 
-    this.orderService.cancelOrder(id).subscribe({
+  });
 
-      next: (res: any) => {
-
-        alert(res.message);
-
-        this.loadOrders();
-
-      },
-
-      error: (err) => {
-
-        alert(err.error.message);
-
-      }
-
-    });
-
-  }
+}
 
   getTruckPosition(order:any):string{
 
@@ -79,14 +120,17 @@ export class OrdersComponent implements OnInit {
     case 'Pending':
       return '0%';
 
-    case 'Paid':
-      return '48%';
+    case 'Processing':
+      return '25%';
 
     case 'Shipped':
-      return '83%';
+      return '50%';
+
+    case 'Out for Delivery':
+      return '75%';
 
     case 'Delivered':
-      return '97%';
+      return '96%';
 
     default:
       return '0%';
@@ -95,24 +139,27 @@ export class OrdersComponent implements OnInit {
 
 }
 
-getProgressWidth(order: any): string {
+getProgressWidth(order:any):string{
 
-  switch (order.status) {
+  switch(order.status){
 
     case 'Pending':
-      return '15%';
+      return '5%';
 
-    case 'Paid':
-      return '53%';
+    case 'Processing':
+      return '30%';
 
     case 'Shipped':
-      return '89%';
+      return '55%';
+
+    case 'Out for Delivery':
+      return '80%';
 
     case 'Delivered':
       return '100%';
 
     default:
-      return '15%';
+      return '5%';
 
   }
 
@@ -142,7 +189,15 @@ downloadInvoice(id: number) {
 
       console.log(err);
 
-      alert("Invoice download failed");
+      Swal.fire({
+
+        icon: 'error',
+
+        title: 'Download Failed',
+
+        text: 'Unable to download invoice.'
+
+      });
 
     }
 

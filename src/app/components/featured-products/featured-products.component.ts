@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-featured-products',
@@ -34,16 +35,32 @@ export class FeaturedProductsComponent implements OnInit {
   addToCart(productId: number) {
 
   const cartData = {
-  cart: 1,
-  product_id: productId,
-  quantity: 1
-};
+
+    cart: 1,
+
+    product_id: productId,
+
+    quantity: 1
+
+  };
 
   this.cartService.addToCart(cartData).subscribe({
 
     next: (res) => {
 
-      alert("Product Added Successfully");
+      Swal.fire({
+
+        icon: 'success',
+
+        title: 'Added to Cart',
+
+        text: 'Product added successfully.',
+
+        timer: 1800,
+
+        showConfirmButton: false
+
+      });
 
       console.log(res);
 
@@ -53,7 +70,15 @@ export class FeaturedProductsComponent implements OnInit {
 
       console.log(err);
 
-      alert("Failed to add product");
+      Swal.fire({
+
+        icon: 'error',
+
+        title: 'Failed',
+
+        text: 'Unable to add product to cart.'
+
+      });
 
     }
 

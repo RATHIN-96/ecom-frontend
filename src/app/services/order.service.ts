@@ -7,48 +7,80 @@ import { Observable } from 'rxjs';
 })
 export class OrderService {
 
-  private apiUrl = 'http://127.0.0.1:8000/place-order/';
+  private placeOrderUrl = 'http://127.0.0.1:8000/place-order/';
+  private orderUrl = 'http://127.0.0.1:8000/orders/';
 
   constructor(private http: HttpClient) {}
 
-  
+  // ===============================
+  // User
+  // ===============================
 
   placeOrder(data: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, data);
+
+    return this.http.post<any>(
+      this.placeOrderUrl,
+      data
+    );
+
   }
 
   getOrders(): Observable<any[]> {
+
     return this.http.get<any[]>(
-      'http://127.0.0.1:8000/orders/'
+      this.orderUrl
     );
+
   }
 
   cancelOrder(id: number) {
 
-  return this.http.post(
+    return this.http.post(
 
-    `http://127.0.0.1:8000/cancel-order/${id}/`,
+      `http://127.0.0.1:8000/cancel-order/${id}/`,
 
-    {}
+      {}
 
-  );
+    );
 
-}
+  }
 
- downloadInvoice(id: number) {
+  downloadInvoice(id: number) {
 
-  return this.http.get(
+    return this.http.get(
 
-    `http://127.0.0.1:8000/invoice/${id}/`,
+      `http://127.0.0.1:8000/invoice/${id}/`,
 
-    {
+      {
 
-      responseType: 'blob'
+        responseType: 'blob'
 
-    }
+      }
 
-  );
+    );
 
-}
+  }
+
+  // ===============================
+  // Admin
+  // ===============================
+
+  getOrder(id: number): Observable<any> {
+
+    return this.http.get<any>(
+      `${this.orderUrl}${id}/`
+    );
+
+  }
+
+  updateOrder(id: number,data: any):
+   Observable<any> {
+
+    return this.http.patch<any>(
+      `${this.orderUrl}${id}/`,
+      data
+    );
+
+  }
 
 }

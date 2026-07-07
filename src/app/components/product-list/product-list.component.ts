@@ -6,6 +6,7 @@ import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
 import { FormsModule } from '@angular/forms';
 import { CategoryService } from '../../services/category.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-list',
@@ -102,27 +103,51 @@ loadCategories() {
 
 addToCart(product: any) {
 
-    const data = {
+  const data = {
+
     product_id: product.id,
+
     quantity: 1
-    };
 
-    this.cartService.addToCart(data).subscribe({
+  };
 
-      next: () => {
+  this.cartService.addToCart(data).subscribe({
 
-        alert("Product Added to Cart");
+    next: () => {
 
-      },
+      Swal.fire({
 
-      error: (err) => {
+        icon: 'success',
 
-        console.log(err);
+        title: 'Added to Cart',
 
-      }
+        text: 'Product added successfully.',
 
-    });
+        timer: 1800,
 
-  }
+        showConfirmButton: false
 
+      });
+
+    },
+
+    error: (err) => {
+
+      console.log(err);
+
+      Swal.fire({
+
+        icon: 'error',
+
+        title: 'Failed',
+
+        text: 'Unable to add product to cart.'
+
+      });
+
+    }
+
+  });
+
+}
 }

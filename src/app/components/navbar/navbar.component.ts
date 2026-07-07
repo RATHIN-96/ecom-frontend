@@ -1,6 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 import { AuthService } from '../../services/auth.service';
 
@@ -95,14 +96,56 @@ export class NavbarComponent {
 
   logout() {
 
-    this.closeDropdown();
+  this.closeDropdown();
 
-    this.authService.logout();
+  Swal.fire({
 
-    alert("Logged Out Successfully");
+    title: 'Logout?',
 
-    this.router.navigate(['/login']);
+    text: 'Do you really want to logout?',
 
-  }
+    icon: 'question',
+
+    showCancelButton: true,
+
+    confirmButtonColor: '#0d6efd',
+
+    cancelButtonColor: '#6c757d',
+
+    confirmButtonText: 'Logout',
+
+    cancelButtonText: 'Stay'
+
+  }).then((result) => {
+
+    if (result.isConfirmed) {
+
+      this.authService.logout();
+
+      Swal.fire({
+
+        icon: 'success',
+
+        title: 'Logged Out',
+
+        text: 'You have been logged out successfully.',
+
+        timer: 1500,
+
+        showConfirmButton: false
+
+      });
+
+      setTimeout(() => {
+
+        this.router.navigate(['/login']);
+
+      }, 1500);
+
+    }
+
+  });
+
+}
 
 }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CartService } from '../../services/cart.service';
 import { RouterLink } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cart',
@@ -60,15 +61,68 @@ export class CartComponent implements OnInit {
   
   removeItem(id: number) {
 
-  this.cartService.deleteCartItem(id).subscribe({
+  Swal.fire({
 
-    next: () => {
-      alert("Product Removed");
-      this.loadCart();
-    },
+    title: 'Remove Product?',
 
-    error: (err) => {
-      console.log(err);
+    text: 'Do you want to remove this product from your cart?',
+
+    icon: 'warning',
+
+    showCancelButton: true,
+
+    confirmButtonColor: '#dc3545',
+
+    cancelButtonColor: '#6c757d',
+
+    confirmButtonText: 'Remove',
+
+    cancelButtonText: 'Cancel'
+
+  }).then((result) => {
+
+    if (result.isConfirmed) {
+
+      this.cartService.deleteCartItem(id).subscribe({
+
+        next: () => {
+
+          Swal.fire({
+
+            icon: 'success',
+
+            title: 'Removed',
+
+            text: 'Product removed from cart.',
+
+            timer: 1800,
+
+            showConfirmButton: false
+
+          });
+
+          this.loadCart();
+
+        },
+
+        error: (err) => {
+
+          console.log(err);
+
+          Swal.fire({
+
+            icon: 'error',
+
+            title: 'Failed',
+
+            text: 'Unable to remove product.'
+
+          });
+
+        }
+
+      });
+
     }
 
   });

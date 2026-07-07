@@ -9,6 +9,7 @@ import {
 import { Router, RouterLink } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -105,11 +106,25 @@ export class RegisterComponent {
 
         next: (res) => {
 
-          alert("Registration Successful");
+         Swal.fire({
 
-          console.log(res);
+          icon: 'success',
+
+          title: 'Registration Successful',
+
+          text: 'Your account has been created successfully.',
+
+          timer: 1800,
+
+          showConfirmButton: false
+
+        });
+
+        setTimeout(() => {
 
           this.router.navigate(['/login']);
+
+        }, 1800);
 
         },
 
@@ -117,7 +132,15 @@ export class RegisterComponent {
 
           console.log(err);
 
-          alert("Registration Failed");
+          Swal.fire({
+
+            icon: 'error',
+
+            title: 'Registration Failed',
+
+            text: 'Please check your details and try again.'
+
+          });
 
         }
 

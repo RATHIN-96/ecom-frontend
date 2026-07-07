@@ -9,6 +9,7 @@ import {
 
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -63,17 +64,33 @@ export class LoginComponent {
       localStorage.setItem('username', res.username);
       localStorage.setItem('first_name', res.first_name);
 
-      alert("Login Successful");
+      Swal.fire({
 
-      if(res.is_staff){
+        icon: 'success',
 
-        this.router.navigate(['/admin']);
+        title: 'Welcome!',
 
-      }else{
+        text: 'Login Successful',
 
-        this.router.navigate(['/']);
+        timer: 1800,
 
-      }
+        showConfirmButton: false
+
+      });
+
+      setTimeout(() => {
+
+        if (res.is_staff) {
+
+          this.router.navigate(['/admin']);
+
+        } else {
+
+          this.router.navigate(['/']);
+
+        }
+
+      }, 1800);
 
     },
 
@@ -81,7 +98,15 @@ export class LoginComponent {
 
         console.log(err);
 
-        alert("Invalid Username or Password");
+        Swal.fire({
+
+          icon: 'error',
+
+          title: 'Login Failed',
+
+          text: 'Invalid Username or Password'
+
+        });
 
       }
 

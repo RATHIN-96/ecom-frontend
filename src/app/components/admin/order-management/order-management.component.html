@@ -1,1 +1,212 @@
-<p>order-management works!</p>
+<div class="container-fluid">
+
+    <!-- Heading -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+
+        <h2 class="fw-bold mb-3 mb-md-0">
+            📦 Order Management
+        </h2>
+
+    </div>
+
+    <!-- Search -->
+
+    <div class="row mb-4">
+
+        <div class="col-12 col-md-4">
+
+            <input
+                type="text"
+                class="form-control"
+                placeholder="🔍 Search Order..."
+                [(ngModel)]="searchText">
+
+        </div>
+
+    </div>
+
+    <!-- Orders -->
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-dark">
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Username</th>
+
+                            <th>Customer</th>
+
+                            <th>Phone</th>
+
+                            <th>Total</th>
+
+                            <th>Payment Status</th>
+
+                            <th>Delivery Status</th>
+
+                            <th>Refund Status</th>
+
+                            <!-- <th width="120">
+                                Action
+                            </th> -->
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr *ngFor="let order of filteredOrders">
+
+                            <!-- Order ID -->
+
+                            <td>
+
+                                #{{ order.id }}
+
+                            </td>
+
+                            <!-- Username -->
+
+                            <td>
+
+                                {{ order.user }}
+
+                            </td>
+
+                            <!-- Customer -->
+
+                            <td>
+
+                                {{ order.name }}
+
+                            </td>
+
+                            <!-- Phone -->
+
+                            <td>
+
+                                {{ order.phone }}
+
+                            </td>
+
+                            <!-- Total -->
+
+                            <td>
+
+                                ₹ {{ order.total_price }}
+
+                            </td>
+
+                            <!-- Payment -->
+
+                            <td>
+
+                                <select
+                                    class="form-select form-select-sm"
+                                    [(ngModel)]="order.payment_status"
+                                    (change)="updatePayment(order)">
+
+                                    <option
+                                        *ngFor="let payment of paymentStatus"
+                                        [value]="payment">
+
+                                        {{ payment }}
+
+                                    </option>
+
+                                </select>
+
+                            </td>
+
+                            <!-- Delivery -->
+
+                            <td>
+
+                                <select
+                                    class="form-select form-select-sm"
+                                    [(ngModel)]="order.status"
+                                    (change)="updateStatus(order)">
+
+                                    <option
+                                        *ngFor="let status of deliveryStatus"
+                                        [value]="status">
+
+                                        {{ status }}
+
+                                    </option>
+
+                                </select>
+
+                            </td>
+
+                            <!-- Refund -->
+
+                            <td>
+
+                                <select
+                                    class="form-select form-select-sm"
+                                    [(ngModel)]="order.refund_status"
+                                    (change)="updateRefund(order)">
+
+                                    <option
+                                        *ngFor="let refund of refundStatus"
+                                        [value]="refund">
+
+                                        {{ refund }}
+
+                                    </option>
+
+                                </select>
+
+                            </td>
+
+                            <!-- Action -->
+
+                            <td>
+
+                                <!-- <button
+                                    class="btn btn-primary btn-sm"
+                                    (click)="viewOrder(order)">
+
+                                    <i class="bi bi-eye-fill"></i>
+
+                                </button> -->
+
+                            </td>
+
+                        </tr>
+
+                        <tr *ngIf="filteredOrders.length === 0">
+
+                            <td
+                                colspan="9"
+                                class="text-center py-4">
+
+                                No Orders Found
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

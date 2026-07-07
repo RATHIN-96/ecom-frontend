@@ -8,6 +8,7 @@ import { WishlistService } from '../../services/wishlist.service';
 
 import { FormsModule } from '@angular/forms';
 import { ReviewService } from '../../services/review.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-detail',
@@ -68,7 +69,13 @@ export class ProductDetailComponent implements OnInit {
 
     next: (res) => {
 
-      alert("Product Added Successfully");
+      Swal.fire({
+        icon: 'success',
+        title: 'Added to Cart',
+        text: 'Product added successfully.',
+        timer: 1800,
+        showConfirmButton: false
+      });
 
       console.log(res);
 
@@ -78,7 +85,11 @@ export class ProductDetailComponent implements OnInit {
 
       console.log(err.error);
 
-      alert(JSON.stringify(err.error));
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed',
+        text: err.error?.message || 'Unable to add product.'
+      });
 
     }
 
@@ -97,7 +108,13 @@ addToWishlist() {
 
     next: (res) => {
 
-      alert("Added to Wishlist ❤️");
+      Swal.fire({
+        icon: 'success',
+        title: 'Wishlist',
+        text: 'Product added to wishlist ❤️',
+        timer: 1800,
+        showConfirmButton: false
+      });
 
       console.log(res);
 
@@ -107,7 +124,11 @@ addToWishlist() {
 
       console.log(err);
 
-      alert("Already in Wishlist");
+      Swal.fire({
+        icon: 'info',
+        title: 'Already Added',
+        text: 'This product is already in your wishlist.'
+      });
 
     }
 
@@ -145,7 +166,11 @@ submitReview() {
 
   if (!this.review.comment.trim()) {
 
-    alert("Please enter a review.");
+    Swal.fire({
+      icon: 'warning',
+      title: 'Review Required',
+      text: 'Please enter your review.'
+    });
 
     return;
 
@@ -163,7 +188,13 @@ submitReview() {
 
     next: () => {
 
-      alert("Review Added Successfully");
+      Swal.fire({
+        icon: 'success',
+        title: 'Thank You!',
+        text: 'Review submitted successfully.',
+        timer: 1800,
+        showConfirmButton: false
+      });
 
       this.review.comment = '';
       this.review.rating = 5;
@@ -176,7 +207,11 @@ submitReview() {
 
       console.log(err.error);
 
-      alert("You have already reviewed this product.");
+      Swal.fire({
+        icon: 'info',
+        title: 'Already Reviewed',
+        text: 'You have already reviewed this product.'
+      });
 
     }
 
@@ -186,25 +221,65 @@ submitReview() {
 
 deleteReview(id: number) {
 
-  if (!confirm("Delete this review?")) {
-    return;
-  }
+  Swal.fire({
 
-  this.reviewService.deleteReview(id).subscribe({
+    title: 'Delete Review?',
 
-    next: () => {
+    text: 'This review will be permanently deleted.',
 
-      alert("Review Deleted Successfully");
+    icon: 'warning',
 
-      this.loadReviews();
+    showCancelButton: true,
 
-    },
+    confirmButtonColor: '#dc3545',
 
-    error: (err) => {
+    cancelButtonColor: '#6c757d',
 
-      console.log(err);
+    confirmButtonText: 'Delete',
 
-      alert("Unable to delete review");
+    cancelButtonText: 'Cancel'
+
+  }).then((result) => {
+
+    if (result.isConfirmed) {
+
+      this.reviewService.deleteReview(id).subscribe({
+
+        next: () => {
+
+          Swal.fire({
+
+            icon: 'success',
+
+            title: 'Deleted',
+
+            text: 'Review deleted successfully.',
+
+            timer: 1800,
+
+            showConfirmButton: false
+
+          });
+
+          this.loadReviews();
+
+        },
+
+        error: () => {
+
+          Swal.fire({
+
+            icon: 'error',
+
+            title: 'Delete Failed',
+
+            text: 'Unable to delete review.'
+
+          });
+
+        }
+
+      });
 
     }
 

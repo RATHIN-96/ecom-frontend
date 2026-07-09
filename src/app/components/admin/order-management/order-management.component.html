@@ -1,34 +1,42 @@
 <div class="container-fluid">
 
-    <!-- Heading -->
+    <!-- =========================
+         Heading
+    ========================== -->
 
     <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
 
         <h2 class="fw-bold mb-3 mb-md-0">
+
             📦 Order Management
+
         </h2>
 
     </div>
 
-    <!-- Search -->
+    <!-- =========================
+         Search
+    ========================== -->
 
     <div class="row mb-4">
 
-        <div class="col-12 col-md-4">
+        <div class="col-lg-4">
 
             <input
                 type="text"
                 class="form-control"
-                placeholder="🔍 Search Order..."
+                placeholder="🔍 Search Customer / Order ID..."
                 [(ngModel)]="searchText">
 
         </div>
 
     </div>
 
-    <!-- Orders -->
+    <!-- =========================
+         Orders Table
+    ========================== -->
 
-    <div class="card shadow-sm">
+    <div class="card shadow border-0">
 
         <div class="card-body">
 
@@ -40,9 +48,7 @@
 
                         <tr>
 
-                            <th>ID</th>
-
-                            <th>Username</th>
+                            <th>#</th>
 
                             <th>Customer</th>
 
@@ -50,15 +56,17 @@
 
                             <th>Total</th>
 
-                            <th>Payment Status</th>
+                            <th>Payment</th>
 
-                            <th>Delivery Status</th>
+                            <th>Delivery</th>
 
-                            <th>Refund Status</th>
+                            <th>Refund</th>
 
-                            <!-- <th width="120">
+                            <th width="120">
+
                                 Action
-                            </th> -->
+
+                            </th>
 
                         </tr>
 
@@ -68,19 +76,23 @@
 
                         <tr *ngFor="let order of filteredOrders">
 
-                            <!-- Order ID -->
+                            <!-- Order -->
 
                             <td>
 
-                                #{{ order.id }}
+                                <strong>
 
-                            </td>
+                                    #{{order.id}}
 
-                            <!-- Username -->
+                                </strong>
 
-                            <td>
+                                <br>
 
-                                {{ order.user }}
+                                <small class="text-muted">
+
+                                    {{order.created_at | date:'dd MMM yyyy'}}
+
+                                </small>
 
                             </td>
 
@@ -88,7 +100,17 @@
 
                             <td>
 
-                                {{ order.name }}
+                                <div class="fw-bold">
+
+                                    {{order.name}}
+
+                                </div>
+
+                                <small class="text-muted">
+
+                                    {{order.user}}
+
+                                </small>
 
                             </td>
 
@@ -96,7 +118,7 @@
 
                             <td>
 
-                                {{ order.phone }}
+                                {{order.phone}}
 
                             </td>
 
@@ -104,7 +126,11 @@
 
                             <td>
 
-                                ₹ {{ order.total_price }}
+                                <span class="fw-bold text-success">
+
+                                    ₹{{order.total_price}}
+
+                                </span>
 
                             </td>
 
@@ -113,15 +139,20 @@
                             <td>
 
                                 <select
+
                                     class="form-select form-select-sm"
+
                                     [(ngModel)]="order.payment_status"
+
                                     (change)="updatePayment(order)">
 
                                     <option
+
                                         *ngFor="let payment of paymentStatus"
+
                                         [value]="payment">
 
-                                        {{ payment }}
+                                        {{payment}}
 
                                     </option>
 
@@ -134,15 +165,20 @@
                             <td>
 
                                 <select
+
                                     class="form-select form-select-sm"
+
                                     [(ngModel)]="order.status"
+
                                     (change)="updateStatus(order)">
 
                                     <option
+
                                         *ngFor="let status of deliveryStatus"
+
                                         [value]="status">
 
-                                        {{ status }}
+                                        {{status}}
 
                                     </option>
 
@@ -155,15 +191,20 @@
                             <td>
 
                                 <select
+
                                     class="form-select form-select-sm"
+
                                     [(ngModel)]="order.refund_status"
+
                                     (change)="updateRefund(order)">
 
                                     <option
+
                                         *ngFor="let refund of refundStatus"
+
                                         [value]="refund">
 
-                                        {{ refund }}
+                                        {{refund}}
 
                                     </option>
 
@@ -175,23 +216,25 @@
 
                             <td>
 
-                                <!-- <button
+                                <button
+
                                     class="btn btn-primary btn-sm"
+
                                     (click)="viewOrder(order)">
 
                                     <i class="bi bi-eye-fill"></i>
 
-                                </button> -->
+                                    View
+
+                                </button>
 
                             </td>
 
                         </tr>
 
-                        <tr *ngIf="filteredOrders.length === 0">
+                        <tr *ngIf="filteredOrders.length==0">
 
-                            <td
-                                colspan="9"
-                                class="text-center py-4">
+                            <td colspan="8" class="text-center py-4">
 
                                 No Orders Found
 
@@ -204,6 +247,242 @@
                 </table>
 
             </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     ORDER DETAILS MODAL
+========================================== -->
+
+<div
+    class="custom-modal"
+    *ngIf="selectedOrder">
+
+    <div class="modal-content-custom">
+
+        <!-- Header -->
+
+        <div class="modal-header-custom">
+
+            <h3>
+
+                📦 Order #{{selectedOrder.id}}
+
+            </h3>
+
+            <button
+                class="close-btn"
+                (click)="selectedOrder = null">
+
+                ✕
+
+            </button>
+
+        </div>
+
+        <hr>
+
+        <!-- Customer -->
+
+        <div class="customer-box">
+
+            <h5 class="mb-3">
+
+                👤 Customer Details
+
+            </h5>
+
+            <p>
+
+                <strong>Name :</strong>
+
+                {{selectedOrder.name}}
+
+            </p>
+
+            <p>
+
+                <strong>Username :</strong>
+
+                {{selectedOrder.user}}
+
+            </p>
+
+            <p>
+
+                <strong>Phone :</strong>
+
+                {{selectedOrder.phone}}
+
+            </p>
+
+            <p>
+
+                <strong>Address :</strong>
+
+                <br>
+
+                {{selectedOrder.address}}
+
+            </p>
+
+        </div>
+
+        <!-- Products -->
+
+        <h5 class="mb-3">
+
+            🛒 Ordered Products
+
+        </h5>
+
+        <div
+            *ngFor="let item of selectedOrder.items"
+            class="product-item">
+
+            <img
+                [src]="item.product.image"
+                alt="Product">
+
+            <div class="product-info">
+
+                <h6>
+
+                    {{item.product.name}}
+
+                </h6>
+
+                <p class="mb-1">
+
+                    Quantity :
+                    <strong>
+
+                        {{item.quantity}}
+
+                    </strong>
+
+                </p>
+
+                <p class="mb-0">
+
+                    Price :
+                    <strong>
+
+                        ₹{{item.price}}
+
+                    </strong>
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Total -->
+
+        <div class="total-box">
+
+            <div class="d-flex justify-content-between">
+
+                <h5>
+
+                    Grand Total
+
+                </h5>
+
+                <h4>
+
+                    ₹{{selectedOrder.total_price}}
+
+                </h4>
+
+            </div>
+
+        </div>
+
+        <!-- Status -->
+
+        <div class="status-grid">
+
+            <div class="status-card">
+
+                <h6>
+
+                    Payment
+
+                </h6>
+
+                <p>
+
+                    {{selectedOrder.payment_status}}
+
+                </p>
+
+            </div>
+
+            <div class="status-card">
+
+                <h6>
+
+                    Delivery
+
+                </h6>
+
+                <p>
+
+                    {{selectedOrder.status}}
+
+                </p>
+
+            </div>
+
+            <div class="status-card">
+
+                <h6>
+
+                    Refund
+
+                </h6>
+
+                <p>
+
+                    {{selectedOrder.refund_status}}
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+
+       <div class="d-flex justify-content-between mt-4">
+
+            <button
+
+                 class="btn btn-success"
+
+                (click)="printInvoice(selectedOrder.id)">
+
+                <i class="bi bi-printer-fill"></i>
+
+                Print Invoice
+
+            </button>
+
+            <button
+
+                class="btn btn-secondary"
+
+                (click)="selectedOrder=null">
+
+             Close
+
+            </button>
 
         </div>
 

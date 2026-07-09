@@ -1,62 +1,113 @@
-<div class="container mt-5 mb-5">
+<div class="register-page">
 
-    <div class="row justify-content-center">
+    <div class="container">
 
-        <div class="col-lg-6">
+        <div class="row justify-content-center align-items-center min-vh-100">
 
-            <div class="card shadow-lg border-0 rounded-4">
+            <div class="col-lg-7 col-md-10">
 
-                <div class="card-body p-5">
+                <div class="register-card">
 
-                    <h2 class="text-center mb-4">
-                        Create Account
-                    </h2>
+                    <!-- Logo -->
 
-                    <form [formGroup]="registerForm"(ngSubmit)="onSubmit()">
+                    <div class="text-center mb-4">
 
-                        <!-- First Name -->
+                        <img
+                            src="/images/VELORA (2).png"
+                            class="register-logo"
+                            alt="Velora">
 
-                        <div class="mb-3">
+                        <h2 class="fw-bold mt-3">
 
-                            <label class="form-label">
-                                First Name
-                            </label>
+                            Create Your Account 🚀
 
-                            <input
-                                type="text"
-                                class="form-control"
-                                formControlName="first_name">
+                        </h2>
 
-                            <small class="text-danger"
-                                *ngIf="registerForm.get('first_name')?.invalid &&
-                                registerForm.get('first_name')?.touched">
+                        <p class="text-muted">
 
-                                Only letters allowed (Minimum 3 letters)
+                            Join Velora and enjoy the best shopping experience.
 
-                            </small>
+                        </p>
 
-                        </div>
+                    </div>
 
-                        <!-- Last Name -->
+                    <form
+                        [formGroup]="registerForm"
+                        (ngSubmit)="onSubmit()">
 
-                        <div class="mb-3">
+                        <!-- First & Last Name -->
 
-                            <label class="form-label">
-                                Last Name
-                            </label>
+                        <div class="row">
 
-                            <input
-                                type="text"
-                                class="form-control"
-                                formControlName="last_name">
+                            <div class="col-md-6 mb-3">
 
-                            <small class="text-danger"
-                                *ngIf="registerForm.get('last_name')?.invalid &&
-                                registerForm.get('last_name')?.touched">
+                                <label class="form-label">
 
-                                Enter a valid last name
+                                    First Name
 
-                            </small>
+                                </label>
+
+                                <div class="input-group">
+
+                                    <span class="input-group-text">
+
+                                        <i class="bi bi-person-fill"></i>
+
+                                    </span>
+
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="First Name"
+                                        formControlName="first_name">
+
+                                </div>
+
+                                <small
+                                    class="text-danger"
+                                    *ngIf="registerForm.get('first_name')?.invalid &&
+                                           registerForm.get('first_name')?.touched">
+
+                                    Only letters allowed (Minimum 3 letters)
+
+                                </small>
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+
+                                    Last Name
+
+                                </label>
+
+                                <div class="input-group">
+
+                                    <span class="input-group-text">
+
+                                        <i class="bi bi-person-fill"></i>
+
+                                    </span>
+
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Last Name"
+                                        formControlName="last_name">
+
+                                </div>
+
+                                <small
+                                    class="text-danger"
+                                    *ngIf="registerForm.get('last_name')?.invalid &&
+                                           registerForm.get('last_name')?.touched">
+
+                                    Enter a valid last name
+
+                                </small>
+
+                            </div>
 
                         </div>
 
@@ -65,17 +116,31 @@
                         <div class="mb-3">
 
                             <label class="form-label">
+
                                 Username
+
                             </label>
 
-                            <input
-                                type="text"
-                                class="form-control"
-                                formControlName="username">
+                            <div class="input-group">
 
-                            <small class="text-danger"
+                                <span class="input-group-text">
+
+                                    <i class="bi bi-person-badge-fill"></i>
+
+                                </span>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Username"
+                                    formControlName="username">
+
+                            </div>
+
+                            <small
+                                class="text-danger"
                                 *ngIf="registerForm.get('username')?.invalid &&
-                                registerForm.get('username')?.touched">
+                                       registerForm.get('username')?.touched">
 
                                 Username must contain 4-20 characters
 
@@ -88,17 +153,31 @@
                         <div class="mb-3">
 
                             <label class="form-label">
-                                Email
+
+                                Email Address
+
                             </label>
 
-                            <input
-                                type="email"
-                                class="form-control"
-                                formControlName="email">
+                            <div class="input-group">
 
-                            <small class="text-danger"
+                                <span class="input-group-text">
+
+                                    <i class="bi bi-envelope-fill"></i>
+
+                                </span>
+
+                                <input
+                                    type="email"
+                                    class="form-control"
+                                    placeholder="Enter Email"
+                                    formControlName="email">
+
+                            </div>
+
+                            <small
+                                class="text-danger"
                                 *ngIf="registerForm.get('email')?.invalid &&
-                                registerForm.get('email')?.touched">
+                                       registerForm.get('email')?.touched">
 
                                 Enter a valid email
 
@@ -111,17 +190,31 @@
                         <div class="mb-3">
 
                             <label class="form-label">
+
                                 Phone Number
+
                             </label>
 
-                            <input
-                                type="text"
-                                class="form-control"
-                                formControlName="phone">
+                            <div class="input-group">
 
-                            <small class="text-danger"
+                                <span class="input-group-text">
+
+                                    <i class="bi bi-telephone-fill"></i>
+
+                                </span>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="10 Digit Mobile Number"
+                                    formControlName="phone">
+
+                            </div>
+
+                            <small
+                                class="text-danger"
                                 *ngIf="registerForm.get('phone')?.invalid &&
-                                registerForm.get('phone')?.touched">
+                                       registerForm.get('phone')?.touched">
 
                                 Enter a valid 10-digit mobile number
 
@@ -134,29 +227,34 @@
                         <div class="mb-3">
 
                             <label class="form-label">
+
                                 Password
+
                             </label>
 
-                            <input
-                                type="password"
-                                class="form-control"
-                                formControlName="password">
+                            <div class="input-group">
 
-                            <small class="text-danger"
+                                <span class="input-group-text">
+
+                                    <i class="bi bi-lock-fill"></i>
+
+                                </span>
+
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    placeholder="Password"
+                                    formControlName="password">
+
+                            </div>
+
+                            <small
+                                class="text-danger"
                                 *ngIf="registerForm.get('password')?.invalid &&
-                                registerForm.get('password')?.touched">
+                                       registerForm.get('password')?.touched">
 
-                                Password must contain:
-                                <br>
-                                ✔ 8 Characters
-                                <br>
-                                ✔ One Uppercase
-                                <br>
-                                ✔ One Lowercase
-                                <br>
-                                ✔ One Number
-                                <br>
-                                ✔ One Special Character
+                                Minimum 8 characters with uppercase, lowercase,
+                                number & special character.
 
                             </small>
 
@@ -167,35 +265,61 @@
                         <div class="mb-4">
 
                             <label class="form-label">
+
                                 Confirm Password
+
                             </label>
 
-                            <input
-                                type="password"
-                                class="form-control"
-                                formControlName="confirm_password">
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+
+                                    <i class="bi bi-shield-lock-fill"></i>
+
+                                </span>
+
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    placeholder="Confirm Password"
+                                    formControlName="confirm_password">
+
+                            </div>
 
                         </div>
 
-                        <!-- Register Button -->
+                        <!-- Button -->
 
-                        <button type="submit"class="btn btn-primary w-100"[disabled]="registerForm.invalid">
+                        <div class="d-grid">
 
-                            Register
+                            <button
+                                class="btn btn-warning btn-lg"
+                                type="submit"
+                                [disabled]="registerForm.invalid">
 
-                        </button>
+                                <i class="bi bi-person-plus-fill me-2"></i>
 
-                        <div class="text-center mt-3">
+                                Create Account
+
+                            </button>
+
+                        </div>
+
+                        <hr class="my-4">
+
+                        <p class="text-center mb-0">
 
                             Already have an account?
 
-                            <a routerLink="/login">
+                            <a
+                                routerLink="/login"
+                                class="login-link">
 
                                 Login
 
                             </a>
 
-                        </div>
+                        </p>
 
                     </form>
 

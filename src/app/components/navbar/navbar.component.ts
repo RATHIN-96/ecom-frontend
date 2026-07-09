@@ -1,9 +1,10 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 
 import { AuthService } from '../../services/auth.service';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +16,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
 
   // Mobile Menu
   mobileMenuOpen = false;
@@ -23,10 +24,30 @@ export class NavbarComponent {
   // Account Dropdown
   accountMenuOpen = false;
 
+  // Cart Badge Count
+  cartCount = 0;
+
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cartService: CartService
   ) {}
+
+  ngOnInit(): void {
+
+    if (this.isLoggedIn()) {
+
+      this.cartService.loadCartCount();
+
+      this.cartService.cartCount$.subscribe(count => {
+
+        this.cartCount = count;
+
+      });
+
+    }
+
+  }
 
   // --------------------------
   // Login Check
@@ -71,8 +92,6 @@ export class NavbarComponent {
 
   }
 
-  // Close dropdown when clicking outside
-
   @HostListener('document:click', ['$event'])
 
   onDocumentClick(event: Event) {
@@ -96,56 +115,56 @@ export class NavbarComponent {
 
   logout() {
 
-  this.closeDropdown();
+    this.closeDropdown();
 
-  Swal.fire({
+    Swal.fire({
 
-    title: 'Logout?',
+      title: 'Logout?',
 
-    text: 'Do you really want to logout?',
+      text: 'Do you really want to logout?',
 
-    icon: 'question',
+      icon: 'question',
 
-    showCancelButton: true,
+      showCancelButton: true,
 
-    confirmButtonColor: '#0d6efd',
+      confirmButtonColor: '#0d6efd',
 
-    cancelButtonColor: '#6c757d',
+      cancelButtonColor: '#6c757d',
 
-    confirmButtonText: 'Logout',
+      confirmButtonText: 'Logout',
 
-    cancelButtonText: 'Stay'
+      cancelButtonText: 'Stay'
 
-  }).then((result) => {
+    }).then((result) => {
 
-    if (result.isConfirmed) {
+      if (result.isConfirmed) {
 
-      this.authService.logout();
+        this.authService.logout();
 
-      Swal.fire({
+        Swal.fire({
 
-        icon: 'success',
+          icon: 'success',
 
-        title: 'Logged Out',
+          title: 'Logged Out',
 
-        text: 'You have been logged out successfully.',
+          text: 'You have been logged out successfully.',
 
-        timer: 1500,
+          timer: 1500,
 
-        showConfirmButton: false
+          showConfirmButton: false
 
-      });
+        });
 
-      setTimeout(() => {
+        setTimeout(() => {
 
-        this.router.navigate(['/login']);
+          this.router.navigate(['/login']);
 
-      }, 1500);
+        }, 1500);
 
-    }
+      }
 
-  });
+    });
 
-}
+  }
 
 }

@@ -77,6 +77,8 @@ export class ProductDetailComponent implements OnInit {
         showConfirmButton: false
       });
 
+       this.cartService.loadCartCount();
+
       console.log(res);
 
     },

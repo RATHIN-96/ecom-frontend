@@ -1,29 +1,251 @@
-.card{
+/* ==========================================
+   Register Page
+========================================== */
 
-    border-radius:20px;
+.register-page{
+
+    min-height:100vh;
+
+    background:linear-gradient(135deg,#0f172a,#1e3a8a,#3b82f6);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:30px;
+
+}
+
+/* ==========================================
+   Register Card
+========================================== */
+
+.register-card{
+
+    background:rgba(255,255,255,.12);
+
+    backdrop-filter:blur(18px);
+
+    -webkit-backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.2);
+
+    border-radius:25px;
+
+    padding:40px;
+
+    box-shadow:0 20px 50px rgba(0,0,0,.35);
+
+    transition:.35s;
+
+}
+
+.register-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 30px 60px rgba(0,0,0,.4);
+
+}
+
+/* ==========================================
+   Logo
+========================================== */
+
+.register-logo{
+
+    width:170px;
+
+    height:auto;
+
+}
+
+/* ==========================================
+   Heading
+========================================== */
+
+.register-card h2{
+
+    color:#fff;
+
+    font-weight:700;
+
+}
+
+.register-card p{
+
+    color:#dbeafe;
+
+}
+
+/* ==========================================
+   Labels
+========================================== */
+
+.form-label{
+
+    color:#fff;
+
+    font-weight:600;
+
+    margin-bottom:8px;
+
+}
+
+/* ==========================================
+   Input Group
+========================================== */
+
+.input-group-text{
+
+    background:#fff;
+
+    border:none;
+
+    color:#0d6efd;
 
 }
 
 .form-control{
 
-    height:50px;
+    border:none;
 
-    border-radius:10px;
+    height:52px;
+
+    box-shadow:none;
 
 }
 
-.btn{
+.form-control:focus{
 
-    height:50px;
+    box-shadow:none;
 
-    border-radius:10px;
+    border:none;
+
+}
+
+/* ==========================================
+   Button
+========================================== */
+
+.btn-warning{
+
+    height:52px;
+
+    border-radius:12px;
 
     font-size:18px;
 
+    font-weight:700;
+
+    transition:.3s;
+
 }
 
-body{
+.btn-warning:hover{
 
-    background:#f5f7fa;
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 25px rgba(255,193,7,.4);
+
+}
+
+/* ==========================================
+   Error Text
+========================================== */
+
+.text-danger{
+
+    font-size:13px;
+
+    font-weight:500;
+
+}
+
+/* ==========================================
+   Login Link
+========================================== */
+
+.login-link{
+
+    color:#ffd54f;
+
+    font-weight:700;
+
+    text-decoration:none;
+
+}
+
+.login-link:hover{
+
+    text-decoration:underline;
+
+}
+
+/* ==========================================
+   HR
+========================================== */
+
+hr{
+
+    border-color:rgba(255,255,255,.25);
+
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media(max-width:768px){
+
+.register-card{
+
+    padding:30px 25px;
+
+}
+
+.register-logo{
+
+    width:140px;
+
+}
+
+.register-card h2{
+
+    font-size:28px;
+
+}
+
+}
+
+@media(max-width:576px){
+
+.register-page{
+
+    padding:15px;
+
+}
+
+.register-card{
+
+    padding:25px 20px;
+
+    border-radius:18px;
+
+}
+
+.register-logo{
+
+    width:120px;
+
+}
+
+.btn-warning{
+
+    font-size:16px;
+
+}
 
 }

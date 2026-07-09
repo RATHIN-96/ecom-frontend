@@ -129,6 +129,8 @@ addToCart(product: any) {
 
       });
 
+       this.cartService.loadCartCount();
+
     },
 
     error: (err) => {

@@ -8,8 +8,9 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
-import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
+
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -26,128 +27,272 @@ export class RegisterComponent {
 
   registerForm: FormGroup;
 
+  showPassword = false;
+
+  showConfirmPassword = false;
+
+  isLoading = false;
+
   constructor(
+
     private fb: FormBuilder,
+
     private authService: AuthService,
+
     private router: Router
+
   ) {
 
     this.registerForm = this.fb.group({
 
       first_name: [
+
         '',
+
         [
+
           Validators.required,
+
           Validators.pattern('^[A-Za-z ]{3,30}$')
+
         ]
+
       ],
 
       last_name: [
+
         '',
+
         [
+
           Validators.required,
+
           Validators.pattern('^[A-Za-z ]{2,30}$')
+
         ]
+
       ],
 
       username: [
+
         '',
+
         [
+
           Validators.required,
+
           Validators.pattern('^[a-zA-Z0-9_]{4,20}$')
+
         ]
+
       ],
 
       email: [
+
         '',
+
         [
+
           Validators.required,
+
           Validators.email
+
         ]
+
       ],
 
       phone: [
+
         '',
+
         [
+
           Validators.required,
+
           Validators.pattern('^[6-9]\\d{9}$')
+
         ]
+
       ],
 
       password: [
+
         '',
+
         [
+
           Validators.required,
+
           Validators.pattern(
+
             '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&]).{8,}$'
+
           )
+
         ]
+
       ],
 
       confirm_password: [
+
         '',
+
         Validators.required
+
       ]
 
     });
 
   }
 
+  // ==========================
+  // Show Password
+  // ==========================
+
+  togglePassword() {
+
+    this.showPassword = !this.showPassword;
+
+  }
+
+  // ==========================
+  // Show Confirm Password
+  // ==========================
+
+  toggleConfirmPassword() {
+
+    this.showConfirmPassword = !this.showConfirmPassword;
+
+  }
+  // ==========================
+  // Register
+  // ==========================
+
   onSubmit() {
 
-    if (this.registerForm.valid) {
+    if (this.registerForm.invalid) {
 
-      const formData = this.registerForm.value;
+      this.registerForm.markAllAsTouched();
 
-      // confirm_password backend-ലേക്ക് അയക്കേണ്ട
-      delete formData.confirm_password;
+      Swal.fire({
 
-      this.authService.register(formData).subscribe({
+        icon: 'warning',
 
-        next: (res) => {
+        title: 'Invalid Form',
 
-         Swal.fire({
+        text: 'Please fill all required fields correctly.'
+
+      });
+
+    return;
+
+    }
+
+    // Password Match Validation
+
+    if (
+
+      this.registerForm.value.password !==
+
+      this.registerForm.value.confirm_password
+
+    ) {
+
+      Swal.fire({
+
+        icon: 'warning',
+
+        title: 'Password Mismatch',
+
+        text: 'Password and Confirm Password do not match.'
+
+      });
+
+      return;
+
+    }
+
+    this.isLoading = true;
+
+    const formData = {
+
+      ...this.registerForm.value
+
+    };
+
+    
+
+    delete formData.confirm_password;
+
+    this.authService.register(formData).subscribe({
+
+      next: (res) => {
+
+        this.isLoading = false;
+
+        Swal.fire({
 
           icon: 'success',
 
-          title: 'Registration Successful',
+          title: 'Registration Successful 🎉',
 
-          text: 'Your account has been created successfully.',
+          text: 'Welcome to Velora! Please login to continue.',
 
-          timer: 1800,
+          timer: 2000,
 
           showConfirmButton: false
 
         });
 
+        this.registerForm.reset();
+
         setTimeout(() => {
 
           this.router.navigate(['/login']);
 
-        }, 1800);
+        }, 2000);
 
-        },
+      },
 
-        error: (err) => {
+      error: (err) => {
 
-          console.log(err);
+        this.isLoading = false;
 
-          Swal.fire({
+        console.log(err);
 
-            icon: 'error',
+        let message = 'Registration failed. Please try again.';
 
-            title: 'Registration Failed',
+        if (err.error?.username) {
 
-            text: 'Please check your details and try again.'
-
-          });
+         message = err.error.username[0];
 
         }
 
-      });
+        else if (err.error?.email) {
 
-    }
+          message = err.error.email[0];
+
+        }
+
+        else if (err.error?.phone) {
+
+          message = err.error.phone[0];
+
+        }
+
+        Swal.fire({
+
+          icon: 'error',
+
+          title: 'Registration Failed',
+
+          text: message
+
+        });
+
+      }
+
+    });
 
   }
-
 }

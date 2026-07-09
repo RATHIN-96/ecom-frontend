@@ -21,6 +21,8 @@ export class OrderManagementComponent implements OnInit {
 
   searchText = '';
 
+  selectedOrder: any = null;
+
   deliveryStatus = [
     'Pending',
     'Processing',
@@ -86,6 +88,12 @@ export class OrderManagementComponent implements OnInit {
       }
 
     });
+
+  }
+
+  viewOrder(order: any) {
+
+  this.selectedOrder = order;
 
   }
 
@@ -273,6 +281,46 @@ export class OrderManagementComponent implements OnInit {
           title: 'Update Failed',
 
           text: err.error?.refund_status?.[0] || 'Unable to update refund status.'
+
+        });
+
+      }
+
+    });
+
+  }
+
+  printInvoice(orderId: number) {
+
+    this.orderService.downloadInvoice(orderId).subscribe({
+
+      next: (blob: Blob) => {
+
+        const url = window.URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+
+        a.href = url;
+
+        a.download = `Invoice_${orderId}.pdf`;
+
+        a.click();
+
+        window.URL.revokeObjectURL(url);
+
+      },
+
+      error: (err) => {
+
+        console.log(err);
+
+        Swal.fire({
+
+          icon: 'error',
+
+          title: 'Invoice Failed',
+
+          text: 'Unable to download invoice.'
 
         });
 

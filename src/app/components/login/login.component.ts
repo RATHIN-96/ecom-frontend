@@ -1,100 +1,150 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule
-} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 
-import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
+
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    FormsModule,
+    RouterLink
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
 
-  loginForm: FormGroup;
+  showPassword = false;
+
+  isLoading = false;
+
+  loginData = {
+
+    username: '',
+
+    password: ''
+
+  };
 
   constructor(
 
-  private fb: FormBuilder,
-  private authService: AuthService,
-  private router: Router
+    private authService: AuthService,
 
-  ){
+    private router: Router
 
-    this.loginForm = this.fb.group({
+  ) {}
 
-      username:[
-        '',
-        Validators.required
-      ],
+  // ===========================
+  // Show / Hide Password
+  // ===========================
 
-      password:[
-        '',
-        Validators.required
-      ]
+  togglePassword() {
 
-    });
+    this.showPassword = !this.showPassword;
 
   }
 
-  onSubmit() {
+  // ===========================
+  // Login
+  // ===========================
 
-  if (this.loginForm.valid) {
+  login() {
 
-    this.authService.login(this.loginForm.value).subscribe({
-
-      next: (res: any) => {
-
-      console.log(res);
-
-      localStorage.setItem('token', res.token);
-      localStorage.setItem('is_staff', res.is_staff);
-      localStorage.setItem('username', res.username);
-      localStorage.setItem('first_name', res.first_name);
+    if (!this.loginData.username.trim()) {
 
       Swal.fire({
 
-        icon: 'success',
+        icon: 'warning',
 
-        title: 'Welcome!',
+        title: 'Username Required',
 
-        text: 'Login Successful',
-
-        timer: 1800,
-
-        showConfirmButton: false
+        text: 'Please enter your username.'
 
       });
 
-      setTimeout(() => {
+      return;
 
-        if (res.is_staff) {
+    }
 
-          this.router.navigate(['/admin']);
+    if (!this.loginData.password.trim()) {
 
-        } else {
+      Swal.fire({
 
-          this.router.navigate(['/']);
+        icon: 'warning',
 
-        }
+        title: 'Password Required',
 
-      }, 1800);
+        text: 'Please enter your password.'
 
-    },
+      });
+
+      return;
+
+    }
+
+    this.isLoading = true;
+
+    this.authService.login(this.loginData).subscribe({
+
+      next: (res: any) => {
+
+        this.isLoading = false;
+
+        // Save Token
+
+        localStorage.setItem('token', res.token);
+
+        // Save Admin/User
+
+        localStorage.setItem(
+
+          'is_staff',
+
+          String(res.is_staff)
+
+        );
+
+        Swal.fire({
+
+          icon: 'success',
+
+          title: 'Login Successful',
+
+          text: 'Welcome to Velora.',
+
+          timer: 1500,
+
+          showConfirmButton: false
+
+        });
+
+        setTimeout(() => {
+
+          if (res.is_staff) {
+
+            this.router.navigate(['/admin']);
+
+          }
+
+          else {
+
+            this.router.navigate(['/']);
+
+          }
+
+        }, 1500);
+
+      },
 
       error: (err) => {
+
+        this.isLoading = false;
 
         console.log(err);
 
@@ -104,7 +154,7 @@ export class LoginComponent {
 
           title: 'Login Failed',
 
-          text: 'Invalid Username or Password'
+          text: 'Invalid username or password.'
 
         });
 
@@ -113,7 +163,5 @@ export class LoginComponent {
     });
 
   }
-
-}
 
 }

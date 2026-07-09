@@ -62,6 +62,8 @@ export class FeaturedProductsComponent implements OnInit {
 
       });
 
+       this.cartService.loadCartCount();
+
       console.log(res);
 
     },

@@ -101,7 +101,9 @@ export class CartComponent implements OnInit {
 
           });
 
+          
           this.loadCart();
+          this.cartService.loadCartCount();
 
         },
 

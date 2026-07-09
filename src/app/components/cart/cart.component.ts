@@ -52,7 +52,7 @@ export class CartComponent implements OnInit {
 
     this.cartItems.forEach(item => {
 
-      this.total += item.product.price * item.quantity;
+      this.total += Number(item.product.discounted_price) * item.quantity;
 
     });
 

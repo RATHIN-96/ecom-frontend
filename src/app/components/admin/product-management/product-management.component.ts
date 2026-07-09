@@ -23,6 +23,7 @@ export class ProductManagementComponent implements OnInit {
 
   productName = '';
   price: number | null = null;
+  discountPercentage = 0;
   description = '';
   categoryId = '';
 
@@ -116,6 +117,8 @@ export class ProductManagementComponent implements OnInit {
     formData.append('name', this.productName);
 
     formData.append('price', String(this.price));
+
+    formData.append('discount_percentage',this.discountPercentage.toString());
 
     formData.append('description', this.description);
 
@@ -217,6 +220,8 @@ else {
 
     this.price = null;
 
+    this.discountPercentage = 0;
+
     this.description = '';
 
     this.categoryId = '';
@@ -230,6 +235,8 @@ else {
   this.productName = product.name;
 
   this.price = product.price;
+
+  this.discountPercentage = product.discount_percentage;
 
   this.description = product.description;
 

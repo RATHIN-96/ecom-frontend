@@ -76,6 +76,24 @@
 
         </div>
 
+        <!-- Discount -->
+
+        <div class="col-12 col-md-6">
+
+          <label class="form-label">
+            Discount (%)
+          </label>
+
+          <input
+            type="number"
+            class="form-control"
+            [(ngModel)]="discountPercentage"
+            min="0"
+            max="90"
+            placeholder="0">
+
+        </div>
+
         <!-- Image -->
 
         <div class="col-12 col-md-6">
@@ -149,6 +167,10 @@
 
               <th>Price</th>
 
+              <th>Discount</th>
+
+              <th>Final Price</th>
+
               <th>Actions</th>
 
             </tr>
@@ -190,7 +212,40 @@
 
               <td>
 
-                ₹ {{ product.price }}
+                ₹{{ product.price }}
+
+              </td>
+
+              <!-- Discount -->
+
+              <td>
+
+                <span
+                  class="badge bg-danger"
+                  *ngIf="product.discount_percentage > 0">
+
+                  {{ product.discount_percentage }}% OFF
+
+                </span>
+
+                <span
+                  *ngIf="product.discount_percentage == 0">
+
+                  -
+
+                </span>
+
+              </td>
+
+              <!-- Final Price -->
+
+              <td>
+
+                <strong class="text-success">
+
+                  ₹{{ product.discounted_price }}
+
+                </strong>
 
               </td>
 
@@ -220,7 +275,7 @@
 
             <tr *ngIf="products.length === 0">
 
-              <td colspan="5" class="text-center py-4">
+              <td colspan="7" class="text-center py-4">
 
                 No Products Found
 

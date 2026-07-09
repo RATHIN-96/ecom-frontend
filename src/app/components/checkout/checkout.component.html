@@ -142,11 +142,25 @@
 
                             </div>
 
-                            <strong>
+                            <div class="text-end">
 
-                                ₹{{ item.product.price * item.quantity }}
+                                <strong class="text-success">
 
-                            </strong>
+                                    ₹{{ item.product.discounted_price * item.quantity }}
+
+                                </strong>
+
+                                <div *ngIf="item.product.discount_percentage > 0">
+
+                                    <small class="text-decoration-line-through text-muted">
+
+                                        ₹{{ item.product.price * item.quantity }}
+
+                                    </small>
+
+                                </div>
+
+                            </div>
 
                         </div>
 
@@ -164,7 +178,7 @@
 
                         </span>
 
-                        <strong>
+                        <strong class="text-success">
 
                             ₹{{ total }}
 
@@ -272,7 +286,7 @@
 
                         <br>
 
-                        🚚 Estimated Delivery : 3-5 Days
+                        🚚 Estimated Delivery : 5-7 Days
 
                     </div>
 

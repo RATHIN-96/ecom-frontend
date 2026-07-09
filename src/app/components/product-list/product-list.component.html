@@ -1,6 +1,7 @@
 <div class="container my-5">
 
-    <!-- Search Box -->
+    <!-- Search -->
+
     <div class="row1 mb-4">
 
         <div class="col-md-6 mx-auto">
@@ -15,6 +16,9 @@
         </div>
 
     </div>
+
+    <!-- Category -->
+
     <div class="row mb-4">
 
         <div class="col-md-4">
@@ -27,10 +31,10 @@
                 <option value="">All Categories</option>
 
                 <option
-                 *ngFor="let category of categories"
+                    *ngFor="let category of categories"
                     [value]="category.id">
 
-                 {{ category.name }}
+                    {{ category.name }}
 
                 </option>
 
@@ -39,6 +43,8 @@
         </div>
 
     </div>
+
+    <!-- Price Filter -->
 
     <div class="row mb-4">
 
@@ -50,15 +56,26 @@
                 (change)="priceChanged()">
 
                 <option value="">All Prices</option>
-                <option value="1">Under ₹10,000</option>
-                <option value="2">₹10,000 - ₹50,000</option>
-                <option value="3">Above ₹50,000</option>
+
+                <option value="1">
+                    Under ₹10,000
+                </option>
+
+                <option value="2">
+                    ₹10,000 - ₹50,000
+                </option>
+
+                <option value="3">
+                    Above ₹50,000
+                </option>
 
             </select>
 
-         </div>
+        </div>
 
     </div>
+
+    <!-- Sort -->
 
     <div class="row mb-4">
 
@@ -69,10 +86,21 @@
                 [(ngModel)]="selectedSort"
                 (change)="sortChanged()">
 
-                <option value="">Sort By</option>
-                <option value="low">Price: Low → High</option>
-                <option value="high">Price: High → Low</option>
-                <option value="new">Newest</option>
+                <option value="">
+                    Sort By
+                </option>
+
+                <option value="low">
+                    Price : Low → High
+                </option>
+
+                <option value="high">
+                    Price : High → Low
+                </option>
+
+                <option value="new">
+                    Newest
+                </option>
 
             </select>
 
@@ -81,30 +109,106 @@
     </div>
 
     <!-- Products -->
+
     <div class="row">
 
-        <div class="col-md-4 mb-4" *ngFor="let product of products">
+        <div
+            class="col-lg-4 col-md-6 mb-4"
+            *ngFor="let product of products">
 
-            <div class="card h-100 shadow">
+            <div class="card h-100 shadow product-card">
 
-                <img
-                    [src]="product.image"
-                    class="card-img-top"
-                    height="250">
+                <!-- Image -->
 
-                <div class="card-body">
+                <div class="position-relative">
 
-                    <h5>{{product.name}}</h5>
+                    <img
+                        [src]="product.image"
+                        class="card-img-top"
+                        height="250">
 
-                    <h4 class="text-success">
-                        ₹ {{product.price}}
-                    </h4>
+                    <!-- Discount Badge -->
 
-                    <div class="d-grid gap-2">
+                    <span
+                        *ngIf="product.discount_percentage > 0"
+                        class="badge bg-danger position-absolute top-0 end-0 m-2 fs-6">
+
+                        {{ product.discount_percentage }}% OFF
+
+                    </span>
+
+                </div>
+
+                <!-- Body -->
+
+                <div class="card-body d-flex flex-column">
+
+                    <!-- Product Name -->
+
+                    <h5 class="fw-bold">
+
+                        {{ product.name }}
+
+                    </h5>
+
+                    <!-- Rating -->
+
+                    <div class="mb-2">
+
+                        <i class="bi bi-star-fill text-warning"></i>
+
+                        <span class="fw-bold">
+
+                            {{ product.average_rating }}
+
+                        </span>
+
+                        <small class="text-muted">
+
+                            ({{ product.review_count }} Reviews)
+
+                        </small>
+
+                    </div>
+
+                    <!-- Price -->
+
+                    <div class="mb-3">
+
+                        <h4 class="text-success fw-bold mb-1">
+
+                            ₹ {{ product.discounted_price }}
+
+                        </h4>
+
+                        <div *ngIf="product.discount_percentage > 0">
+
+                            <span
+                                class="text-muted text-decoration-line-through me-2">
+
+                                ₹ {{ product.price }}
+
+                            </span>
+
+                            <small class="text-danger fw-bold">
+
+                                Save {{ product.discount_percentage }}%
+
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Buttons -->
+
+                    <div class="mt-auto d-grid gap-2">
 
                         <a
                             [routerLink]="['/products', product.id]"
                             class="btn btn-dark">
+
+                            <i class="bi bi-eye-fill"></i>
 
                             View Details
 
@@ -113,6 +217,8 @@
                         <button
                             class="btn btn-success"
                             (click)="addToCart(product)">
+
+                            <i class="bi bi-cart-plus-fill"></i>
 
                             Add To Cart
 

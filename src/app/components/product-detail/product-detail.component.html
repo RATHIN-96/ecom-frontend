@@ -3,6 +3,7 @@
   <div class="row align-items-center">
 
     <!-- Product Image -->
+
     <div class="col-md-5 text-center">
 
       <img
@@ -12,17 +13,48 @@
     </div>
 
     <!-- Product Details -->
+
     <div class="col-md-7">
 
+      <!-- Product Name -->
+
       <h2 class="mb-3">
+
         {{ product.name }}
+
       </h2>
 
-      <h4 class="text-success mb-3">
-        ₹ {{ product.price }}
-      </h4>
+      <!-- Price -->
+
+      <div class="mb-3">
+
+        <h3 class="text-success fw-bold mb-1">
+
+          ₹ {{ product.discounted_price }}
+
+        </h3>
+
+        <div *ngIf="product.discount_percentage > 0">
+
+          <span
+            class="text-muted text-decoration-line-through fs-5 me-2">
+
+            ₹ {{ product.price }}
+
+          </span>
+
+          <span class="badge bg-danger">
+
+            {{ product.discount_percentage }}% OFF
+
+          </span>
+
+        </div>
+
+      </div>
 
       <!-- Average Rating -->
+
       <div class="mb-3">
 
         <h5 class="text-warning">
@@ -39,19 +71,31 @@
 
       </div>
 
+      <!-- Description -->
+
       <p>
+
         {{ product.description }}
+
       </p>
 
       <hr>
 
+      <!-- Stock -->
+
       <h5 class="text-success">
+
         ✔ In Stock
+
       </h5>
 
       <p>
+
         Free Delivery within 2–4 Days
+
       </p>
+
+      <!-- Buttons -->
 
       <div class="mt-4">
 
@@ -84,7 +128,9 @@
 <div class="container">
 
   <h3 class="mb-4">
+
     ⭐ Customer Reviews
+
   </h3>
 
   <!-- Write Review -->
@@ -92,13 +138,17 @@
   <div class="card shadow-sm p-4 mb-4">
 
     <h5 class="mb-3">
+
       Write a Review
+
     </h5>
 
     <div class="mb-3">
 
       <label class="form-label">
+
         Rating
+
       </label>
 
       <select
@@ -118,7 +168,9 @@
     <div class="mb-3">
 
       <label class="form-label">
+
         Comment
+
       </label>
 
       <textarea
@@ -126,6 +178,7 @@
         rows="3"
         [(ngModel)]="review.comment"
         placeholder="Write your review...">
+
       </textarea>
 
     </div>
@@ -140,7 +193,7 @@
 
   </div>
 
-  <!-- Reviews List -->
+  <!-- Reviews -->
 
   <div
     class="card shadow-sm mb-3"

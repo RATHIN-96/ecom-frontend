@@ -29,6 +29,14 @@
             [alt]="product.name"
             class="product-image">
 
+          <span
+            class="badge bg-danger position-absolute top-0 end-0 m-2"
+            *ngIf="product.discount_percentage > 0">
+
+            {{ product.discount_percentage }}% OFF
+
+          </span>
+
         </div>
 
         <!-- Body -->
@@ -55,17 +63,19 @@
 
           <div class="rating">
 
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-fill"></i>
-            <i class="bi bi-star-half"></i>
+            <i class="bi bi-star-fill text-warning"></i>
 
-            <span class="ms-2 text-muted">
+            <span class="fw-bold ms-1">
 
-              (4.8)
+              {{ product.average_rating }}
 
             </span>
+
+            <small class="text-muted ms-2">
+
+              ({{ product.review_count }} Reviews)
+
+            </small>
 
           </div>
 
@@ -75,7 +85,15 @@
 
             <span class="new-price">
 
-              ₹{{ product.price }}
+                ₹{{ product.discounted_price }}
+
+            </span>
+
+            <span
+                class="old-price"
+                *ngIf="product.discount_percentage > 0">
+
+                ₹{{ product.price }}
 
             </span>
 

@@ -23,9 +23,31 @@
 
           <h5>{{ item.product.name }}</h5>
 
-          <h4 class="text-success">
-            ₹ {{ item.product.price }}
-          </h4>
+          <div class="mb-2">
+
+            <h4 class="text-success fw-bold mb-1">
+
+              ₹ {{ item.product.discounted_price }}
+
+            </h4>
+
+            <div *ngIf="item.product.discount_percentage > 0">
+
+              <span class="text-muted text-decoration-line-through me-2">
+
+                ₹ {{ item.product.price }}
+
+              </span>
+
+              <span class="badge bg-danger">
+
+                {{ item.product.discount_percentage }}% OFF
+
+              </span>
+
+            </div>
+
+          </div>
 
           <div class="d-flex align-items-center">
 

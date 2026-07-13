@@ -83,20 +83,16 @@ export class OrderService {
 
   }
 
-//   downloadInvoice(id: number) {
+buyNow(data: any) {
 
-//   return this.http.get(
+  return this.http.post(
 
-//     `http://127.0.0.1:8000/orders/${id}/invoice/`,
+    'http://127.0.0.1:8000/buy-now-order/',
 
-//     {
+    data
 
-//       responseType: 'blob'
+  );
 
-//     }
-
-//   );
-
-// }
+}
 
 }

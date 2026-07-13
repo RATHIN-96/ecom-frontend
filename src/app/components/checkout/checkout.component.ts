@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import Swal from 'sweetalert2';
 
 import { OrderService } from '../../services/order.service';
 import { PaymentService } from '../../services/payment.service';
 import { CartService } from '../../services/cart.service';
+import { ProductService } from '../../services/product.service';
 
 declare var Razorpay: any;
 
@@ -47,21 +48,62 @@ export class CheckoutComponent implements OnInit {
 
   total = 0;
 
+  buyNowProduct: any = null;
+
+  buyNowQuantity = 1;
+
+  isBuyNow = false;
+
   constructor(
 
-    private orderService: OrderService,
+  private orderService: OrderService,
 
-    private paymentService: PaymentService,
+  private paymentService: PaymentService,
 
-    private cartService: CartService,
+  private cartService: CartService,
 
-    private router: Router
+  private router: Router,
 
-  ) {}
+  private activatedRoute: ActivatedRoute,
 
-  ngOnInit(): void {
+  private productService: ProductService
 
-    this.loadCart();
+ ) {}
+
+ ngOnInit(): void {
+
+    this.activatedRoute.queryParams.subscribe(params => {
+
+      if (params['product']) {
+
+        this.isBuyNow = true;
+
+        this.buyNowQuantity = Number(params['qty']) || 1;
+
+        this.productService.getProduct(Number(params['product']))
+        .subscribe({
+
+          next: (product) => {
+
+            this.buyNowProduct = product;
+
+            this.total =
+              Number(product.discounted_price) *
+              this.buyNowQuantity;
+
+          }
+
+        });
+
+      }
+
+      else {
+
+        this.loadCart();
+
+      }
+
+    });
 
   }
 
@@ -169,7 +211,17 @@ export class CheckoutComponent implements OnInit {
 
     if (this.order.payment === 'Cash On Delivery') {
 
-      this.placeOrder();
+      if (this.isBuyNow) {
+
+        this.placeBuyNowOrder();
+
+      }
+
+      else {
+
+        this.placeOrder();
+
+      }
 
     }
 
@@ -247,13 +299,13 @@ export class CheckoutComponent implements OnInit {
 
   }
 
-  // ===========================
-  // Razorpay
-  // ===========================
+  placeBuyNowOrder() {
 
-  payNow() {
+    const data = {
 
-    this.paymentService.createPayment({
+      product_id: this.buyNowProduct.id,
+
+      quantity: this.buyNowQuantity,
 
       name: this.order.name,
 
@@ -261,75 +313,19 @@ export class CheckoutComponent implements OnInit {
 
       address: this.order.address
 
-    }).subscribe({
+    };
 
-      next: (res) => {
+    this.orderService.buyNow(data).subscribe({
 
-        const options = {
-
-          key: res.key,
-
-          amount: res.amount,
-
-          currency: res.currency,
-
-          name: 'Velora',
-
-          description: 'Secure Payment',
-
-          order_id: res.order_id,
-
-          handler: (response: any) => {
-
-            this.verifyPayment(response);
-
-          }
-
-        };
-
-        const rzp = new Razorpay(options);
-
-        rzp.open();
-
-      },
-
-      error: (err) => {
-
-        console.log(err);
-
-      }
-
-    });
-
-  }
-
-  // ===========================
-  // Verify Payment
-  // ===========================
-
-  verifyPayment(response: any) {
-
-    this.paymentService.verifyPayment({
-
-      razorpay_order_id: response.razorpay_order_id,
-
-      razorpay_payment_id: response.razorpay_payment_id,
-
-      razorpay_signature: response.razorpay_signature
-
-    }).subscribe({
-
-      next: (res) => {
-
-        this.cartService.loadCartCount();
+      next: () => {
 
         Swal.fire({
 
           icon: 'success',
 
-          title: 'Payment Successful',
+          title: 'Order Placed',
 
-          text: 'Thank you for shopping with Velora.',
+          text: 'Buy Now order placed successfully.',
 
           timer: 1800,
 
@@ -337,11 +333,7 @@ export class CheckoutComponent implements OnInit {
 
         });
 
-        setTimeout(() => {
-
-          this.router.navigate(['/orders']);
-
-        }, 1800);
+        this.router.navigate(['/orders']);
 
       },
 
@@ -353,9 +345,9 @@ export class CheckoutComponent implements OnInit {
 
           icon: 'error',
 
-          title: 'Payment Failed',
+          title: 'Order Failed',
 
-          text: 'Payment verification failed.'
+          text: 'Unable to place Buy Now order.'
 
         });
 
@@ -364,5 +356,184 @@ export class CheckoutComponent implements OnInit {
     });
 
   }
+
+  // ===========================
+  // Razorpay
+  // ===========================
+
+  payNow() {
+
+  const paymentData = {
+
+    name: this.order.name,
+
+    phone: this.order.phone,
+
+    address: this.order.address,
+
+    product_id: this.buyNowProduct?.id,
+
+    quantity: this.buyNowQuantity
+
+  };
+
+  const paymentRequest = this.isBuyNow
+
+    ? this.paymentService.buyNowCreatePayment(paymentData)
+
+    : this.paymentService.createPayment(paymentData);
+
+  paymentRequest.subscribe({
+
+    next: (res: any) => {
+
+      const options = {
+
+        key: res.key,
+
+        amount: res.amount,
+
+        currency: res.currency,
+
+        name: 'Velora',
+
+        description: 'Secure Payment',
+
+        order_id: res.order_id,
+
+        handler: (response: any) => {
+
+          this.verifyPayment(response);
+
+        }
+
+      };
+
+      const rzp = new Razorpay(options);
+
+      rzp.open();
+
+    },
+
+    error: (err) => {
+
+      console.log(err);
+
+      Swal.fire({
+
+        icon: 'error',
+
+        title: 'Payment Failed',
+
+        text: 'Unable to create Razorpay order.'
+
+      });
+
+    }
+
+  });
+
+}
+
+  // ===========================
+  // Verify Payment
+  // ===========================
+
+  verifyPayment(response: any) {
+
+  const verifyData = {
+
+    razorpay_order_id: response.razorpay_order_id,
+
+    razorpay_payment_id: response.razorpay_payment_id,
+
+    razorpay_signature: response.razorpay_signature,
+
+    product_id: this.buyNowProduct?.id,
+
+    quantity: this.buyNowQuantity
+
+  };
+
+  const verifyRequest = this.isBuyNow
+
+    ? this.paymentService.buyNowVerifyPayment(verifyData)
+
+    : this.paymentService.verifyPayment(verifyData);
+
+  verifyRequest.subscribe({
+
+    next: () => {
+
+      if (!this.isBuyNow) {
+
+        this.cartService.loadCartCount();
+
+      }
+
+      Swal.fire({
+
+        icon: 'success',
+
+        title: 'Payment Successful',
+
+        text: 'Thank you for shopping with Velora.',
+
+        timer: 1800,
+
+        showConfirmButton: false
+
+      });
+
+      setTimeout(() => {
+
+        this.router.navigate(['/orders']);
+
+      }, 1800);
+
+    },
+
+    error: (err) => {
+
+      console.log(err);
+
+      Swal.fire({
+
+        icon: 'error',
+
+        title: 'Payment Failed',
+
+        text: 'Payment verification failed.'
+
+      });
+
+    }
+
+  });
+
+}
+  increaseQty() {
+
+  this.buyNowQuantity++;
+
+  this.total =
+    Number(this.buyNowProduct.discounted_price) *
+    this.buyNowQuantity;
+
+}
+
+decreaseQty() {
+
+  if (this.buyNowQuantity > 1) {
+
+    this.buyNowQuantity--;
+
+    this.total =
+      Number(this.buyNowProduct.discounted_price) *
+      this.buyNowQuantity;
+
+  }
+
+}
 
 }

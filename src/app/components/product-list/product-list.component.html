@@ -204,9 +204,17 @@
 
                     <div class="mt-auto d-grid gap-2">
 
+                        <button
+                            class="btn btn-outline-primary"
+                            (click)="buyNow(product)">
+
+                            ⚡ Buy Now
+
+                        </button>
+
                         <a
                             [routerLink]="['/products', product.id]"
-                            class="btn btn-dark">
+                            class="btn btn-outline-dark">
 
                             <i class="bi bi-eye-fill"></i>
 
@@ -215,7 +223,7 @@
                         </a>
 
                         <button
-                            class="btn btn-success"
+                            class="btn btn-outline-success"
                             (click)="addToCart(product)">
 
                             <i class="bi bi-cart-plus-fill"></i>

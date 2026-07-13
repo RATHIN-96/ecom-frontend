@@ -33,6 +33,12 @@ export class ProductManagementComponent implements OnInit {
 
   buttonText = "Add Product";
 
+  sizes: any[] = [];
+
+  selectedSizes: number[] = [];
+
+  hasSize = false;
+
   constructor(
 
     private productService: ProductService,
@@ -45,6 +51,43 @@ export class ProductManagementComponent implements OnInit {
     this.loadProducts();
 
     this.loadCategories();
+
+    this.loadSizes();
+
+  }
+
+
+  loadSizes() {
+
+    this.productService.getSizes().subscribe({
+
+      next: (data) => {
+
+        this.sizes = data;
+
+      }
+
+    });
+
+  }
+
+  toggleSize(sizeId: number, event: any) {
+
+    if (event.target.checked) {
+
+      this.selectedSizes.push(sizeId);
+
+    } 
+
+    else {
+
+      this.selectedSizes = this.selectedSizes.filter(
+
+        id => id !== sizeId
+
+      );
+
+    }
 
   }
 
@@ -116,6 +159,8 @@ export class ProductManagementComponent implements OnInit {
 
     formData.append('name', this.productName);
 
+    formData.append('has_size', String(this.hasSize));
+
     formData.append('price', String(this.price));
 
     formData.append('discount_percentage',this.discountPercentage.toString());
@@ -123,6 +168,12 @@ export class ProductManagementComponent implements OnInit {
     formData.append('description', this.description);
 
     formData.append('category_id', this.categoryId);
+
+      this.selectedSizes.forEach(size => {
+
+        formData.append('size_ids', size.toString());
+
+      });
 
     if (this.selectedImage) {
 
@@ -228,11 +279,21 @@ else {
 
     this.selectedImage = undefined as any;
 
+    this.hasSize = false;
+
+    this.selectedSizes = [];
+
   }
 
   editProduct(product: any) {
 
   this.productName = product.name;
+
+  this.hasSize = product.has_size;
+
+  this.selectedSizes = product.sizes.map(
+    (size: any) => size.id
+  );
 
   this.price = product.price;
 

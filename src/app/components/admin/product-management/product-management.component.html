@@ -1,151 +1,210 @@
 <div class="container-fluid">
 
-  <!-- Heading -->
+    <!-- Heading -->
 
-  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
 
-    <h2 class="fw-bold mb-3 mb-md-0">
+      <h2 class="fw-bold mb-3 mb-md-0">
       📦 Product Management
-    </h2>
+      </h2>
 
-  </div>
+    </div>
 
-  <!-- Product Form -->
+    <!-- Product Form -->
 
-  <div class="card shadow-sm mb-4">
+    <div class="card shadow-sm mb-4">
 
-    <div class="card-body">
+      <div class="card-body">
 
-      <div class="row g-3">
+        <div class="row g-3">
 
-        <!-- Product Name -->
+          <!-- Product Name -->
 
-        <div class="col-12 col-md-6">
+          <div class="col-12 col-md-6">
 
-          <label class="form-label">
-            Product Name
-          </label>
+             <label class="form-label">
+             Product Name
+            </label>
 
-          <input
-            type="text"
-            class="form-control"
-            [(ngModel)]="productName">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="productName">
 
-        </div>
+          </div>
 
-        <!-- Category -->
+          <!-- Category -->
 
-        <div class="col-12 col-md-6">
+          <div class="col-12 col-md-6">
 
-          <label class="form-label">
-            Category
-          </label>
+            <label class="form-label">
+              Category
+            </label>
 
-          <select
-            class="form-select"
-            [(ngModel)]="categoryId">
+            <select
+              class="form-select"
+              [(ngModel)]="categoryId">
 
-            <option value="">
-              Select Category
-            </option>
+              <option value="">
+               Select Category
+              </option>
 
-            <option
-              *ngFor="let category of categories"
-              [value]="category.id">
+              <option
+                *ngFor="let category of categories"
+                [value]="category.id">
 
-              {{ category.name }}
+                {{ category.name }}
 
-            </option>
+              </option>
 
-          </select>
+            </select>
 
-        </div>
+          </div>
 
-        <!-- Price -->
+          <!-- Price -->
 
-        <div class="col-12 col-md-6">
+          <div class="col-12 col-md-6">
 
-          <label class="form-label">
-            Price
-          </label>
+            <label class="form-label">
+             Price
+            </label>
 
-          <input
-            type="number"
-            class="form-control"
-            [(ngModel)]="price">
+            <input
+              type="number"
+              class="form-control"
+              [(ngModel)]="price">
 
-        </div>
+          </div>
 
-        <!-- Discount -->
+          <!-- Discount -->
 
-        <div class="col-12 col-md-6">
+          <div class="col-12 col-md-6">
 
-          <label class="form-label">
-            Discount (%)
-          </label>
+            <label class="form-label">
+              Discount (%)
+            </label>
 
-          <input
-            type="number"
-            class="form-control"
-            [(ngModel)]="discountPercentage"
-            min="0"
-            max="90"
-            placeholder="0">
+            <input
+             type="number"
+              class="form-control"
+              [(ngModel)]="discountPercentage"
+              min="0"
+              max="90"
+              placeholder="0">
 
-        </div>
+          </div>
 
-        <!-- Image -->
+          <!-- Has Size -->
 
-        <div class="col-12 col-md-6">
+          <div class="col-12">
 
-          <label class="form-label">
-            Product Image
-          </label>
+            <div class="form-check">
 
-          <input
-            type="file"
-            class="form-control"
-            (change)="onImageSelected($event)">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="hasSize"
+                [(ngModel)]="hasSize">
 
-        </div>
+              <label
+                class="form-check-label fw-bold"
+               for="hasSize">
 
-        <!-- Description -->
+                This Product Has Sizes
 
-        <div class="col-12">
+              </label>
 
-          <label class="form-label">
+            </div>
+
+          </div>
+
+          <!-- Available Sizes -->
+
+          <div
+            class="col-12"
+            *ngIf="hasSize">
+
+            <label class="form-label fw-bold">
+
+              Available Sizes
+
+            </label>
+
+            <div class="d-flex flex-wrap gap-3">
+
+              <div
+                class="form-check"
+                *ngFor="let size of sizes">
+
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  [checked]="selectedSizes.includes(size.id)"
+                  (change)="toggleSize(size.id, $event)">
+
+                <label class="form-check-label">
+
+                  {{ size.name }}
+
+                </label>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Product Image -->
+
+          <div class="col-12 col-md-6">
+
+            <label class="form-label">
+             Product Image
+            </label>
+
+            <input
+              type="file"
+              class="form-control"
+              (change)="onImageSelected($event)">
+
+          </div>
+
+          <!-- Description -->
+
+          <div class="col-12">
+
+            <label class="form-label">
             Description
-          </label>
+            </label>
 
-          <textarea
-            rows="4"
-            class="form-control"
-            [(ngModel)]="description">
-          </textarea>
+            <textarea
+              rows="4"
+              class="form-control"
+              [(ngModel)]="description">
+            </textarea>
 
-        </div>
+          </div>
 
-        <!-- Save -->
+          <!-- Save -->
 
-        <div class="col-12">
+          <div class="col-12">
 
-          <button
-            class="btn btn-primary"
-            (click)="saveProduct()">
+            <button
+              class="btn btn-primary px-4"
+              (click)="saveProduct()">
 
-            {{ buttonText }}
+              {{ buttonText }}
 
-          </button>
+            </button>
+
+          </div>
 
         </div>
 
       </div>
 
     </div>
-
-  </div>
-
-  <!-- Product List -->
+      <!-- Product List -->
 
   <div class="card shadow-sm">
 
@@ -164,6 +223,8 @@
               <th>Name</th>
 
               <th>Category</th>
+
+              <th>Sizes</th>
 
               <th>Price</th>
 
@@ -194,7 +255,7 @@
 
               <!-- Name -->
 
-              <td class="product-name">
+              <td class="fw-semibold">
 
                 {{ product.name }}
 
@@ -205,6 +266,34 @@
               <td>
 
                 {{ product.category?.name }}
+
+              </td>
+
+              <!-- Sizes -->
+
+              <td>
+
+                <ng-container *ngIf="product.has_size; else noSize">
+
+                  <span
+                    class="badge bg-primary me-1 mb-1"
+                    *ngFor="let size of product.sizes">
+
+                    {{ size.name }}
+
+                  </span>
+
+                </ng-container>
+
+                <ng-template #noSize>
+
+                  <span class="text-muted">
+
+                    -
+
+                  </span>
+
+                </ng-template>
 
               </td>
 
@@ -251,7 +340,7 @@
 
               <!-- Actions -->
 
-              <td class="action-column">
+              <td>
 
                 <button
                   class="btn btn-warning btn-sm me-2"
@@ -273,11 +362,17 @@
 
             </tr>
 
+            <!-- Empty -->
+
             <tr *ngIf="products.length === 0">
 
-              <td colspan="7" class="text-center py-4">
+              <td colspan="8" class="text-center py-5">
 
-                No Products Found
+                <h5 class="text-muted">
+
+                  No Products Found
+
+                </h5>
 
               </td>
 

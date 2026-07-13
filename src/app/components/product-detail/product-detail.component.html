@@ -95,12 +95,42 @@
 
       </p>
 
+      <!-- Size Selection -->
+
+      <div
+        class="mt-4"
+        *ngIf="product?.has_size">
+
+        <h5 class="mb-3">
+
+          Select Size
+
+        </h5>
+
+        <div class="d-flex flex-wrap gap-2">
+
+          <button
+            type="button"
+            class="btn"
+            *ngFor="let size of product.sizes"
+            [class.btn-dark]="selectedSize?.id === size.id"
+            [class.btn-outline-dark]="selectedSize?.id !== size.id"
+            (click)="selectedSize = size">
+
+            {{ size.name }}
+
+          </button>
+
+        </div>
+
+      </div>
+
       <!-- Buttons -->
 
-      <div class="mt-4">
+      <div class="mt-4 d-flex gap-3 flex-wrap">
 
         <button
-          class="btn btn-warning btn-lg me-3"
+          class="btn btn-outline-success btn-lg"
           (click)="addToCart()">
 
           🛒 Add To Cart
@@ -108,10 +138,18 @@
         </button>
 
         <button
+          class="btn btn-outline-primary btn-lg"
+          (click)="buyNow()">
+
+          ⚡ Buy Now
+
+        </button>
+
+        <button
           class="btn btn-outline-danger btn-lg"
           (click)="addToWishlist()">
 
-          ❤️ Add to Wishlist
+          ❤️ Wishlist
 
         </button>
 

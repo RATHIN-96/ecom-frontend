@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-featured-products',
@@ -17,7 +18,10 @@ export class FeaturedProductsComponent implements OnInit {
 
   products: any[] = [];
 
-  constructor(private productService: ProductService, private cartService: CartService) {}
+  constructor(private productService: ProductService,
+              private cartService: CartService,
+              private router: Router,
+            ) {}
 
   ngOnInit(): void {
 
@@ -85,6 +89,28 @@ export class FeaturedProductsComponent implements OnInit {
     }
 
   });
+
+}
+
+buyNow(product: any) {
+
+  this.router.navigate(
+
+    ['/checkout'],
+
+    {
+
+      queryParams: {
+
+        product: product.id,
+
+        qty: 1
+
+      }
+
+    }
+
+  );
 
 }
 

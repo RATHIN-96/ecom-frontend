@@ -114,6 +114,16 @@
             </button>
 
             <button
+              class="btn btn-primary"
+              (click)="buyNow(product)">
+
+              <i class="bi bi-lightning-charge-fill"></i>
+
+              Buy Now
+
+            </button>
+
+            <button
               class="btn btn-outline-dark"
               [routerLink]="['/products', product.id]">
 

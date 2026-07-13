@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
@@ -21,6 +21,8 @@ export class ProductDetailComponent implements OnInit {
 
   product: any;
 
+  selectedSize: any = null;
+
   reviews: any[] = [];
 
   averageRating = 0;
@@ -33,6 +35,7 @@ export class ProductDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private productService: ProductService,
     private cartService: CartService,
     private wishlistService: WishlistService,
@@ -64,6 +67,22 @@ export class ProductDetailComponent implements OnInit {
     quantity: 1
 
   };
+
+  if (this.product.has_size && !this.selectedSize) {
+
+    Swal.fire({
+
+      icon: 'warning',
+
+      title: 'Select Size',
+
+      text: 'Please select a size.'
+
+    });
+
+    return;
+
+  }
 
   this.cartService.addToCart(cartData).subscribe({
 
@@ -135,6 +154,36 @@ addToWishlist() {
     }
 
   });
+
+}
+
+buyNow() {
+
+  if (this.product.has_size && !this.selectedSize) {
+
+    Swal.fire({
+
+      icon: 'warning',
+
+      title: 'Select Size',
+
+      text: 'Please select a size.'
+
+    });
+
+    return;
+
+  }
+
+  this.router.navigate(
+    ['/checkout'],
+    {
+      queryParams: {
+        product: this.product.id,
+        qty: 1
+      }
+    }
+  );
 
 }
 

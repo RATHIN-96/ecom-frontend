@@ -116,6 +116,83 @@
 
                     <!-- Cart Products -->
 
+                    BUY NOW PRODUCT
+
+
+                <div *ngIf="isBuyNow && buyNowProduct" class="cart-product">
+
+                    <div class="d-flex align-items-center mb-3">
+
+                        <img
+                            [src]="buyNowProduct.image"
+                            class="summary-image">
+
+                        <div class="ms-3 flex-grow-1">
+
+                            <h6 class="mb-1">
+
+                                {{ buyNowProduct.name }}
+
+                            </h6>
+
+                            <div class="d-flex align-items-center mt-2">
+
+                                <button
+                                    class="btn btn-outline-danger btn-sm"
+                                    (click)="decreaseQty()">
+
+                                        -
+
+                                </button>
+
+                                <span class="mx-3 fw-bold">
+
+                                    {{ buyNowQuantity }}
+
+                                </span>
+
+                                <button
+                                    class="btn btn-outline-success btn-sm"
+                                    (click)="increaseQty()">
+
+                                        +
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <div class="text-end">
+
+                            <strong class="text-success">
+
+                                ₹{{ buyNowProduct.discounted_price * buyNowQuantity }}
+
+                            </strong>
+
+                            <div *ngIf="buyNowProduct.discount_percentage > 0">
+
+                                <small class="text-decoration-line-through text-muted">
+
+                                    ₹{{ buyNowProduct.price * buyNowQuantity }}
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- =========================
+                     CART PRODUCTS
+                ========================= -->
+
+                <ng-container *ngIf="!isBuyNow">
+
                     <div
                         class="cart-product"
                         *ngFor="let item of cartItems">
@@ -165,6 +242,8 @@
                         </div>
 
                     </div>
+
+                </ng-container>
 
                     <hr>
 

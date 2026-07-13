@@ -7,6 +7,7 @@ import { CartService } from '../../services/cart.service';
 import { FormsModule } from '@angular/forms';
 import { CategoryService } from '../../services/category.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -28,7 +29,8 @@ export class ProductListComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private cartService: CartService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private router: Router
   ) {}
 
 
@@ -152,4 +154,27 @@ addToCart(product: any) {
   });
 
 }
+
+buyNow(product: any) {
+
+  this.router.navigate(
+
+    ['/checkout'],
+
+    {
+
+      queryParams: {
+
+        product: product.id,
+
+        qty: 1
+
+      }
+
+    }
+
+  );
+
+}
+
 }

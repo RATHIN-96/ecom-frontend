@@ -29,4 +29,28 @@ export class PaymentService {
 
 }
 
+buyNowCreatePayment(data: any) {
+
+  return this.http.post(
+
+    'http://127.0.0.1:8000/buy-now-create-payment/',
+
+    data
+
+  );
+
+}
+
+buyNowVerifyPayment(data: any) {
+
+  return this.http.post(
+
+    'http://127.0.0.1:8000/buy-now-verify-payment/',
+
+    data
+
+  );
+
+}
+
 }

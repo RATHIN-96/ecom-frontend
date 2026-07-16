@@ -61,13 +61,6 @@ export class ProductDetailComponent implements OnInit {
 
  addToCart() {
 
-  const cartData = {
-
-    product_id: this.product.id,
-    quantity: 1
-
-  };
-
   if (this.product.has_size && !this.selectedSize) {
 
     Swal.fire({
@@ -84,19 +77,35 @@ export class ProductDetailComponent implements OnInit {
 
   }
 
+  const cartData = {
+
+    product_id: this.product.id,
+
+    quantity: 1,
+
+    size_id: this.selectedSize ? this.selectedSize.id : null
+
+  };
+
   this.cartService.addToCart(cartData).subscribe({
 
     next: (res) => {
 
-      Swal.fire({
-        icon: 'success',
-        title: 'Added to Cart',
-        text: 'Product added successfully.',
-        timer: 1800,
-        showConfirmButton: false
-      });
+      this.cartService.loadCartCount();
 
-       this.cartService.loadCartCount();
+      Swal.fire({
+
+        icon: 'success',
+
+        title: 'Added to Cart',
+
+        text: 'Product added successfully.',
+
+        timer: 1800,
+
+        showConfirmButton: false
+
+      });
 
       console.log(res);
 
@@ -104,12 +113,16 @@ export class ProductDetailComponent implements OnInit {
 
     error: (err) => {
 
-      console.log(err.error);
+      console.log(err);
 
       Swal.fire({
+
         icon: 'error',
+
         title: 'Failed',
+
         text: err.error?.message || 'Unable to add product.'
+
       });
 
     }
@@ -117,6 +130,7 @@ export class ProductDetailComponent implements OnInit {
   });
 
 }
+
 addToWishlist() {
 
   const data = {

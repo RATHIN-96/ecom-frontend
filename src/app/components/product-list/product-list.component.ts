@@ -26,6 +26,11 @@ export class ProductListComponent implements OnInit {
   selectedCategory: string = '';
   selectedSort: string = '';
 
+  selectedProduct: any = null;
+  selectedSize: any = null;
+  sizeModalVisible = false;
+  isBuyNow = false;
+
   constructor(
     private productService: ProductService,
     private cartService: CartService,
@@ -39,6 +44,26 @@ ngOnInit(): void {
   this.loadProducts();
   this.loadCategories();
 
+
+}
+
+openSizeModal(product: any) {
+
+  this.selectedProduct = product;
+
+  this.selectedSize = null;
+
+  this.sizeModalVisible = true;
+
+}
+
+closeSizeModal() {
+
+  this.sizeModalVisible = false;
+
+  this.selectedProduct = null;
+
+  this.selectedSize = null;
 
 }
 
@@ -103,19 +128,38 @@ loadCategories() {
 
 }
 
+openBuyNowModal(product: any) {
+
+    this.selectedProduct = product;
+
+    this.selectedSize = null;
+
+    this.isBuyNow = true;
+
+    this.sizeModalVisible = true;
+
+  }
+
 addToCart(product: any) {
+
+  const productId = this.selectedProduct.id;
+  const sizeId = this.selectedSize.id;
 
   const data = {
 
-    product_id: product.id,
+    product_id: productId,
 
-    quantity: 1
+    quantity: 1,
+
+    size_id: sizeId
 
   };
 
   this.cartService.addToCart(data).subscribe({
 
     next: () => {
+
+      this.cartService.loadCartCount();
 
       Swal.fire({
 
@@ -131,8 +175,6 @@ addToCart(product: any) {
 
       });
 
-       this.cartService.loadCartCount();
-
     },
 
     error: (err) => {
@@ -146,6 +188,94 @@ addToCart(product: any) {
         title: 'Failed',
 
         text: 'Unable to add product to cart.'
+
+      });
+
+    }
+
+  });
+
+}
+
+confirmAddToCart() {
+
+  if (!this.selectedProduct) {
+
+    Swal.fire({
+
+      icon: 'error',
+
+      title: 'Product not found'
+
+    });
+
+    return;
+
+  }
+
+  if (!this.selectedSize) {
+
+    Swal.fire({
+
+      icon: 'warning',
+
+      title: 'Select Size',
+
+      text: 'Please select a size.'
+
+    });
+
+    return;
+
+  }
+
+  
+
+  const data = {
+
+    product_id: this.selectedProduct.id,
+
+    quantity: 1,
+
+    size_id: this.selectedSize.id
+
+  };
+
+  this.cartService.addToCart(data).subscribe({
+
+    next: () => {
+
+      this.cartService.loadCartCount();
+
+      this.closeSizeModal();
+
+      Swal.fire({
+
+        icon: 'success',
+
+        title: 'Added to Cart',
+
+        text: 'Product added successfully.',
+
+        timer: 1800,
+
+        showConfirmButton: false
+
+      });
+
+    },
+
+    error: (err) => {
+
+      console.log(err);
+
+      Swal.fire({
+
+        icon: 'error',
+
+        title: 'Failed',
+
+        text: 'Unable to add product.'
 
       });
 
@@ -174,6 +304,90 @@ buyNow(product: any) {
     }
 
   );
+
+}
+
+confirmSelection() {
+
+  if (!this.selectedSize) {
+
+    Swal.fire({
+
+      icon: 'warning',
+
+      title: 'Select Size',
+
+      text: 'Please select a size.'
+
+    });
+
+    return;
+
+  }
+
+  if (this.isBuyNow) {
+
+    const productId = this.selectedProduct.id;
+    const sizeId = this.selectedSize.id;
+
+    this.closeSizeModal();
+
+    this.router.navigate(
+      ['/checkout'],
+      {
+        queryParams: {
+          product: productId,
+          qty: 1,
+          size: sizeId
+        }
+      }
+    );
+
+  } 
+
+  else {
+
+    const data = {
+
+      product_id: this.selectedProduct.id,
+
+      quantity: 1,
+
+      size_id: this.selectedSize.id
+
+    };
+
+    this.cartService.addToCart(data).subscribe({
+
+      next: () => {
+
+        this.cartService.loadCartCount();
+
+        this.closeSizeModal();
+
+        Swal.fire({
+
+          icon: 'success',
+
+          title: 'Added to Cart',
+
+          timer: 1500,
+
+          showConfirmButton: false
+
+        });
+
+      },
+
+      error: (err) => {
+
+        console.log(err);
+
+      }
+
+    });
+
+  }
 
 }
 

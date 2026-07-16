@@ -1,12 +1,16 @@
-<div class="container ">
+<div class="container">
 
   <h2 class="mb-4">
     🛒 My Cart
   </h2>
 
-  <div class="card mb-3" *ngFor="let item of cartItems">
+  <div
+    class="card mb-3"
+    *ngFor="let item of cartItems">
 
     <div class="row g-0 align-items-center">
+
+      <!-- Product Image -->
 
       <div class="col-md-3 text-center">
 
@@ -17,11 +21,33 @@
 
       </div>
 
+      <!-- Product Details -->
+
       <div class="col-md-6">
 
         <div class="card-body">
 
-          <h5>{{ item.product.name }}</h5>
+          <!-- Product Name -->
+
+          <h5>
+
+            {{ item.product.name }}
+
+          </h5>
+
+          <!-- ⭐ Size -->
+
+          <div *ngIf="item.size" class="mb-2">
+
+            <span class="badge bg-primary">
+
+              Size : {{ item.size.name }}
+
+            </span>
+
+          </div>
+
+          <!-- Price -->
 
           <div class="mb-2">
 
@@ -33,7 +59,8 @@
 
             <div *ngIf="item.product.discount_percentage > 0">
 
-              <span class="text-muted text-decoration-line-through me-2">
+              <span
+                class="text-muted text-decoration-line-through me-2">
 
                 ₹ {{ item.product.price }}
 
@@ -49,36 +76,47 @@
 
           </div>
 
+          <!-- Quantity -->
+
           <div class="d-flex align-items-center">
 
             <button
-             class="btn btn-outline-danger"
-             (click)="changeQuantity(item,-1)">
-               -
+              class="btn btn-outline-danger"
+              (click)="changeQuantity(item,-1)">
+
+              -
+
             </button>
 
-             <span class="mx-3 fw-bold">
-               {{ item.quantity }}
-             </span>
+            <span class="mx-3 fw-bold">
+
+              {{ item.quantity }}
+
+            </span>
 
             <button
               class="btn btn-outline-success"
-               (click)="changeQuantity(item,1)">
-                +
+              (click)="changeQuantity(item,1)">
+
+              +
+
             </button>
 
           </div>
+
         </div>
 
       </div>
 
+      <!-- Remove -->
+
       <div class="col-md-3 text-center">
 
         <button
-            class="btn btn-danger"
-            (click)="removeItem(item.id)">
+          class="btn btn-danger"
+          (click)="removeItem(item.id)">
 
-            Remove
+          Remove
 
         </button>
 
@@ -88,7 +126,25 @@
 
   </div>
 
-  <div class="text-end">
+  <!-- Empty Cart -->
+
+  <div
+    class="text-center py-5"
+    *ngIf="cartItems.length == 0">
+
+    <h4 class="text-muted">
+
+      Your Cart is Empty
+
+    </h4>
+
+  </div>
+
+  <!-- Total -->
+
+  <div
+    class="text-end"
+    *ngIf="cartItems.length > 0">
 
     <h3>
 
@@ -96,13 +152,12 @@
       ₹ {{ total }}
 
     </h3>
-    
 
     <button
       class="btn btn-success btn-lg"
       routerLink="/checkout">
 
-      Checkout
+      Proceed to Checkout
 
     </button>
 

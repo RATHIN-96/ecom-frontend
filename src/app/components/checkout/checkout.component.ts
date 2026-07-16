@@ -53,6 +53,14 @@ export class CheckoutComponent implements OnInit {
   buyNowQuantity = 1;
 
   isBuyNow = false;
+  
+  buyNowSize: any = null;
+
+  buyNowSizeId: number | null = null;
+
+  
+
+  
 
   constructor(
 
@@ -80,12 +88,24 @@ export class CheckoutComponent implements OnInit {
 
         this.buyNowQuantity = Number(params['qty']) || 1;
 
+        this.buyNowSizeId = Number(params['size']) || null;
+
         this.productService.getProduct(Number(params['product']))
         .subscribe({
 
           next: (product) => {
 
             this.buyNowProduct = product;
+
+            if (this.buyNowSizeId) {
+
+              this.buyNowSize = product.sizes.find(
+
+                (s: any) => s.id === this.buyNowSizeId
+
+              );
+
+            }
 
             this.total =
               Number(product.discounted_price) *
@@ -307,6 +327,8 @@ export class CheckoutComponent implements OnInit {
 
       quantity: this.buyNowQuantity,
 
+      size_id: this.buyNowSizeId,
+
       name: this.order.name,
 
       phone: this.order.phone,
@@ -373,7 +395,9 @@ export class CheckoutComponent implements OnInit {
 
     product_id: this.buyNowProduct?.id,
 
-    quantity: this.buyNowQuantity
+    quantity: this.buyNowQuantity,
+
+    size_id: this.buyNowSizeId,
 
   };
 
@@ -451,7 +475,9 @@ export class CheckoutComponent implements OnInit {
 
     product_id: this.buyNowProduct?.id,
 
-    quantity: this.buyNowQuantity
+    quantity: this.buyNowQuantity,
+
+    size_id: this.buyNowSizeId,
 
   };
 

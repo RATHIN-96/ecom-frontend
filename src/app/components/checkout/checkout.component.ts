@@ -9,6 +9,7 @@ import { OrderService } from '../../services/order.service';
 import { PaymentService } from '../../services/payment.service';
 import { CartService } from '../../services/cart.service';
 import { ProductService } from '../../services/product.service';
+import { HttpClient } from '@angular/common/http';
 
 declare var Razorpay: any;
 
@@ -32,9 +33,17 @@ export class CheckoutComponent implements OnInit {
 
     name: '',
 
-    address: '',
+   address: '',
 
     phone: '',
+
+    pincode: '',
+
+    state: '',
+
+    district: '',
+
+    postoffice: '',
 
     payment: 'Cash On Delivery'
 
@@ -58,6 +67,10 @@ export class CheckoutComponent implements OnInit {
 
   buyNowSizeId: number | null = null;
 
+  deliveryAvailable = false;
+
+  deliveryMessage = '';
+
   
 
   
@@ -74,7 +87,9 @@ export class CheckoutComponent implements OnInit {
 
   private activatedRoute: ActivatedRoute,
 
-  private productService: ProductService
+  private productService: ProductService,
+
+  private http: HttpClient
 
  ) {}
 
@@ -253,6 +268,59 @@ export class CheckoutComponent implements OnInit {
 
   }
 
+  checkPincode() {
+
+  if (this.order.pincode.length !== 6) {
+
+    this.deliveryAvailable = false;
+
+    this.deliveryMessage = 'Please enter a valid 6-digit pincode.';
+
+    return;
+
+  }
+
+  this.http.get<any>(
+  `http://127.0.0.1:8000/check-pincode/${this.order.pincode}/`
+  ).subscribe({
+
+    next: (res) => {
+
+      if (res.success) {
+
+        this.order.state = res.state;
+
+        this.order.district = res.district;
+
+        this.order.postoffice = res.postoffice;
+
+        this.deliveryAvailable = true;
+
+        this.deliveryMessage = '✅ Delivery Available';
+
+      } else {
+
+        this.deliveryAvailable = false;
+
+        this.deliveryMessage = res.message;
+
+      }
+
+    },
+
+    error: () => {
+
+      this.deliveryAvailable = false;
+
+      this.deliveryMessage =
+        'Unable to check pincode.';
+
+    }
+
+  });
+
+}
+
   // ===========================
   // Place Order (COD)
   // ===========================
@@ -267,7 +335,15 @@ export class CheckoutComponent implements OnInit {
 
       phone: this.order.phone,
 
-      address: this.order.address
+      address: this.order.address,
+
+      state: this.order.state,
+
+      district: this.order.district,
+
+      postoffice: this.order.postoffice,
+
+      pincode: this.order.pincode
 
     };
 
@@ -333,7 +409,15 @@ export class CheckoutComponent implements OnInit {
 
       phone: this.order.phone,
 
-      address: this.order.address
+      address: this.order.address,
+
+      state: this.order.state,
+
+      district: this.order.district,
+
+      postoffice: this.order.postoffice,
+
+      pincode: this.order.pincode
 
     };
 
@@ -398,6 +482,14 @@ export class CheckoutComponent implements OnInit {
     quantity: this.buyNowQuantity,
 
     size_id: this.buyNowSizeId,
+
+    state: this.order.state,
+
+    district: this.order.district,
+
+    postoffice: this.order.postoffice,
+
+    pincode: this.order.pincode,
 
   };
 

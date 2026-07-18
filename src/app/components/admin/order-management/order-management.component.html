@@ -322,9 +322,41 @@
 
             <p>
 
+                <strong>State :</strong>
+
+                {{ selectedOrder.state }}
+
+            </p>
+
+            <p>
+
+                <strong>District :</strong>
+
+                {{ selectedOrder.district }}
+
+            </p>
+
+            <p>
+
+                <strong>Post Office :</strong>
+
+                {{ selectedOrder.postoffice }}
+
+            </p>
+
+            <p>
+
+                <strong>Pincode :</strong>
+
+                {{ selectedOrder.pincode }}
+
+            </p>            
+
+            <p>
+
                 <strong>Address :</strong>
 
-                <br>
+                
 
                 {{selectedOrder.address}}
 
@@ -360,10 +392,25 @@
 
                     Quantity :
                     <strong>
-
+                        
+                        
                         {{item.quantity}}
 
                     </strong>
+
+                </p>
+
+                <p
+                    class="mb-1"
+                    *ngIf="item.size">
+
+                    Size :
+
+                    <span class="badge rounded-pill bg-dark ms-1">
+
+                        {{ item.size.name }}
+
+                    </span>
 
                 </p>
 

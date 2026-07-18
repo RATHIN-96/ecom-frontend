@@ -72,6 +72,105 @@
 
                     </div>
 
+                    <!-- Pincode -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Pincode
+
+                        </label>
+
+                        <div class="input-group">
+
+                            <input
+                            type="text"
+                            class="form-control"
+                            maxlength="6"
+                            placeholder="Enter Pincode"
+                            [(ngModel)]="order.pincode">
+
+                            <button
+                            class="btn btn-primary"
+                            type="button"
+                            (click)="checkPincode()">
+
+                            Check
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Delivery Status -->
+
+                    <div *ngIf="deliveryMessage">
+
+                        <div
+                            class="alert"
+                            [ngClass]="deliveryAvailable ? 'alert-success' : 'alert-danger'">
+
+                            {{ deliveryMessage }}
+
+                        </div>
+
+                    </div>
+
+                    <!-- Auto Address -->
+
+                    <div
+                        class="row"
+                        *ngIf="deliveryAvailable">
+
+                        <div class="col-md-4 mb-3">
+
+                            <label class="form-label">
+
+                            State
+
+                            </label>
+
+                            <input
+                            class="form-control"
+                            [(ngModel)]="order.state"
+                            readonly>
+
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+
+                            <label class="form-label">
+
+                            District
+
+                            </label>
+
+                            <input
+                            class="form-control"
+                            [(ngModel)]="order.district"
+                            readonly>
+
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+
+                            <label class="form-label">
+
+                            Post Office
+
+                            </label>
+
+                            <input
+                            class="form-control"
+                            [(ngModel)]="order.postoffice"
+                            readonly>
+
+                        </div>
+
+                    </div>
+
                     <!-- Address -->
 
                     <div class="mb-4">

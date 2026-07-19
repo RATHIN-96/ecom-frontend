@@ -244,6 +244,22 @@ export class CheckoutComponent implements OnInit {
 
     }
 
+    if (!this.order.pincode?.trim()) {
+
+      Swal.fire({
+
+        icon: 'warning',
+
+        title: 'Pincode Required',
+
+        text: 'Please enter your delivery pincode.'
+
+      });
+
+      return;
+
+    }   
+
     if (this.order.payment === 'Cash On Delivery') {
 
       if (this.isBuyNow) {
@@ -651,6 +667,18 @@ decreaseQty() {
       this.buyNowQuantity;
 
   }
+
+}
+
+getDeliveryCharge(): number {
+
+  return this.total >= 999 ? 0 : 50;
+
+}
+
+getGrandTotal(): number {
+
+  return this.total + this.getDeliveryCharge();
 
 }
 

@@ -384,7 +384,7 @@
 
                     </div>
 
-                    <div class="d-flex justify-content-between mb-2">
+                    <!-- <div class="d-flex justify-content-between mb-2">
 
                         <span>
 
@@ -398,9 +398,9 @@
 
                         </span>
 
-                    </div>
+                    </div> -->
 
-                    <div class="d-flex justify-content-between mb-3">
+                    <!-- <div class="d-flex justify-content-between mb-3">
 
                         <span>
 
@@ -414,11 +414,11 @@
 
                         </span>
 
-                    </div>
+                    </div> -->
 
                     <hr>
 
-                    <div class="d-flex justify-content-between mb-4">
+                    <!-- <div class="d-flex justify-content-between mb-4">
 
                         <h5>
 
@@ -432,7 +432,7 @@
 
                         </h5>
 
-                    </div>
+                    </div> -->
 
                     <!-- Payment -->
 
@@ -476,18 +476,79 @@
 
                     </div>
 
-                    <!-- Security -->
 
-                    <div class="alert alert-success">
 
-                        🔒 100% Secure Payment
+                    <!-- ===========================
+                        Order Summary
+                    =========================== -->
 
-                        <br>
+            <div class="card shadow-sm border-0 mb-4">
 
-                        🚚 Estimated Delivery : 5-7 Days
+                <div class="card-body">
+
+                    <h5 class="fw-bold mb-3">
+
+                    🧾 Order Summary
+
+                    </h5>
+
+                    <!-- Items Total -->
+
+                    <div class="d-flex justify-content-between mb-2">
+
+                        <span>Items Total</span>
+
+                        <strong>₹ {{ total }}</strong>
 
                     </div>
 
+                        <!-- Delivery -->
+
+                    <div class="d-flex justify-content-between mb-2">
+
+                        <span>Delivery </span>
+
+                        <strong
+                            class="text-success"
+                            *ngIf="getDeliveryCharge() === 0">
+
+                            FREE
+
+                        </strong>
+
+                        <strong
+                            class="text-danger"
+                            *ngIf="getDeliveryCharge() > 0">
+
+                            ₹ {{ getDeliveryCharge() }}
+
+                        </strong>
+
+                        </div>
+
+                        <hr>
+
+                        <!-- Grand Total -->
+
+                        <div class="d-flex justify-content-between">
+
+                        <h5 class="fw-bold">
+
+                            Grand Total
+
+                        </h5>
+
+                        <h5 class="fw-bold text-success">
+
+                            ₹ {{ getGrandTotal() }}
+
+                        </h5>
+
+                    </div>
+
+                </div>
+
+            </div>
                     <!-- Button -->
 
                     <button

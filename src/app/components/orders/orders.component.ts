@@ -15,6 +15,10 @@ export class OrdersComponent implements OnInit {
 
   orders: any[] = [];
 
+  openedAddressOrderId: number | null = null;
+
+  openedProductsOrderId: number | null = null;
+
   constructor(private orderService: OrderService) {}
 
   ngOnInit(): void {
@@ -202,6 +206,50 @@ downloadInvoice(id: number) {
     }
 
   });
+
+}
+
+getExpectedStartDate(order: any): Date {
+
+  const date = new Date(order.created_at);
+
+  date.setDate(date.getDate() + 5);
+
+  return date;
+
+}
+
+getExpectedEndDate(order: any): Date {
+
+  const date = new Date(order.created_at);
+
+  date.setDate(date.getDate() + 7);
+
+  return date;
+
+}
+
+// getDeliveryCharge(order: any): number {
+
+//   return Number(order.total_price) >= 999 ? 0 : 50;
+
+// }
+
+toggleAddress(orderId: number) {
+
+  this.openedAddressOrderId =
+    this.openedAddressOrderId === orderId
+      ? null
+      : orderId;
+
+}
+
+toggleProducts(orderId: number) {
+
+  this.openedProductsOrderId =
+    this.openedProductsOrderId === orderId
+      ? null
+      : orderId;
 
 }
 

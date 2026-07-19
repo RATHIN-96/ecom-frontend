@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ProfileService {
 
-  private apiUrl = 'http://127.0.0.1:8000/profile/';
+  private apiUrl = 'https://velora-backend-08fd.onrender.com/profile/';
 
   constructor(private http: HttpClient) { }
 
@@ -31,7 +31,7 @@ export class ProfileService {
   changePassword(data: any): Observable<any> {
 
   return this.http.post<any>(
-    'http://127.0.0.1:8000/change-password/',
+    'https://velora-backend-08fd.onrender.com/change-password/',
     data
   );
 

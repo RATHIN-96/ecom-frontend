@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ProductService {
 
-  private apiUrl = 'http://127.0.0.1:8000/products/';
+  private apiUrl = 'https://velora-backend-08fd.onrender.com/products/';
 
   constructor(private http: HttpClient) { }
 
@@ -67,7 +67,7 @@ export class ProductService {
 
   return this.http.get<any[]>(
 
-    'http://127.0.0.1:8000/sizes/'
+    'https://velora-backend-08fd.onrender.com/sizes/'
 
   );
 

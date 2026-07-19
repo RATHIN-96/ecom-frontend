@@ -297,7 +297,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   this.http.get<any>(
-  `http://127.0.0.1:8000/check-pincode/${this.order.pincode}/`
+  `https://velora-backend-08fd.onrender.com/check-pincode/${this.order.pincode}/`
   ).subscribe({
 
     next: (res) => {

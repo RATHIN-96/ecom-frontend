@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ReviewService {
 
-  private apiUrl = 'http://127.0.0.1:8000/reviews/';
+  private apiUrl = 'https://velora-backend-08fd.onrender.com/reviews/';
 
   constructor(private http: HttpClient) { }
 

@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DashboardService {
 
-  private api = 'http://127.0.0.1:8000/admin-dashboard/';
+  private api = 'https://velora-backend-08fd.onrender.com/admin-dashboard/';
 
   constructor(private http: HttpClient) {}
 

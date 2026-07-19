@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class WishlistService {
 
-  private apiUrl = 'http://127.0.0.1:8000/wishlist/';
+  private apiUrl = 'https://velora-backend-08fd.onrender.com/wishlist/';
 
   constructor(private http: HttpClient) { }
 
@@ -21,7 +21,7 @@ export class WishlistService {
 
   removeWishlist(id: number): Observable<any> {
     return this.http.delete(
-      `http://127.0.0.1:8000/wishlist/${id}/`
+      `https://velora-backend-08fd.onrender.com/wishlist/${id}/`
     );
   }
 

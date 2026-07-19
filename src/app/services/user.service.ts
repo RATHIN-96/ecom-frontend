@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
-  private apiUrl = 'http://127.0.0.1:8000/users/';
+  private apiUrl = 'https://velora-backend-08fd.onrender.com/users/';
 
   constructor(private http: HttpClient) {}
 

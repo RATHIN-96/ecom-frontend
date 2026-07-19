@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class CategoryService {
 
-  private apiUrl = 'http://127.0.0.1:8000/categories/';
+  private apiUrl = 'https://velora-backend-08fd.onrender.com/categories/';
 
   constructor(private http: HttpClient) {}
 

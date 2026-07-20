@@ -19,6 +19,8 @@ export class OrdersComponent implements OnInit {
 
   openedProductsOrderId: number | null = null;
 
+  openedTimelineOrderId: number | null = null;
+
   constructor(private orderService: OrderService) {}
 
   ngOnInit(): void {
@@ -229,11 +231,19 @@ getExpectedEndDate(order: any): Date {
 
 }
 
-// getDeliveryCharge(order: any): number {
+toggleTimeline(orderId: number) {
 
-//   return Number(order.total_price) >= 999 ? 0 : 50;
+  if (this.openedTimelineOrderId === orderId) {
 
-// }
+    this.openedTimelineOrderId = null;
+
+  } else {
+
+    this.openedTimelineOrderId = orderId;
+
+  }
+
+}
 
 toggleAddress(orderId: number) {
 

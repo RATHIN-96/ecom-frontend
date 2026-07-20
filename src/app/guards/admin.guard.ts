@@ -5,16 +5,14 @@ export const adminGuard: CanActivateFn = () => {
 
   const router = inject(Router);
 
+  const token = localStorage.getItem('token');
   const isStaff = localStorage.getItem('is_staff');
 
-  if (isStaff === 'true') {
-
+  if (token && isStaff === 'true') {
     return true;
-
   }
 
-  router.navigate(['/']);
-
+  router.navigate(['/login']);
   return false;
 
 };

@@ -28,10 +28,92 @@
                     </h5>
 
                     <button
+                        class="btn btn-warning w-100 mb-2"
+                        (click)="item.product.has_size ? openSizeModal(item) : addToCart(item)">
+
+                        🛒 Add To Cart
+
+                    </button>
+
+                    <button
                         class="btn btn-danger"
                         (click)="removeWishlist(item.id)">
 
                         Remove
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Size Selection Modal -->
+
+    <div
+        class="modal fade show"
+        tabindex="-1"
+        *ngIf="sizeModalVisible"
+        style="display:block; background:rgba(0,0,0,.5);">
+
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title">
+
+                        Select Size
+
+                    </h5>
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        (click)="closeSizeModal()">
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="d-flex flex-wrap gap-2">
+
+                        <button
+                            type="button"
+                            class="btn"
+                            *ngFor="let size of selectedProduct?.sizes"
+                            [class.btn-dark]="selectedSize?.id === size.id"
+                            [class.btn-outline-dark]="selectedSize?.id !== size.id"
+                            (click)="selectedSize = size">
+
+                            {{ size.name }}
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button
+                        class="btn btn-secondary"
+                        (click)="closeSizeModal()">
+
+                        Cancel
+
+                    </button>
+
+                    <button
+                        class="btn btn-success"
+                        (click)="confirmSelection()">
+
+                        Add To Cart
 
                     </button>
 

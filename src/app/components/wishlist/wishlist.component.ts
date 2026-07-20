@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 
 import { WishlistService } from '../../services/wishlist.service';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -15,7 +16,16 @@ export class WishlistComponent implements OnInit {
 
   wishlist: any[] = [];
 
-  constructor(private wishlistService: WishlistService) {}
+  selectedProduct: any = null;
+
+  selectedSize: any = null;
+
+  sizeModalVisible = false;
+
+  constructor(
+    private wishlistService: WishlistService,
+    private cartService: CartService
+  ) {}
 
   ngOnInit(): void {
 
@@ -47,72 +57,222 @@ export class WishlistComponent implements OnInit {
 
   removeWishlist(id: number) {
 
-  Swal.fire({
+    Swal.fire({
 
-    title: 'Remove from Wishlist?',
+      title: 'Remove from Wishlist?',
 
-    text: 'Do you want to remove this product from your wishlist?',
+      text: 'Do you want to remove this product from your wishlist?',
 
-    icon: 'warning',
+      icon: 'warning',
 
-    showCancelButton: true,
+      showCancelButton: true,
 
-    confirmButtonColor: '#dc3545',
+      confirmButtonColor: '#dc3545',
 
-    cancelButtonColor: '#6c757d',
+      cancelButtonColor: '#6c757d',
 
-    confirmButtonText: 'Remove',
+      confirmButtonText: 'Remove',
 
-    cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel'
 
-  }).then((result) => {
+    }).then((result) => {
 
-    if (result.isConfirmed) {
+      if (result.isConfirmed) {
 
-      this.wishlistService.removeWishlist(id).subscribe({
+        this.wishlistService.removeWishlist(id).subscribe({
 
-        next: () => {
+          next: () => {
 
-          Swal.fire({
+            Swal.fire({
 
-            icon: 'success',
+              icon: 'success',
 
-            title: 'Removed',
+              title: 'Removed',
 
-            text: 'Product removed from wishlist.',
+              text: 'Product removed from wishlist.',
 
-            timer: 1800,
+              timer: 1800,
 
-            showConfirmButton: false
+              showConfirmButton: false
 
-          });
+            });
 
-          this.loadWishlist();
+            this.loadWishlist();
 
-        },
+          },
 
-        error: (err) => {
+          error: (err) => {
 
-          console.log(err);
+            console.log(err);
 
-          Swal.fire({
+            Swal.fire({
 
-            icon: 'error',
+              icon: 'error',
 
-            title: 'Failed',
+              title: 'Failed',
 
-            text: 'Unable to remove product.'
+              text: 'Unable to remove product.'
 
-          });
+            });
 
-        }
+          }
 
-      });
+        });
+
+      }
+
+    });
+
+  }
+
+  openSizeModal(item: any) {  
+
+    this.selectedProduct = item.product;
+
+    this.selectedSize = null;
+
+    this.sizeModalVisible = true;
+
+  }
+
+  closeSizeModal() {  
+
+    this.sizeModalVisible = false;
+
+    this.selectedProduct = null;
+
+    this.selectedSize = null;
+
+  } 
+
+  addToCart(item: any) {
+
+    const data: any = {
+
+      product_id: item.product.id,
+
+      quantity: 1
+
+    };
+
+    if (item.product.has_size) {
+
+      data.size_id = this.selectedSize.id;
 
     }
 
-  });
+    this.cartService.addToCart(data).subscribe({
 
-}
+      next: () => {
+
+        this.cartService.loadCartCount();
+
+        Swal.fire({
+
+          icon: 'success',
+
+          title: 'Added to Cart',
+
+          text: 'Product added successfully.',
+
+          timer: 1500,
+
+          showConfirmButton: false
+
+        });
+
+      },
+
+      error: (err) => {
+
+        console.log(err);
+
+        Swal.fire({
+
+          icon: 'error',
+
+          title: 'Failed',
+
+          text: 'Unable to add product.'
+
+        });
+
+      }
+
+    });
+
+  }
+
+  confirmSelection() {
+
+    if (!this.selectedSize) {
+
+      Swal.fire({
+
+        icon: 'warning',
+
+        title: 'Select Size',
+
+        text: 'Please select a size.'
+
+      });
+
+     return;
+
+    }
+
+    const data = {
+
+      product_id: this.selectedProduct.id,
+
+      quantity: 1,
+
+      size_id: this.selectedSize.id
+
+    };
+
+    this.cartService.addToCart(data).subscribe({
+
+      next: () => {
+
+        this.cartService.loadCartCount();
+
+        this.closeSizeModal();
+
+        Swal.fire({
+
+          icon: 'success',
+
+          title: 'Added to Cart',
+
+          text: 'Product added successfully.',
+
+          timer: 1500,
+
+          showConfirmButton: false
+
+        });
+
+      },
+
+      error: (err) => {
+
+        console.log(err);
+
+        Swal.fire({
+
+          icon: 'error',
+
+          title: 'Failed',
+
+          text: 'Unable to add product.'
+
+        });
+
+      }
+
+    });
+
+  }
 
 }

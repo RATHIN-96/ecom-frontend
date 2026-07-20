@@ -92,131 +92,168 @@
 
       <hr>
 
-      <!-- ===========================
-           Progress Bar
-      ============================ -->
-
-      <div class="progress-wrapper">
-
-        <div class="progress-line">
-
-          <div
-            class="progress-fill"
-            [style.width]="getProgressWidth(order)">
-          </div>
-
-          <div
-            class="moving-truck"
-            [style.left]="getTruckPosition(order)">
-
-            <img
-              src="/images/cargo-truck.png"
-              class="truck-image"
-              alt="Truck">
-
-          </div>
-
-        </div>
-
-      </div>
+   
 
       <!-- ===========================
-           Timeline
-      ============================ -->
+        Order Timeline
+      =========================== -->
 
-      <div class="timeline">
+      <div class="card border-0 shadow-sm mb-4">
 
-        <!-- Ordered -->
+          <div class="card-body">
 
-        <div class="step active">
+              <div class="d-flex justify-content-between align-items-center">
 
-          <div class="circle">
+                  <h5 class="mb-0">
 
-            <i class="bi bi-cart-check-fill"></i>
+                      🚚 Order Timeline
+
+                  </h5>
+
+                  <button
+                      class="btn btn-outline-secondary btn-sm"
+                      (click)="toggleTimeline(order.id)">
+
+                      <span *ngIf="openedTimelineOrderId !== order.id">
+
+                          <i class="bi bi-eye-fill"></i>
+
+                         View
+
+                      </span>
+
+                      <span *ngIf="openedTimelineOrderId === order.id">
+
+                          <i class="bi bi-eye-slash-fill"></i>
+
+                          Hide
+
+                      </span>
+
+                  </button>
+
+              </div>
+
+              <div
+                  class="mt-4"
+                  *ngIf="openedTimelineOrderId === order.id">
+
+                  <!-- Progress Bar -->
+
+                  <div class="progress-wrapper">
+
+                      <div class="progress-line">
+
+                          <div
+                              class="progress-fill"
+                              [style.width]="getProgressWidth(order)">
+                          </div>
+
+                          <div
+                              class="moving-truck"
+                              [style.left]="getTruckPosition(order)">
+
+                              <img
+                                src="/images/cargo-truck.png"
+                                  class="truck-image">
+
+                          </div>
+
+                      </div>
+
+                  </div>
+
+                  <!-- Timeline -->
+
+                  <div class="timeline">
+
+                      <div class="step active">
+
+                          <div class="circle">
+
+                              <i class="bi bi-cart-check-fill"></i>
+
+                          </div>
+
+                          <span>Ordered</span>
+
+                      </div>
+
+                      <div
+                          class="step"
+                          [class.active]="
+                          order.status=='Processing' ||
+                          order.status=='Shipped' ||
+                          order.status=='Out for Delivery' ||
+                          order.status=='Delivered'
+                          ">
+
+                          <div class="circle">
+
+                              <i class="bi bi-gear-fill"></i>
+
+                          </div>
+
+                          <span>Processing</span>
+
+                      </div>
+
+                      <div
+                          class="step"
+                          [class.active]="
+                          order.status=='Shipped' ||
+                          order.status=='Out for Delivery' ||
+                          order.status=='Delivered'
+                          ">
+
+                          <div class="circle">
+
+                              <i class="bi bi-box-seam-fill"></i>
+
+                          </div>
+
+                          <span>Shipped</span>
+
+                      </div>
+
+                      <div
+                          class="step"
+                          [class.active]="
+                          order.status=='Out for Delivery' ||
+                          order.status=='Delivered'
+                          ">
+
+                          <div class="circle">
+
+                              <i class="bi bi-truck"></i>
+
+                          </div>
+
+                          <span>Out for Delivery</span>
+
+                      </div>
+
+                      <div
+                          class="step"
+                          [class.active]="
+                          order.status=='Delivered'
+                          ">
+
+                          <div class="circle">
+
+                              <i class="bi bi-house-check-fill"></i>
+
+                          </div>
+
+                          <span>Delivered</span>
+
+                      </div>
+
+                  </div>
+
+              </div>
 
           </div>
-
-          <span>Ordered</span>
-
-        </div>
-
-        <!-- Processing -->
-
-        <div
-          class="step"
-          [class.active]="
-          order.status=='Processing' ||
-          order.status=='Shipped' ||
-          order.status=='Out for Delivery' ||
-          order.status=='Delivered'
-          ">
-
-          <div class="circle">
-
-            <i class="bi bi-gear-fill"></i>
-
-          </div>
-
-          <span>Processing</span>
-
-        </div>
-
-        <!-- Shipped -->
-
-        <div
-          class="step"
-          [class.active]="
-          order.status=='Shipped' ||
-          order.status=='Out for Delivery' ||
-          order.status=='Delivered'
-          ">
-
-          <div class="circle">
-
-            <i class="bi bi-box-seam-fill"></i>
-
-          </div>
-
-          <span>Shipped</span>
-
-        </div>
-
-        <!-- Out For Delivery -->
-
-        <div
-          class="step"
-          [class.active]="
-          order.status=='Out for Delivery' ||
-          order.status=='Delivered'
-          ">
-
-          <div class="circle">
-
-            <i class="bi bi-truck"></i>
-
-          </div>
-
-          <span>Out for Delivery</span>
-
-        </div>
-
-        <!-- Delivered -->
-
-        <div
-          class="step"
-          [class.active]="
-          order.status=='Delivered'
-          ">
-
-          <div class="circle">
-
-            <i class="bi bi-house-check-fill"></i>
-
-          </div>
-
-          <span>Delivered</span>
-
-        </div>
 
       </div>
 

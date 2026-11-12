@@ -497,3 +497,99 @@ box-shadow:0 0 0 rgba(25,135,84,.2);
 }
 
 
+
+/* =====================================
+   VELORA ORDERS - DARK THEME
+===================================== */
+
+html.dark-theme .order-card,
+html.dark-theme .card {
+    background: #1e202b !important;
+    color: #f1f5f9 !important;
+    border-color: #343746 !important;
+}
+
+/* Headings and text */
+html.dark-theme .card h4,
+html.dark-theme .card h5,
+html.dark-theme .card h6,
+html.dark-theme .card p,
+html.dark-theme .card strong,
+html.dark-theme .card span {
+    color: #f1f5f9;
+}
+
+/* Muted text */
+html.dark-theme .text-muted {
+    color: #b8c0d0 !important;
+}
+
+/* Status cards */
+html.dark-theme .status-card {
+    background: #292c39 !important;
+    color: #f1f5f9 !important;
+}
+
+html.dark-theme .status-card h6 {
+    color: #ffffff !important;
+}
+
+/* Product cards */
+html.dark-theme .product-card {
+    background: #292c39 !important;
+    border-color: #45495a !important;
+    color: #ffffff !important;
+}
+
+/* Timeline */
+html.dark-theme .circle {
+    background: #292c39;
+    border-color: #555b6e;
+    color: #ffffff;
+}
+
+html.dark-theme .progress-line {
+    background: #45495a;
+}
+
+/* Divider */
+html.dark-theme hr {
+    border-color: #555b6e;
+    opacity: 1;
+}
+
+/* Total amount */
+html.dark-theme .text-success {
+    color: #20c98b !important;
+}
+
+/* Buttons */
+html.dark-theme .btn-outline-secondary {
+    color: #ffffff;
+    border-color: #718096;
+}
+
+html.dark-theme .btn-outline-secondary:hover {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+/* Product text */
+html.dark-theme .product-card h5,
+html.dark-theme .product-card p {
+    color: #ffffff !important;
+}
+
+/* =====================================
+   LIGHT THEME
+===================================== */
+
+html:not(.dark-theme) .status-card {
+    background: #f8f9fa;
+    color: #212529;
+}
+
+html:not(.dark-theme) .card {
+    background: #ffffff;
+    color: #212529;
+}

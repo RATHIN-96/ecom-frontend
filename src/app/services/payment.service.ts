@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class PaymentService {
 
-  private apiUrl = 'https://velora-backend-08fd.onrender.com/create-payment/';
+  private apiUrl = 'http://127.0.0.1:8000/create-payment/';
 
   constructor(private http: HttpClient) {}
 
@@ -23,7 +23,7 @@ export class PaymentService {
   verifyPayment(data: any): Observable<any> {
 
   return this.http.post<any>(
-    'https://velora-backend-08fd.onrender.com/verify-payment/',
+    'http://127.0.0.1:8000/verify-payment/',
     data
   );
 
@@ -33,7 +33,7 @@ buyNowCreatePayment(data: any) {
 
   return this.http.post(
 
-    'https://velora-backend-08fd.onrender.com/buy-now-create-payment/',
+    'http://127.0.0.1:8000/buy-now-create-payment/',
 
     data
 
@@ -45,7 +45,7 @@ buyNowVerifyPayment(data: any) {
 
   return this.http.post(
 
-    'https://velora-backend-08fd.onrender.com/buy-now-verify-payment/',
+    'http://127.0.0.1:8000/buy-now-verify-payment/',
 
     data
 

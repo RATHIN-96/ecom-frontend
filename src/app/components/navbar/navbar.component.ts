@@ -1,3 +1,4 @@
+
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -5,14 +6,17 @@ import Swal from 'sweetalert2';
 
 import { AuthService } from '../../services/auth.service';
 import { CartService } from '../../services/cart.service';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
+
   imports: [
     CommonModule,
     RouterLink
   ],
+
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
@@ -30,7 +34,8 @@ export class NavbarComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private cartService: CartService
+    private cartService: CartService,
+    public themeService: ThemeService
   ) {}
 
   ngOnInit(): void {
@@ -56,6 +61,16 @@ export class NavbarComponent implements OnInit {
   isLoggedIn(): boolean {
 
     return !!localStorage.getItem('token');
+
+  }
+
+  // --------------------------
+  // DARK / LIGHT MODE
+  // --------------------------
+
+  toggleTheme(): void {
+
+    this.themeService.toggleTheme();
 
   }
 

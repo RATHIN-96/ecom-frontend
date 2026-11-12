@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class OrderService {
 
-  private placeOrderUrl = 'https://velora-backend-08fd.onrender.com/place-order/';
-  private orderUrl = 'https://velora-backend-08fd.onrender.com/orders/';
+  private placeOrderUrl = 'http://127.0.0.1:8000/place-order/';
+  private orderUrl = 'http://127.0.0.1:8000/orders/';
 
   constructor(private http: HttpClient) {}
 
@@ -37,7 +37,7 @@ export class OrderService {
 
     return this.http.post(
 
-      `https://velora-backend-08fd.onrender.com/cancel-order/${id}/`,
+      `http://127.0.0.1:8000/cancel-order/${id}/`,
 
       {}
 
@@ -49,7 +49,7 @@ export class OrderService {
 
     return this.http.get(
 
-      `https://velora-backend-08fd.onrender.com/invoice/${id}/`,
+      `http://127.0.0.1:8000/invoice/${id}/`,
 
       {
 
@@ -87,7 +87,7 @@ buyNow(data: any) {
 
   return this.http.post(
 
-    'https://velora-backend-08fd.onrender.com/buy-now-order/',
+    'http://127.0.0.1:8000/buy-now-order/',
 
     data
 

@@ -1,272 +1,402 @@
-/* ===========================
-   Dashboard Background
-=========================== */
 
-.container-fluid{
+/* =====================================
+   VELORA ADMIN DASHBOARD
+   LIGHT + DARK MODE
+===================================== */
 
-    padding:25px;
+/* Dashboard Background */
 
-    background:#f8f9fa;
+.admin-dashboard,
+.container-fluid.admin-dashboard {
 
-    min-height:100vh;
+    padding: 25px;
 
-}
+    background: var(--bg-primary);
 
-/* ===========================
-   Heading
-=========================== */
+    color: var(--text-primary);
 
-h2{
+    min-height: 100vh;
 
-    font-weight:700;
-
-    color:#212529;
+    transition: background .3s ease,
+                color .3s ease;
 
 }
 
-/* ===========================
-   Dashboard Cards
-=========================== */
+/* =====================================
+   HEADING
+===================================== */
 
-.dashboard-card{
+.admin-dashboard h2,
+.admin-dashboard h4 {
 
-    border:none;
+    font-weight: 700;
 
-    border-radius:20px;
-
-    color:#fff;
-
-    cursor:pointer;
-
-    transition:all .35s ease;
-
-    overflow:hidden;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.12);
+    color: var(--text-primary);
 
 }
 
-.dashboard-card:hover{
+.admin-dashboard h2 {
+    font-size: 28px;
+}
 
-    transform:translateY(-8px);
+/* =====================================
+   DASHBOARD CARDS
+===================================== */
 
-    box-shadow:0 20px 40px rgba(0,0,0,.20);
+.dashboard-card {
+
+    border: none;
+
+    border-radius: 20px;
+
+    color: #fff;
+
+    cursor: pointer;
+
+    transition: all .35s ease;
+
+    overflow: hidden;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,.12);
 
 }
 
-.dashboard-card .card-body{
+.dashboard-card:hover {
 
-    padding:28px;
+    transform: translateY(-8px);
 
-}
-
-.dashboard-card h5{
-
-    font-size:18px;
-
-    font-weight:600;
-
-    margin-bottom:15px;
+    box-shadow: 0 20px 40px rgba(0,0,0,.20);
 
 }
 
-.dashboard-card h2{
+.dashboard-card .card-body {
 
-    font-size:42px;
-
-    font-weight:700;
-
-    margin-bottom:10px;
+    padding: 28px;
 
 }
 
-.dashboard-card p{
+.dashboard-card h5 {
 
-    margin:0;
+    font-size: 18px;
 
-    font-size:15px;
+    font-weight: 600;
 
-    opacity:.9;
+    margin-bottom: 15px;
 
-}
-
-/* ===========================
-   Common Card
-=========================== */
-
-.card{
-
-    border:none;
-
-    border-radius:18px;
-
-    box-shadow:0 8px 25px rgba(0,0,0,.08);
-
-    transition:.3s;
+    color: #fff;
 
 }
 
-.card:hover{
+.dashboard-card h2 {
 
-    box-shadow:0 15px 35px rgba(0,0,0,.12);
+    font-size: 42px;
 
-}
+    font-weight: 700;
 
-/* ===========================
-   Card Headings
-=========================== */
+    margin-bottom: 10px;
 
-.card h4{
-
-    font-weight:700;
-
-    color:#212529;
+    color: #fff !important;
 
 }
 
-.card hr{
+.dashboard-card p {
 
-    margin:15px 0;
+    margin: 0;
 
-}
+    font-size: 15px;
 
-/* ===========================
-   Table
-=========================== */
+    opacity: .9;
 
-.table{
-
-    margin-bottom:0;
+    color: #fff;
 
 }
 
-.table td{
+/* =====================================
+   COMMON CARD
+===================================== */
 
-    padding:12px 8px;
+.admin-dashboard .card:not(.dashboard-card) {
 
-    vertical-align:middle;
+    background: var(--bg-card);
 
-    font-size:15px;
+    color: var(--text-primary);
 
-}
+    border: 1px solid var(--border-color);
 
-.table tr:not(:last-child){
+    border-radius: 18px;
 
-    border-bottom:1px solid #ececec;
+    box-shadow: var(--shadow);
 
-}
-
-/* ===========================
-   Buttons
-=========================== */
-
-.btn{
-
-    border-radius:12px;
-
-    font-weight:600;
-
-    padding:10px 18px;
-
-    transition:.3s;
+    transition: .3s ease;
 
 }
 
-.btn:hover{
+.admin-dashboard .card:not(.dashboard-card):hover {
 
-    transform:translateY(-2px);
-
-}
-
-/* ===========================
-   Quick Actions
-=========================== */
-
-.d-flex.gap-2{
-
-    flex-wrap:wrap;
+    box-shadow: 0 15px 35px rgba(0,0,0,.12);
 
 }
 
-/* ===========================
-   Responsive
-=========================== */
+/* =====================================
+   CARD HEADINGS
+===================================== */
 
-@media(max-width:992px){
+.admin-dashboard .card h4 {
 
-.dashboard-card h2{
+    font-weight: 700;
 
-    font-size:34px;
-
-}
+    color: var(--text-primary);
 
 }
 
-@media(max-width:768px){
+.admin-dashboard .card hr {
 
-.container-fluid{
+    margin: 15px 0;
 
-    padding:15px;
+    border-color: var(--border-color);
 
-}
-
-.dashboard-card{
-
-    margin-bottom:10px;
+    opacity: .7;
 
 }
 
-.dashboard-card h2{
+/* =====================================
+   TABLE
+===================================== */
 
-    font-size:30px;
-    
+.admin-dashboard .table {
 
-}
+    margin-bottom: 0;
 
-.dashboard-card h5{
+    color: var(--text-primary);
 
-    font-size:16px;
+    --bs-table-bg: var(--bg-card);
 
-}
+    --bs-table-color: var(--text-primary);
 
-.btn{
-
-    width:100%;
-
-}
-
-.d-flex.gap-2{
-
-    display:grid !important;
+    --bs-table-border-color: var(--border-color);
 
 }
 
-.table td{
+.admin-dashboard .table td,
+.admin-dashboard .table th {
 
-    font-size:14px;
+    padding: 12px 8px;
 
-}
+    vertical-align: middle;
 
-}
-
-@media(max-width:576px){
-
-.dashboard-card .card-body{
-
-    padding:20px;
+    font-size: 15px;
 
 }
 
-.dashboard-card h2{
+.admin-dashboard .table tr:not(:last-child) {
 
-    font-size:28px;
+    border-bottom: 1px solid var(--border-color);
+
+}
+
+/* =====================================
+   BUTTONS
+===================================== */
+
+.admin-dashboard .btn {
+
+    border-radius: 12px;
+
+    font-weight: 600;
+
+    padding: 10px 18px;
+
+    transition: .3s;
 
 }
 
-.dashboard-card p{
+.admin-dashboard .btn:hover {
 
-    font-size:13px;
+    transform: translateY(-2px);
 
 }
+
+/* =====================================
+   THEME TOGGLE
+===================================== */
+
+.admin-theme-toggle {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 9px 16px;
+
+    border: 1px solid var(--border-color);
+
+    border-radius: 25px;
+
+    background: var(--bg-secondary);
+
+    color: var(--text-primary);
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .3s ease;
+
+}
+
+.admin-theme-toggle i {
+
+    color: var(--accent);
+
+}
+
+.admin-theme-toggle:hover {
+
+    background: var(--accent);
+
+    color: #fff;
+
+    border-color: var(--accent);
+
+}
+
+.admin-theme-toggle:hover i {
+
+    color: #fff;
+
+}
+
+/* =====================================
+   QUICK ACTIONS
+===================================== */
+
+.admin-dashboard .d-flex.gap-2 {
+
+    flex-wrap: wrap;
+
+}
+
+/* =====================================
+   DARK MODE EXTRA SUPPORT
+===================================== */
+
+.dark-theme .admin-dashboard {
+
+    background: var(--bg-primary);
+
+    color: var(--text-primary);
+
+}
+
+.dark-theme .admin-dashboard .text-muted {
+
+    color: var(--text-secondary) !important;
+
+}
+
+.dark-theme .admin-dashboard .table {
+
+    --bs-table-bg: var(--bg-card);
+
+    --bs-table-color: var(--text-primary);
+
+    --bs-table-border-color: var(--border-color);
+
+}
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media(max-width: 992px) {
+
+    .dashboard-card h2 {
+
+        font-size: 34px;
+
+    }
+
+}
+
+@media(max-width: 768px) {
+
+    .admin-dashboard,
+    .container-fluid.admin-dashboard {
+
+        padding: 15px;
+
+    }
+
+    .dashboard-card {
+
+        margin-bottom: 10px;
+
+    }
+
+    .dashboard-card h2 {
+
+        font-size: 30px;
+
+    }
+
+    .dashboard-card h5 {
+
+        font-size: 16px;
+
+    }
+
+    .admin-dashboard .btn {
+
+        width: 100%;
+
+    }
+
+    .admin-dashboard .d-flex.gap-2 {
+
+        display: grid !important;
+
+    }
+
+    .admin-dashboard .table td {
+
+        font-size: 14px;
+
+    }
+
+}
+
+@media(max-width: 576px) {
+
+    .dashboard-card .card-body {
+
+        padding: 20px;
+
+    }
+
+    .dashboard-card h2 {
+
+        font-size: 28px;
+
+    }
+
+    .dashboard-card p {
+
+        font-size: 13px;
+
+    }
+
+    .dashboard-header {
+
+        gap: 12px;
+
+        flex-wrap: wrap;
+
+    }
 
 }

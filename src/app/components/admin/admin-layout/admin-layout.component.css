@@ -1,11 +1,19 @@
+
+/* =====================================
+   VELORA ADMIN LAYOUT
+   LIGHT + DARK THEME
+===================================== */
+
 .admin-wrapper {
     display: flex;
     min-height: 100vh;
-    background: #f8f9fa;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background .3s ease, color .3s ease;
 }
 
 /* ===========================
-   Sidebar
+   SIDEBAR
 =========================== */
 
 .sidebar {
@@ -16,12 +24,20 @@
 
     display: flex;
     flex-direction: column;
+
+    transition: background .3s ease;
+}
+
+.dark-theme .sidebar {
+    background: #171923;
+    border-right: 1px solid var(--border-color);
 }
 
 .logo {
     text-align: center;
     margin-bottom: 35px;
     font-weight: bold;
+    color: #ffffff;
 }
 
 /* Menu */
@@ -43,59 +59,166 @@
     text-decoration: none;
     padding: 12px 15px;
     border-radius: 10px;
-    transition: 0.3s;
+    transition: .3s;
 }
 
-.sidebar li:not(.logout) a:hover{
-    background:#2563eb;
+.sidebar li:not(.logout) a:hover {
+    background: #2563eb;
+    color: #ffffff;
 }
+
 /* Logout */
 
 .logout {
     margin-top: auto;
 }
 
-
-
 .logout a:hover {
     background: #bb2d3b;
+    color: #ffffff;
 }
 
 /* ===========================
-   Content
+   SIDEBAR THEME BUTTON
+=========================== */
+
+.sidebar-theme {
+    padding: 15px 0;
+    margin-top: 15px;
+}
+
+.admin-layout-theme-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 100%;
+    padding: 11px 15px;
+
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.admin-layout-theme-btn i {
+    color: var(--accent);
+    font-size: 17px;
+}
+
+.admin-layout-theme-btn:hover {
+    background: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
+}
+
+.admin-layout-theme-btn:hover i {
+    color: #ffffff;
+}
+
+/* ===========================
+   CONTENT
 =========================== */
 
 .content {
     flex: 1;
     padding: 30px;
     overflow-x: auto;
+
+    background: var(--bg-primary);
+    color: var(--text-primary);
+
+    transition: background .3s ease, color .3s ease;
 }
 
 /* ===========================
-   Mobile Header
+   MOBILE HEADER
 =========================== */
 
 .mobile-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 12px;
+
     padding: 15px 20px;
-    background: #1f2937;
-    color: white;
+
+    background: var(--bg-navbar);
+    color: var(--text-primary);
+
+    border-bottom: 1px solid var(--border-color);
+}
+
+.mobile-header h5 {
+    color: var(--text-primary);
+}
+
+/* Mobile theme button */
+
+.mobile-header .admin-layout-theme-btn {
+    width: auto;
+    padding: 8px 12px;
 }
 
 /* ===========================
-   Mobile Sidebar
+   MOBILE SIDEBAR
 =========================== */
+
+.offcanvas {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.offcanvas .offcanvas-header {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.offcanvas .offcanvas-header h5 {
+    color: var(--text-primary);
+}
 
 .offcanvas a {
     text-decoration: none;
-    color: #222;
+    color: var(--text-primary);
     font-weight: 500;
+    display: block;
+    padding: 10px;
+    border-radius: 6px;
+    transition: .3s;
+}
+
+.offcanvas li:not(.logout) a:hover {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+.offcanvas .logout a:hover {
+    background: #bb2d3b;
+    color: #ffffff;
+}
+
+/* Mobile theme section */
+
+.mobile-sidebar-theme {
+    margin: 25px 0;
+}
+
+/* Dark close button */
+
+.dark-theme .offcanvas .btn-close {
+    filter: invert(1);
 }
 
 /* ===========================
-   Responsive
+   RESPONSIVE
 =========================== */
 
 @media (max-width: 991px) {
@@ -106,20 +229,11 @@
 
     .content {
         padding: 15px;
+        min-height: calc(100vh - 60px);
     }
 
-    .logout a:hover {
-    background: #bb2d3b;
-    color: #f8f9fa;
-    border-radius: 6px;
-    }
-
-    
-
-    .offcanvas  li:not(.logout) a:hover{
-    background:#2563eb;
-    color: #f8f9fa;
-    border-radius: 6px;
+    .sidebar {
+        display: none;
     }
 
 }

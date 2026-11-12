@@ -1,3 +1,4 @@
+
 <div class="admin-wrapper">
 
   <!-- Mobile Header -->
@@ -16,16 +17,31 @@
 
     <h5 class="m-0 fw-bold">VELORA ADMIN</h5>
 
+    <!-- Mobile Theme Toggle -->
+
+    <button
+      class="admin-layout-theme-btn"
+      type="button"
+      (click)="toggleTheme()">
+
+      <i
+        class="bi"
+        [ngClass]="themeService.isDarkMode()
+          ? 'bi-sun-fill'
+          : 'bi-moon-stars-fill'">
+      </i>
+
+    </button>
+
   </div>
 
-  <!-- Sidebar Desktop -->
+
+  <!-- Desktop Sidebar -->
 
   <aside class="sidebar d-none d-lg-block">
 
     <h3 class="logo">
-
       VELORA ADMIN
-
     </h3>
 
     <ul>
@@ -65,32 +81,65 @@
         </a>
       </li>
 
-      <!-- Logout -->
+    </ul>
+
+    <!-- Desktop Theme Toggle -->
+
+    <div class="sidebar-theme">
+
+      <button
+        type="button"
+        class="admin-layout-theme-btn"
+        (click)="toggleTheme()">
+
+        <i
+          class="bi"
+          [ngClass]="themeService.isDarkMode()
+            ? 'bi-sun-fill'
+            : 'bi-moon-stars-fill'">
+        </i>
+
+        {{ themeService.isDarkMode()
+          ? 'Light Mode'
+          : 'Dark Mode' }}
+
+      </button>
+
+    </div>
+
+    <!-- Logout -->
+
+    <ul class="sidebar-bottom">
 
       <li class="logout">
-        <a href="javascript:void(0)" (click)="logout()">
+
+        <a
+          href="javascript:void(0)"
+          (click)="logout()">
+
           <i class="bi bi-box-arrow-right"></i>
           Logout
+
         </a>
+
       </li>
 
     </ul>
 
   </aside>
 
+
   <!-- Mobile Sidebar -->
 
   <div
-    class="offcanvas offcanvas-start"
+    class="offcanvas offcanvas-start admin-offcanvas"
     tabindex="-1"
     id="adminSidebar">
 
     <div class="offcanvas-header">
 
       <h5 class="fw-bold">
-
         VELORA ADMIN
-
       </h5>
 
       <button
@@ -106,41 +155,80 @@
 
         <li class="mb-3">
           <a routerLink="/admin" data-bs-dismiss="offcanvas">
+            <i class="bi bi-speedometer2"></i>
             Dashboard
           </a>
         </li>
 
         <li class="mb-3">
           <a routerLink="/admin/categories" data-bs-dismiss="offcanvas">
+            <i class="bi bi-grid"></i>
             Categories
           </a>
         </li>
 
         <li class="mb-3">
           <a routerLink="/admin/products" data-bs-dismiss="offcanvas">
+            <i class="bi bi-box-seam"></i>
             Products
           </a>
         </li>
 
         <li class="mb-3">
           <a routerLink="/admin/users" data-bs-dismiss="offcanvas">
+            <i class="bi bi-people"></i>
             Users
           </a>
         </li>
 
         <li class="mb-3">
           <a routerLink="/admin/orders" data-bs-dismiss="offcanvas">
+            <i class="bi bi-bag-check"></i>
             Orders
           </a>
         </li>
 
-        <!-- Logout -->
+      </ul>
+
+      <!-- Mobile Theme Toggle -->
+
+      <div class="mobile-sidebar-theme">
+
+        <button
+          type="button"
+          class="admin-layout-theme-btn"
+          (click)="toggleTheme()">
+
+          <i
+            class="bi"
+            [ngClass]="themeService.isDarkMode()
+              ? 'bi-sun-fill'
+              : 'bi-moon-stars-fill'">
+          </i>
+
+          {{ themeService.isDarkMode()
+            ? 'Light Mode'
+            : 'Dark Mode' }}
+
+        </button>
+
+      </div>
+
+      <!-- Logout -->
+
+      <ul class="list-unstyled">
 
         <li class="logout">
-          <a href="javascript:void(0)" (click)="logout()">
+
+          <a
+            href="javascript:void(0)"
+            (click)="logout()">
+
             <i class="bi bi-box-arrow-right"></i>
             Logout
+
           </a>
+
         </li>
 
       </ul>
@@ -149,7 +237,8 @@
 
   </div>
 
-  <!-- Content -->
+
+  <!-- Main Content -->
 
   <main class="content">
 

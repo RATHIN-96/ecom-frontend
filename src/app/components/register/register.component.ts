@@ -67,7 +67,7 @@ export class RegisterComponent {
 
           Validators.required,
 
-          Validators.pattern('^[A-Za-z ]{2,30}$')
+          Validators.pattern('^[A-Za-z ]{1,30}$')
 
         ]
 

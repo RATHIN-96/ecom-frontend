@@ -7,7 +7,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 })
 export class CartService {
 
-  private apiUrl = 'https://velora-backend-08fd.onrender.com/cart-items/';
+  private apiUrl = 'http://127.0.0.1:8000/cart-items/';
 
   // ==========================
   // Cart Badge Count
@@ -47,7 +47,7 @@ export class CartService {
 
     return this.http.put(
 
-      `https://velora-backend-08fd.onrender.com/cart-items/${id}/`,
+      `http://127.0.0.1:8000/cart-items/${id}/`,
 
       data
 
@@ -63,7 +63,7 @@ export class CartService {
 
     return this.http.delete(
 
-      `https://velora-backend-08fd.onrender.com/cart-items/${id}/`
+      `http://127.0.0.1:8000/cart-items/${id}/`
 
     );
 

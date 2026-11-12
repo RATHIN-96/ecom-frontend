@@ -1,85 +1,95 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm fixed-top">
+
+<nav class="navbar navbar-expand-lg shadow-sm fixed-top velora-navbar">
 
   <div class="container">
 
     <!-- Logo -->
-
     <a class="navbar-brand" routerLink="/">
-
       <img
         src="/images/VELORA (2).png"
         class="logo-img"
         alt="Velora">
-
     </a>
 
     <!-- Mobile Toggle -->
-
     <button
       class="navbar-toggler"
       type="button"
-      (click)="toggleMenu()">
+      (click)="toggleMenu()"
+      aria-label="Toggle navigation">
 
       <span class="navbar-toggler-icon"></span>
 
     </button>
 
     <!-- Navbar -->
-
     <div
       class="navbar-collapse"
       [class.show]="mobileMenuOpen">
 
       <!-- Left -->
-
       <ul class="navbar-nav me-auto">
 
         <li class="nav-item">
-
           <a
             class="nav-link"
             routerLink="/"
             (click)="closeMenu()">
 
             <i class="bi bi-house-door-fill"></i>
-
             Home
 
           </a>
-
         </li>
 
       </ul>
 
       <!-- Search -->
-
       <form class="d-flex mx-lg-3 search-box">
-
       </form>
 
       <!-- Right -->
-
       <ul class="navbar-nav align-items-lg-center">
 
+        <!-- Dark / Light Mode -->
+        <li class="nav-item theme-nav-item">
+
+          <button
+            type="button"
+            class="theme-toggle-btn"
+            (click)="toggleTheme()">
+
+            <i
+              class="bi"
+              [ngClass]="themeService.isDarkMode()
+                ? 'bi-sun-fill'
+                : 'bi-moon-stars-fill'">
+            </i>
+
+            <span>
+              {{ themeService.isDarkMode()
+                ? 'Light Mode'
+                : 'Dark Mode' }}
+            </span>
+
+          </button>
+
+        </li>
+
         <!-- Products -->
-
         <li class="nav-item">
-
           <a
             class="nav-link"
             routerLink="/products"
             (click)="closeMenu()">
 
             <i class="bi bi-grid-fill"></i>
-
             Products
 
           </a>
-
         </li>
 
         <!-- Wishlist -->
-
         <li
           class="nav-item"
           *ngIf="isLoggedIn()">
@@ -90,15 +100,12 @@
             (click)="closeMenu()">
 
             <i class="bi bi-heart-fill"></i>
-
             Wishlist
 
           </a>
-
         </li>
 
         <!-- Cart -->
-
         <li
           class="nav-item"
           *ngIf="isLoggedIn()">
@@ -109,7 +116,6 @@
             (click)="closeMenu()">
 
             <i class="bi bi-cart3"></i>
-
             Cart
 
             <span
@@ -121,11 +127,9 @@
             </span>
 
           </a>
-
         </li>
 
         <!-- Register -->
-
         <li
           class="nav-item"
           *ngIf="!isLoggedIn()">
@@ -138,11 +142,9 @@
             Register
 
           </a>
-
         </li>
 
         <!-- Login -->
-
         <li
           class="nav-item"
           *ngIf="!isLoggedIn()">
@@ -155,11 +157,9 @@
             Login
 
           </a>
-
         </li>
 
         <!-- Account -->
-
         <li
           class="nav-item position-relative"
           *ngIf="isLoggedIn()">
@@ -170,21 +170,17 @@
             (click)="toggleAccountMenu()">
 
             <i class="bi bi-person-circle"></i>
-
             My Account
-
             <i class="bi bi-chevron-down ms-1"></i>
 
           </a>
 
           <!-- Dropdown -->
-
           <ul
             class="custom-dropdown"
             *ngIf="accountMenuOpen">
 
             <li>
-
               <a
                 routerLink="/profile"
                 (click)="closeDropdown()">
@@ -192,11 +188,9 @@
                 👤 My Profile
 
               </a>
-
             </li>
 
             <li>
-
               <a
                 routerLink="/orders"
                 (click)="closeDropdown()">
@@ -204,11 +198,9 @@
                 📦 My Orders
 
               </a>
-
             </li>
 
             <li>
-
               <button
                 class="logout-btn"
                 (click)="logout()">
@@ -216,7 +208,6 @@
                 🚪 Logout
 
               </button>
-
             </li>
 
           </ul>

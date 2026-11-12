@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
 
-  private apiUrl = "https://velora-backend-08fd.onrender.com/register/";
+  private apiUrl = "http://127.0.0.1:8000/register/";
 
   constructor(private http: HttpClient) { }
 
@@ -20,7 +20,7 @@ export class AuthService {
   login(data: any): Observable<any> {
 
   return this.http.post(
-    'https://velora-backend-08fd.onrender.com/login/',
+    'http://127.0.0.1:8000/login/',
     data
   );
 

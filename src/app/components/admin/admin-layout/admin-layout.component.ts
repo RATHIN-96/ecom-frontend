@@ -1,10 +1,15 @@
+
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
+
+import { ThemeService } from '../../../services/theme.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-admin-layout',
   standalone: true,
   imports: [
+    CommonModule,
     RouterLink,
     RouterOutlet
   ],
@@ -13,8 +18,17 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 })
 export class AdminLayoutComponent {
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    public themeService: ThemeService
+  ) {}
 
+  // Theme Toggle
+  toggleTheme(): void {
+    this.themeService.toggleTheme();
+  }
+
+  // Logout
   logout() {
 
     localStorage.removeItem('token');
